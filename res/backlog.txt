@@ -1,0 +1,4 @@
+Check if assign has byValue and not byRef
+
+Debug Instruction
+Object DataType

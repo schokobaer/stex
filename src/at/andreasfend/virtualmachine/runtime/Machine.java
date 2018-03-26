@@ -77,6 +77,15 @@ public class Machine implements Runnable {
 			case ASSIGN:
 				assign(instruction);
 				break;
+			case REF:
+				ref(instruction);
+				break;
+			case RREF:
+				rref(instruction);
+				break;
+			case WREF:
+				wref(instruction);
+				break;
 
 			case EQUALS:
 				equals(instruction);
@@ -178,16 +187,20 @@ public class Machine implements Runnable {
 
 	private void ret(Instruction instruction) {
 		String target = stack.getTarget();
-		DataUnit data = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
+		DataUnit data = null;
+		if(instruction.getOp1() != null)
+			data = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
 				: stack.get(instruction.getOp1().getIdentifier());
 		mip = stack.getRetPointer();
 		stack = stack.getParent();
-		if (stack != null)
-			stack.assign(target, data);
-		else {
-			System.out.println(data.getContent());
+		
+		if (stack == null) {
+			if(data != null)
+				System.out.println(data.getContent());
 			mip = instructions.size();
 		}
+		else if(target != null)
+			stack.assign(target, data);
 	}
 
 	private void cmp(Instruction instruction) {
@@ -236,6 +249,31 @@ public class Machine implements Runnable {
 		DataUnit data = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
 				: stack.get(instruction.getOp1().getIdentifier());
 		stack.assign(instruction.getTarget(), data);
+	}
+	
+	private void ref(Instruction instruction) {
+		DataUnit data = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
+				: stack.get(instruction.getOp1().getIdentifier());
+		DataUnit pointer = new DataUnit(data, DataType.POINTER, false);
+		stack.assign(instruction.getTarget(), pointer);
+	}
+	
+	private void rref(Instruction instruction) {
+		DataUnit pointer = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
+				: stack.get(instruction.getOp1().getIdentifier());
+		if(pointer.getType() != DataType.POINTER)
+			throw new RuntimeException("Trying to dereference a non-pointer: " + instruction.getOp1().getIdentifier());
+		DataUnit data = pointer.getPoiner();
+		stack.assign(instruction.getTarget(), data);
+	}
+	
+	private void wref(Instruction instruction) {
+		DataUnit data = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
+				: stack.get(instruction.getOp1().getIdentifier());
+		DataUnit pointer = stack.get(instruction.getTarget());
+		if(pointer.getType() != DataType.POINTER)
+			throw new RuntimeException("Trying to dereference a non-pointer: " + instruction.getOp1().getIdentifier());
+		pointer.getPoiner().set(data.getContent(), data.getType());
 	}
 
 	private void equals(Instruction instruction) {

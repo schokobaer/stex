@@ -9,7 +9,7 @@ public class TestRuntime {
 
 	public static void main(String[] args) {
 
-		Machine machine = new Machine(blockTest(), false);
+		Machine machine = new Machine(pointer2(), false);
 		machine.run();
 
 	}
@@ -134,5 +134,54 @@ public class TestRuntime {
 		
 		return ins;
 	}
+	
+private static List<Instruction> pointer1() {
+		
+		List<Instruction> ins = new LinkedList<>();
+
+		// Main: 0
+		ins.add(new Instruction(OperationType.VAR, new Operand("0", Type.VAL), null, "x"));
+		ins.add(new Instruction(OperationType.VAR, new Operand("1", Type.VAL), null, "y"));
+		ins.add(new Instruction(OperationType.VAR, new Operand("4", Type.VAL), null, "pointer"));
+		
+		// pointer = &x;
+		ins.add(new Instruction(OperationType.REF, new Operand("x", Type.ID), null, "pointer"));
+		
+		// *pointer = 6;
+		ins.add(new Instruction(OperationType.WREF, new Operand("6", Type.VAL), null, "pointer"));
+		
+		// y = *pointer;
+		ins.add(new Instruction(OperationType.RREF, new Operand("pointer", Type.ID), null, "y"));
+		
+		ins.add(new Instruction(OperationType.RET, new Operand("y", Type.ID), null, null));
+		
+		return ins;
+	}
+
+private static List<Instruction> pointer2() {
+	
+	int setFunction = 7 - 1;
+	
+	List<Instruction> ins = new LinkedList<>();
+
+	// Main: 0
+	ins.add(new Instruction(OperationType.VAR, new Operand("0", Type.VAL), null, "x"));
+	ins.add(new Instruction(OperationType.VAR, new Operand("4", Type.VAL), null, "pointer"));
+	ins.add(new Instruction(OperationType.REF, new Operand("x", Type.ID), null, "pointer"));
+	
+	ins.add(new Instruction(OperationType.SUBSTACK, null, null, null));
+	ins.add(new Instruction(OperationType.PARAMETER, new Operand("pointer", Type.ID), null, "arg1"));
+	ins.add(new Instruction(OperationType.CALL, new Operand(setFunction, Type.VAL), null, null));
+
+	ins.add(new Instruction(OperationType.RET, new Operand("x", Type.ID), null, null));
+	
+	
+	// Set:
+	ins.add(new Instruction(OperationType.WREF, new Operand("6", Type.VAL), null, "arg1"));
+	ins.add(new Instruction(OperationType.RET, null, null, null));
+	
+	
+	return ins;
+}
 
 }

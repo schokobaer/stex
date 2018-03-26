@@ -54,6 +54,9 @@ public class SubroutineStack {
 	}
 	
 	
-	
+	@Override
+	public String toString() {
+		return dataBlock.toString();
+	}
 	
 }

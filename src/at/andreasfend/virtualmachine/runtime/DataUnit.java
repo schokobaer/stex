@@ -6,6 +6,10 @@ public class DataUnit {
 	private DataType type;
 	private Object content;
 	
+	public DataUnit(Object content, DataType type) {
+		this(content, type, false);
+	}
+	
 	public DataUnit(Object content, DataType type, boolean constatne) {
 		this.constante = constatne;
 		set(content, type);
@@ -37,6 +41,10 @@ public class DataUnit {
 	
 	public String getString() {
 		return (String) content;
+	}
+	
+	public DataUnit getPoiner() {
+		return (DataUnit) content;
 	}
 	
 	public void set(Object content, DataType type) {

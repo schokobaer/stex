@@ -60,4 +60,15 @@ public class DataBlock {
 	}
 	
 	
+	@Override
+	public String toString() {
+		HashMap<String, DataUnit> all = new HashMap<>();
+		DataBlock block = this;
+		while(block != null) {
+			all.putAll(block.data);
+			block = block.parent;
+		}
+		return all.toString();
+	}
+	
 }
