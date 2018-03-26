@@ -19,7 +19,7 @@ public class SubroutineStack {
 	}
 	
 	public void assign(String id, DataUnit val) {
-		dataBlock.assign(id, val);
+		dataBlock.assign(id, val.copy());
 	}
 	
 	public void makeVar(String id) {

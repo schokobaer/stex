@@ -52,6 +52,10 @@ public class DataUnit {
 		this.type = type;
 	}
 	
+	public DataUnit copy() {
+		return new DataUnit(content, type, constante);
+	}
+	
 	@Override
 	public String toString() {
 		if(content == null)
