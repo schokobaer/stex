@@ -1,5 +1,6 @@
 package at.andreasfend.virtualmachine.runtime;
 
+import java.io.IOException;
 import java.util.List;
 
 import at.andreasfend.virtualmachine.runtime.Operand.Type;
@@ -66,7 +67,6 @@ public class Machine implements Runnable {
 			case LEAVE:
 				leave(instruction);
 				break;
-				
 
 			case VAR:
 				var(instruction);
@@ -94,6 +94,16 @@ public class Machine implements Runnable {
 				break;
 			case WARRAY:
 				warray(instruction);
+				break;
+
+			case READ:
+				read(instruction);
+				break;
+			case PRINT:
+				print(instruction);
+				break;
+			case ERR:
+				err(instruction);
 				break;
 
 			case EQUALS:
@@ -197,18 +207,17 @@ public class Machine implements Runnable {
 	private void ret(Instruction instruction) {
 		String target = stack.getTarget();
 		DataUnit data = null;
-		if(instruction.getOp1() != null)
+		if (instruction.getOp1() != null)
 			data = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
-				: stack.get(instruction.getOp1().getIdentifier());
+					: stack.get(instruction.getOp1().getIdentifier());
 		mip = stack.getRetPointer();
 		stack = stack.getParent();
-		
+
 		if (stack == null) {
-			if(data != null)
+			if (data != null)
 				System.out.println(data.print());
 			mip = instructions.size();
-		}
-		else if(target != null)
+		} else if (target != null)
 			stack.assign(target, data);
 	}
 
@@ -232,11 +241,11 @@ public class Machine implements Runnable {
 			throw new RuntimeException("Expected Integer, got datatype: " + data.getType().name());
 		mip = data.getInteger();
 	}
-	
+
 	private void block(Instruction instruction) {
 		stack.enterBlock();
 	}
-	
+
 	private void leave(Instruction instruction) {
 		stack.leaveBlock();
 	}
@@ -259,36 +268,36 @@ public class Machine implements Runnable {
 				: stack.get(instruction.getOp1().getIdentifier());
 		stack.assign(instruction.getTarget(), data);
 	}
-	
+
 	private void ref(Instruction instruction) {
 		DataUnit data = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
 				: stack.get(instruction.getOp1().getIdentifier());
 		DataUnit pointer = new DataUnit(data, DataType.POINTER, false);
 		stack.assign(instruction.getTarget(), pointer);
 	}
-	
+
 	private void rref(Instruction instruction) {
 		DataUnit pointer = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
 				: stack.get(instruction.getOp1().getIdentifier());
-		if(pointer.getType() != DataType.POINTER)
+		if (pointer.getType() != DataType.POINTER)
 			throw new RuntimeException("Trying to dereference a non-pointer: " + instruction.getOp1().getIdentifier());
 		DataUnit data = pointer.getPoiner();
 		stack.assign(instruction.getTarget(), data);
 	}
-	
+
 	private void wref(Instruction instruction) {
 		DataUnit data = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
 				: stack.get(instruction.getOp1().getIdentifier());
 		DataUnit pointer = stack.get(instruction.getTarget());
-		if(pointer.getType() != DataType.POINTER)
+		if (pointer.getType() != DataType.POINTER)
 			throw new RuntimeException("Trying to dereference a non-pointer: " + instruction.getOp1().getIdentifier());
 		pointer.getPoiner().set(data.getContent(), data.getType());
 	}
-	
+
 	private void array(Instruction instruction) {
 		DataUnit size = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
 				: stack.get(instruction.getOp1().getIdentifier());
-		if(size.getType() != DataType.INTEGER)
+		if (size.getType() != DataType.INTEGER)
 			throw new RuntimeException("Expected data type integer, but got: " + size.getType().name());
 		DataUnit[] arr = new DataUnit[size.getInteger()];
 		for (int i = 0; i < size.getInteger(); i++) {
@@ -297,36 +306,60 @@ public class Machine implements Runnable {
 		DataUnit data = new DataUnit(arr, DataType.ARRAY);
 		stack.assign(instruction.getTarget(), data);
 	}
-	
+
 	private void rarray(Instruction instruction) {
 		DataUnit arr = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
 				: stack.get(instruction.getOp1().getIdentifier());
-		if(arr.getType() != DataType.ARRAY)
+		if (arr.getType() != DataType.ARRAY)
 			throw new RuntimeException("Expected data type array, but got: " + arr.getType().name());
 		DataUnit index = instruction.getOp2().getType() == Type.VAL ? DataUnit.parse(instruction.getOp2().getValue())
 				: stack.get(instruction.getOp2().getIdentifier());
-		if(index.getType() != DataType.INTEGER)
+		if (index.getType() != DataType.INTEGER)
 			throw new RuntimeException("Expected data type integer, but got: " + index.getType().name());
-		if(index.getInteger() < 0 || index.getInteger() >= arr.getArray().length)
-			throw new RuntimeException("Out of index at array " + instruction.getOp1() +
-					" with i: " + index.getInteger());
+		if (index.getInteger() < 0 || index.getInteger() >= arr.getArray().length)
+			throw new RuntimeException(
+					"Out of index at array " + instruction.getOp1() + " with i: " + index.getInteger());
 		stack.assign(instruction.getTarget(), arr.getArray()[index.getInteger()]);
 	}
-	
+
 	private void warray(Instruction instruction) {
 		DataUnit data = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
 				: stack.get(instruction.getOp1().getIdentifier());
 		DataUnit index = instruction.getOp2().getType() == Type.VAL ? DataUnit.parse(instruction.getOp2().getValue())
 				: stack.get(instruction.getOp2().getIdentifier());
 		DataUnit arr = stack.get(instruction.getTarget());
-		if(arr.getType() != DataType.ARRAY)
+		if (arr.getType() != DataType.ARRAY)
 			throw new RuntimeException("Expected data type array, but got: " + arr.getType().name());
-		if(index.getType() != DataType.INTEGER)
+		if (index.getType() != DataType.INTEGER)
 			throw new RuntimeException("Expected data type integer, but got: " + index.getType().name());
-		if(index.getInteger() < 0 || index.getInteger() >= arr.getArray().length)
-			throw new RuntimeException("Out of index at array " + instruction.getOp1() +
-					" with i: " + index.getInteger());
+		if (index.getInteger() < 0 || index.getInteger() >= arr.getArray().length)
+			throw new RuntimeException(
+					"Out of index at array " + instruction.getOp1() + " with i: " + index.getInteger());
 		arr.getArray()[index.getInteger()] = data;
+	}
+
+	private void read(Instruction instruction) {
+		try {
+			byte[] buffer = new byte[256];
+			System.in.read(buffer);
+			String content = new String(buffer);
+			DataUnit data = new DataUnit(content, DataType.STRING);
+			stack.assign(instruction.getTarget(), data);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	private void print(Instruction instruction) {
+		DataUnit data = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
+				: stack.get(instruction.getOp1().getIdentifier());
+		System.out.print(data.print());
+	}
+	
+	private void err(Instruction instruction) {
+		DataUnit data = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
+				: stack.get(instruction.getOp1().getIdentifier());
+		System.err.print(data.print());
 	}
 
 	private void equals(Instruction instruction) {

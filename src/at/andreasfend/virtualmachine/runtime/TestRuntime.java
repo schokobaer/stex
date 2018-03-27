@@ -1,5 +1,6 @@
 package at.andreasfend.virtualmachine.runtime;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,9 +10,9 @@ public class TestRuntime {
 
 	public static void main(String[] args) {
 
-		Machine machine = new Machine(array(), false);
+		Machine machine = new Machine(io(), false);
 		machine.run();
-
+		
 	}
 
 	private static List<Instruction> subRoutine() {
@@ -212,6 +213,20 @@ public class TestRuntime {
 		ins.add(new Instruction(OperationType.WARRAY, new Operand(5, Type.VAL), new Operand(2, Type.VAL), "a"));
 		ins.add(new Instruction(OperationType.VAR, new Operand("1", Type.VAL), null, "x"));
 		ins.add(new Instruction(OperationType.RARRAY, new Operand("a", Type.ID), new Operand(2, Type.VAL), "x"));
+		ins.add(new Instruction(OperationType.RET, new Operand("x", Type.ID), null, null));
+		
+		return ins;
+	}
+	
+	private static List<Instruction> io() {
+
+		List<Instruction> ins = new LinkedList<>();
+
+		// Main: 0
+		ins.add(new Instruction(OperationType.VAR, null, null, "x"));
+		ins.add(new Instruction(OperationType.PRINT, new Operand("x", Type.ID), null, null));
+		ins.add(new Instruction(OperationType.READ, null, null, "x"));
+		ins.add(new Instruction(OperationType.ERR, new Operand("EXIT", Type.VAL), null, null));
 		ins.add(new Instruction(OperationType.RET, new Operand("x", Type.ID), null, null));
 		
 		return ins;

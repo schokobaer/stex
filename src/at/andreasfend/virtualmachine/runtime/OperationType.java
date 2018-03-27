@@ -30,6 +30,10 @@ public enum OperationType {
 	RARRAY,		// Reads from array in op1 at position op2
 	WARRAY,		// puts the element op1 at position op2 of the array in target
 	
+	READ,		// Reads a line from STDIN[256] and stores it to the target
+	PRINT,		// Prints the DataUnit at op1 to STDOUT
+	ERR,		// Print the DataUnit at op1 to STDERR
+	
 	EQUALS,
 	NOTEQUALS,
 	BIGGER,

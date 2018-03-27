@@ -1,6 +1,6 @@
 > Debug Instruction
 
-> STDIN STDOUT
+> Arithetik und Logical auf alle Datentypen ausbauen
 
 > Object DataType
 
