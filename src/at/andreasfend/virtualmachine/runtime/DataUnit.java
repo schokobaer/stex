@@ -1,5 +1,7 @@
 package at.andreasfend.virtualmachine.runtime;
 
+import java.util.Map;
+
 public class DataUnit {
 
 	private boolean constante = false;
@@ -51,6 +53,10 @@ public class DataUnit {
 		return (DataUnit[]) content;
 	}
 	
+	public Map<String, DataUnit> getObject() {
+		return (Map<String, DataUnit>) content;
+	}
+	
 	public void set(Object content, DataType type) {
 		this.content = content;
 		this.type = type;
@@ -63,6 +69,9 @@ public class DataUnit {
 				arr[i] = getArray()[i];
 			}
 			return new DataUnit(arr, type, constante);
+		}
+		if(type == DataType.OBJECT) {
+			// TODO: IMPLEMENT
 		}
 		return new DataUnit(content, type, constante);
 	}
@@ -89,8 +98,17 @@ public class DataUnit {
 				res += child.print() + ", ";
 			}
 			if(getArray().length > 0)
-				res = res.substring(0, res.length()-2);
-			return res + " ]";
+				res = res.substring(0, res.length()-2) + " ";
+			return res + "]";
+		case OBJECT:
+			String strObj = "{ ";
+			for (Map.Entry<String, DataUnit> attr: getObject().entrySet()) {
+				strObj += attr.getKey() + ": " + attr.getValue().print() + ", ";
+			}
+			if(getObject().size() > 0)
+				strObj = strObj.substring(0, strObj.length()-2) + " ";
+			strObj += "}";
+			return strObj;
 		default:
 			throw new RuntimeException("Unknown data type: " + type.name());
 		}
@@ -130,6 +148,15 @@ public class DataUnit {
 			}
 			return true;
 		}
+		else if(this.type == DataType.OBJECT) {
+			if(this.getObject().size() != that.getObject().size())
+				return false;
+			for (Map.Entry<String, DataUnit> kp: this.getObject().entrySet()) {
+				if(!kp.getValue().equals(that.getObject().get(kp.getKey())))
+					return false;
+			}
+			return true;
+		}
 		return false;
 	}
 	
@@ -141,6 +168,9 @@ public class DataUnit {
 	}
 	
 	public static DataUnit parse(Object content) {
+		
+		if(content == null)
+			return new DataUnit(null, DataType.NULL, true);
 		
 		String strContent = content.toString();
 		

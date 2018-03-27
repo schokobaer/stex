@@ -1,6 +1,7 @@
 package at.andreasfend.virtualmachine.runtime;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import at.andreasfend.virtualmachine.runtime.Operand.Type;
@@ -97,6 +98,9 @@ public class Machine implements Runnable {
 				break;
 			case WARRAY:
 				warray(instruction);
+				break;
+			case OBJECT:
+				object(instruction);
 				break;
 
 			case READ:
@@ -393,6 +397,11 @@ public class Machine implements Runnable {
 					arr.getString().substring(index.getInteger()+1);
 			arr.set(result, DataType.STRING);
 		}
+	}
+	
+	private void object(Instruction instruction) {
+		DataUnit obj = new DataUnit(new HashMap<String, DataUnit>(), DataType.OBJECT);
+		stack.assign(instruction.getTarget(), obj);
 	}
 
 	private void read(Instruction instruction) {

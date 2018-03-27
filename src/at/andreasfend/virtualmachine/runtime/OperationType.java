@@ -32,6 +32,7 @@ public enum OperationType {
 	ARRAY,		// Inits a new Array with size of op1
 	RARRAY,		// Reads from array in op1 at position op2
 	WARRAY,		// puts the element op1 at position op2 of the array in target
+	OBJECT,		// Inits a new Object in target
 	
 	// IO //
 	READ,		// Reads a line from STDIN[256] and stores it to the target

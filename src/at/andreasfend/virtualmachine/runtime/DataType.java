@@ -10,5 +10,6 @@ public enum DataType {
 	STRING,
 	FUNCTION,
 	ARRAY,
+	OBJECT,
 	
 }

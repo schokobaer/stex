@@ -16,31 +16,74 @@ public class DataBlock {
 	}
 	
 	public boolean contains(String id) {
+		String[] structure = id.split("\\.");
 		DataBlock block = this;
 		while(block != null) {
-			if(block.data.containsKey(id))
+			if(block.data.containsKey(structure[0])) {
+				DataUnit du = block.data.get(structure[0]);
+				int index = 1;
+				while (structure.length > index) {
+					if(du.getType() != DataType.OBJECT || !du.getObject().containsKey(structure[index]))
+						return false;
+					du = du.getObject().get(structure[index]);
+					index++;
+				}
 				return true;
+			}
 			block = block.parent;
 		}
 		return false;
 	}
 	
 	public DataUnit get(String id) {
+		String[] structure = id.split("\\.");
 		DataBlock block = this;
 		while(block != null) {
-			if(block.data.containsKey(id))
-				return block.data.get(id);
+			if(block.data.containsKey(structure[0])) {
+				DataUnit du = block.data.get(structure[0]);
+				int index = 1;
+				while (structure.length > index) {
+					if(du.getType() != DataType.OBJECT || !du.getObject().containsKey(structure[index]))
+						throw new RuntimeException("Identifier not found: " + id);
+					du = du.getObject().get(structure[index]);
+					index++;
+				}
+				return du;
+			}
 			block = block.parent;
 		}
 		throw new RuntimeException("Identifier not found: " + id);
 	}
 	
 	public void makeVar(String id) {
-		if(contains(id))
-			throw new RuntimeException("Identifier already allocated: " + id);
-		data.put(id, new DataUnit(null, DataType.NULL, false));
+		String[] structure = id.split("\\.");
+		if(structure.length == 1) {
+			if(contains(id))
+				throw new RuntimeException("Identifier already allocated: " + id);
+			data.put(id, new DataUnit(null, DataType.NULL, false));
+		}
+		else {
+			DataBlock block = this;
+			while(block != null) {
+				if(block.data.containsKey(structure[0])) {
+					DataUnit du = block.data.get(structure[0]);
+					int index = 1;
+					while (structure.length > index + 1) {
+						if(du.getType() != DataType.OBJECT || !du.getObject().containsKey(structure[index]))
+							throw new RuntimeException("Identifier not found: " + id);
+						du = du.getObject().get(structure[index]);
+						index++;
+					}
+					du.getObject().put(structure[index], new DataUnit(null, DataType.NULL));
+					return;
+				}
+				block = block.parent;
+			}
+			throw new RuntimeException("Identifier not found: " + id);
+		}
 	}
 	
+	@Deprecated
 	public void makeConstante(String id, DataUnit val) {
 		if(contains(id))
 			throw new RuntimeException("Identifier already allocated: " + id);
@@ -48,18 +91,32 @@ public class DataBlock {
 	}
 		
 	public void assign(String id, DataUnit val) {
+		String[] structure = id.split("\\.");
 		DataBlock block = this;
 		while(block != null) {
-			if(block.data.containsKey(id)) {
-				block.data.put(id, val);
-				return;
+			if(block.data.containsKey(structure[0])) {
+				if(structure.length == 1) {
+					block.data.put(id, val);
+					return;
+				}
+				else {
+					DataUnit du = block.data.get(structure[0]);
+					int index = 1;
+					while (structure.length > index + 1) {
+						if(du.getType() != DataType.OBJECT || !du.getObject().containsKey(structure[index]))
+							throw new RuntimeException("Identifier not found: " + id);
+						du = du.getObject().get(structure[index]);
+						index++;
+					}
+					du.getObject().put(structure[index], val);
+					return;
+				}
 			}
 			block = block.parent;
 		}
 		throw new RuntimeException("Identifier not found: " + id);
 	}
-	
-	
+		
 	@Override
 	public String toString() {
 		HashMap<String, DataUnit> all = new HashMap<>();

@@ -10,7 +10,7 @@ public class TestRuntime {
 
 	public static void main(String[] args) {
 
-		Machine machine = new Machine(arrops(), false);
+		Machine machine = new Machine(object(), false);
 		machine.run();
 		
 		
@@ -271,6 +271,39 @@ public class TestRuntime {
 		
 		ins.add(new Instruction(OperationType.RARRAY, new Operand("a", Type.ID), new Operand(2, Type.VAL), "x"));
 		ins.add(new Instruction(OperationType.RET, new Operand("x", Type.ID), null, null));
+		
+		return ins;
+	}
+	
+	private static List<Instruction> object() {
+
+		List<Instruction> ins = new LinkedList<>();
+
+		// Main: 0
+		ins.add(new Instruction(OperationType.VAR, null, null, "obj"));
+		ins.add(new Instruction(OperationType.OBJECT, null, null, "obj"));
+		ins.add(new Instruction(OperationType.VAR, new Operand("Andi", Type.VAL), null, "obj.name"));
+		ins.add(new Instruction(OperationType.VAR, new Operand("24", Type.VAL), null, "obj.alter"));
+		ins.add(new Instruction(OperationType.VAR, null, null, "obj.successor"));
+		ins.add(new Instruction(OperationType.PRINT, new Operand("obj", Type.ID), null, null));
+		
+		ins.add(new Instruction(OperationType.VAR, new Operand("obj.name", Type.ID), null, "x"));
+		
+		ins.add(new Instruction(OperationType.ASSIGN, new Operand("25", Type.VAL), null, "obj.alter"));
+		
+		ins.add(new Instruction(OperationType.OBJECT, null, null, "obj.successor"));
+		ins.add(new Instruction(OperationType.VAR, new Operand("Tim", Type.VAL), null, "obj.successor.name"));
+		ins.add(new Instruction(OperationType.VAR, new Operand("18", Type.VAL), null, "obj.successor.alter"));
+		ins.add(new Instruction(OperationType.VAR, null, null, "obj.successor.successor"));
+		
+		ins.add(new Instruction(OperationType.VAR, null, null, "y"));
+		ins.add(new Instruction(OperationType.ASSIGN, new Operand("obj.successor.name", Type.ID), null, "y"));
+		
+		ins.add(new Instruction(OperationType.ASSIGN, new Operand("19", Type.VAL), null, "obj.successor.alter"));
+		ins.add(new Instruction(OperationType.PRINT, new Operand("\n", Type.VAL), null, null));
+		ins.add(new Instruction(OperationType.PRINT, new Operand("obj", Type.ID), null, null));
+		
+		ins.add(new Instruction(OperationType.RET, null, null, "obj"));
 		
 		return ins;
 	}
