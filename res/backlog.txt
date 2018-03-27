@@ -2,11 +2,11 @@
 
 > Arithetik und Logical auf alle Datentypen ausbauen
 
-> DataUnit: Equals, Compare
+> DataUnit: Compare
 
 > Change Integer to Long in Content for DataType.INTEGER
 
-> Operation for ARRAYSIZE(Length of array), INARRAY (boolean ob element in array)
+> SubroutineStack termination
 
 > Object DataType
 

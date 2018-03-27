@@ -42,6 +42,9 @@ public class Machine implements Runnable {
 			case MOD:
 				mod(instruction);
 				break;
+			case SIZE:
+				size(instruction);
+				break;
 
 			case SUBSTACK:
 				substack(instruction);
@@ -140,6 +143,9 @@ public class Machine implements Runnable {
 			case NOT:
 				not(instruction);
 				break;
+			case IN:
+				in(instruction);
+				break;
 
 			default:
 				break;
@@ -193,6 +199,19 @@ public class Machine implements Runnable {
 		DataUnit op2 = instruction.getOp2().getType() == Type.VAL ? DataUnit.parse(instruction.getOp2().getValue())
 				: stack.get(instruction.getOp2().getIdentifier());
 		DataUnit target = Arithetik.mod(op1, op2);
+		stack.assign(instruction.getTarget(), target);
+	}
+	
+	private void size(Instruction instruction) {
+		DataUnit data = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
+				: stack.get(instruction.getOp1().getIdentifier());
+		DataUnit target = null;
+		if(data.getType() == DataType.ARRAY)
+			target = new DataUnit(data.getArray().length, DataType.INTEGER);
+		else if(data.getType() == DataType.STRING)
+			target = new DataUnit(data.getString().length(), DataType.INTEGER);
+		else
+			throw new RuntimeException("Invalid data type: " + data.getType().name());
 		stack.assign(instruction.getTarget(), target);
 	}
 
@@ -323,16 +342,29 @@ public class Machine implements Runnable {
 	private void rarray(Instruction instruction) {
 		DataUnit arr = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
 				: stack.get(instruction.getOp1().getIdentifier());
-		if (arr.getType() != DataType.ARRAY)
-			throw new RuntimeException("Expected data type array, but got: " + arr.getType().name());
+		if (arr.getType() != DataType.ARRAY && arr.getType() != DataType.STRING)
+			throw new RuntimeException("Invalid data type: " + arr.getType().name());
 		DataUnit index = instruction.getOp2().getType() == Type.VAL ? DataUnit.parse(instruction.getOp2().getValue())
 				: stack.get(instruction.getOp2().getIdentifier());
 		if (index.getType() != DataType.INTEGER)
 			throw new RuntimeException("Expected data type integer, but got: " + index.getType().name());
-		if (index.getInteger() < 0 || index.getInteger() >= arr.getArray().length)
-			throw new RuntimeException(
-					"Out of index at array " + instruction.getOp1() + " with i: " + index.getInteger());
-		stack.assign(instruction.getTarget(), arr.getArray()[index.getInteger()]);
+		
+		DataUnit target = null;
+		if(arr.getType() == DataType.ARRAY) {
+			if (index.getInteger() < 0 || index.getInteger() >= arr.getArray().length)
+				throw new RuntimeException(
+						"Out of index at array " + instruction.getOp1() + " with i: " + index.getInteger());
+			target = arr.getArray()[index.getInteger()];
+		}
+		else {
+			if(index.getInteger() < 0 || index.getInteger() >= arr.getString().length())
+				throw new RuntimeException(
+						"Out of index at array " + instruction.getOp1() + " with i: " + index.getInteger());
+			target = new DataUnit(arr.getString().substring(index.getInteger(), index.getInteger() + 1),
+					DataType.STRING);
+		}
+		
+		stack.assign(instruction.getTarget(), target);
 	}
 
 	private void warray(Instruction instruction) {
@@ -341,14 +373,26 @@ public class Machine implements Runnable {
 		DataUnit index = instruction.getOp2().getType() == Type.VAL ? DataUnit.parse(instruction.getOp2().getValue())
 				: stack.get(instruction.getOp2().getIdentifier());
 		DataUnit arr = stack.get(instruction.getTarget());
-		if (arr.getType() != DataType.ARRAY)
+		if (arr.getType() != DataType.ARRAY && arr.getType() != DataType.STRING)
 			throw new RuntimeException("Expected data type array, but got: " + arr.getType().name());
 		if (index.getType() != DataType.INTEGER)
 			throw new RuntimeException("Expected data type integer, but got: " + index.getType().name());
-		if (index.getInteger() < 0 || index.getInteger() >= arr.getArray().length)
-			throw new RuntimeException(
-					"Out of index at array " + instruction.getOp1() + " with i: " + index.getInteger());
-		arr.getArray()[index.getInteger()] = data;
+		
+		if(arr.getType() == DataType.ARRAY) {
+			if (index.getInteger() < 0 || index.getInteger() >= arr.getArray().length)
+				throw new RuntimeException(
+						"Out of index at array " + instruction.getOp1() + " with i: " + index.getInteger());
+			arr.getArray()[index.getInteger()] = data;
+		}
+		else {
+			if (index.getInteger() < 0 || index.getInteger() >= arr.getString().length())
+				throw new RuntimeException(
+						"Out of index at array " + instruction.getOp1() + " with i: " + index.getInteger());
+			String insert = Convert.toString(data).getString();
+			String result = arr.getString().substring(0, index.getInteger()) + insert +
+					arr.getString().substring(index.getInteger()+1);
+			arr.set(result, DataType.STRING);
+		}
 	}
 
 	private void read(Instruction instruction) {
@@ -461,6 +505,15 @@ public class Machine implements Runnable {
 		DataUnit op1 = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
 				: stack.get(instruction.getOp1().getIdentifier());
 		DataUnit target = Logical.not(op1);
+		stack.assign(instruction.getTarget(), target);
+	}
+	
+	private void in(Instruction instruction) {
+		DataUnit set = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
+				: stack.get(instruction.getOp1().getIdentifier());
+		DataUnit elem = instruction.getOp2().getType() == Type.VAL ? DataUnit.parse(instruction.getOp2().getValue())
+				: stack.get(instruction.getOp2().getIdentifier());
+		DataUnit target = Logical.in(set, elem);
 		stack.assign(instruction.getTarget(), target);
 	}
 

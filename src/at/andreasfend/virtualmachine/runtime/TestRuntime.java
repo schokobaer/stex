@@ -10,7 +10,7 @@ public class TestRuntime {
 
 	public static void main(String[] args) {
 
-		Machine machine = new Machine(converts(), false);
+		Machine machine = new Machine(arrops(), false);
 		machine.run();
 		
 		
@@ -251,6 +251,26 @@ public class TestRuntime {
 		ins.add(new Instruction(OperationType.STRING, new Operand("x", Type.ID), null, "string"));
 
 		ins.add(new Instruction(OperationType.RET, new Operand("string", Type.ID), null, null));
+		
+		return ins;
+	}
+	
+	private static List<Instruction> arrops() {
+
+		List<Instruction> ins = new LinkedList<>();
+
+		// Main: 0
+		ins.add(new Instruction(OperationType.VAR, null, null, "a"));
+		ins.add(new Instruction(OperationType.ARRAY, new Operand(5, Type.VAL), null, "a"));
+		ins.add(new Instruction(OperationType.WARRAY, new Operand(5, Type.VAL), new Operand(2, Type.VAL), "a"));
+		ins.add(new Instruction(OperationType.VAR, new Operand("1", Type.VAL), null, "x"));
+		ins.add(new Instruction(OperationType.ASSIGN, new Operand("haumirab", Type.VAL), null, "a"));
+		ins.add(new Instruction(OperationType.WARRAY, new Operand("uren ", Type.VAL), new Operand(1, Type.VAL), "a"));
+		ins.add(new Instruction(OperationType.RET, new Operand("a", Type.ID), null, null));
+		
+		
+		ins.add(new Instruction(OperationType.RARRAY, new Operand("a", Type.ID), new Operand(2, Type.VAL), "x"));
+		ins.add(new Instruction(OperationType.RET, new Operand("x", Type.ID), null, null));
 		
 		return ins;
 	}

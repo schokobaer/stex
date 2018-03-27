@@ -97,6 +97,43 @@ public class DataUnit {
 	}
 	
 	@Override
+	public boolean equals(Object arg1) {
+		if(arg1 == null || !arg1.getClass().equals(this.getClass()))
+			return false;
+		DataUnit that = (DataUnit)arg1;
+		if(this.type != that.type)
+			return false;
+		if(this.type == DataType.INTEGER) {
+			return this.getInteger().equals(that.getInteger());
+		}
+		else if(this.type == DataType.FLOAT) {
+			return this.getFloat().equals(that.getFloat());
+		}
+		else if(this.type == DataType.BOOL) {
+			return this.getBool().equals(that.getBool());
+		}
+		else if(this.type == DataType.STRING) {
+			return this.getString().equals(that.getString());
+		}
+		else if(this.type == DataType.NULL) {
+			return true;
+		}
+		else if(this.type == DataType.POINTER) {
+			return this.getPoiner() == that.getPoiner();
+		}
+		else if(this.type == DataType.ARRAY) {
+			if(this.getArray().length != that.getArray().length)
+				return false;
+			for (int i = 0; i < getArray().length; i++) {
+				if(!this.getArray()[i].equals(that.getArray()[i]))
+					return false;
+			}
+			return true;
+		}
+		return false;
+	}
+	
+	@Override
 	public String toString() {
 		if(content == null)
 			return "NULL";

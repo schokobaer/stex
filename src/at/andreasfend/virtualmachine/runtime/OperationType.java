@@ -10,6 +10,7 @@ public enum OperationType {
 	MUL,
 	DIV,
 	MOD,
+	SIZE,
 	
 	// Conrol-Flow //
 	SUBSTACK,	// inits a new substack for a coming call operation
@@ -50,6 +51,7 @@ public enum OperationType {
 	SMALLER,
 	AND,
 	OR,
-	NOT
+	NOT,
+	IN,
 	
 }
