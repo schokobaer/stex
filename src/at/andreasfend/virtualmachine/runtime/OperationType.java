@@ -26,6 +26,10 @@ public enum OperationType {
 	RREF,		// Reads the value of the reference
 	WREF,		// writes to the target of the reference
 	
+	ARRAY,		// Inits a new Array with size of op1
+	RARRAY,		// Reads from array in op1 at position op2
+	WARRAY,		// puts the element op1 at position op2 of the array in target
+	
 	EQUALS,
 	NOTEQUALS,
 	BIGGER,

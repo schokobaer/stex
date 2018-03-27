@@ -1,8 +1,8 @@
 > Debug Instruction
 
-> Object DataType
+> STDIN STDOUT
 
-> Array DataType
+> Object DataType
 
 > Make Instruction/OperationType for Function header (Op1 = FunctionName)
     - CALL werden nicht als MIP-Zahl angegeben sondern als DataType.Function (Value = MIP oder Name)

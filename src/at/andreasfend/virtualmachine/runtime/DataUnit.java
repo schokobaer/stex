@@ -47,6 +47,10 @@ public class DataUnit {
 		return (DataUnit) content;
 	}
 	
+	public DataUnit[] getArray() {
+		return (DataUnit[]) content;
+	}
+	
 	public void set(Object content, DataType type) {
 		this.content = content;
 		this.type = type;
@@ -54,6 +58,35 @@ public class DataUnit {
 	
 	public DataUnit copy() {
 		return new DataUnit(content, type, constante);
+	}
+	
+	public String print() {
+		switch (type) {
+		case NULL:
+			return "NULL";
+		case BOOL:
+			return getBool() ? "true" : "false";
+		case INTEGER:
+			return getInteger().toString();
+		case FLOAT:
+			return getFloat().toString();
+		case STRING:
+			return getString();
+		case POINTER:
+			return "*" + getPoiner().print();
+		case FUNCTION:
+			return "FUNCTION";
+		case ARRAY:
+			String res = "[ ";
+			for (DataUnit child: getArray()) {
+				res += child.print() + ", ";
+			}
+			if(getArray().length > 0)
+				res = res.substring(0, res.length()-2);
+			return res + " ]";
+		default:
+			throw new RuntimeException("Unknown data type: " + type.name());
+		}
 	}
 	
 	@Override
@@ -89,5 +122,7 @@ public class DataUnit {
 		
 		return new DataUnit(strContent, DataType.STRING, true);
 	}
+
+	
 	
 }

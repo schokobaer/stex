@@ -9,7 +9,7 @@ public class TestRuntime {
 
 	public static void main(String[] args) {
 
-		Machine machine = new Machine(byrefproblem(), false);
+		Machine machine = new Machine(array(), false);
 		machine.run();
 
 	}
@@ -189,8 +189,6 @@ public class TestRuntime {
 	
 	private static List<Instruction> byrefproblem() {
 
-		int setFunction = 7 - 1;
-
 		List<Instruction> ins = new LinkedList<>();
 
 		// Main: 0
@@ -200,6 +198,21 @@ public class TestRuntime {
 		ins.add(new Instruction(OperationType.REF, new Operand("x", Type.ID), null, "pointer"));
 		ins.add(new Instruction(OperationType.WREF, new Operand("10", Type.VAL), null, "pointer"));
 		ins.add(new Instruction(OperationType.RET, new Operand("y", Type.ID), null, null));
+		
+		return ins;
+	}
+	
+	private static List<Instruction> array() {
+
+		List<Instruction> ins = new LinkedList<>();
+
+		// Main: 0
+		ins.add(new Instruction(OperationType.VAR, null, null, "a"));
+		ins.add(new Instruction(OperationType.ARRAY, new Operand(5, Type.VAL), null, "a"));
+		ins.add(new Instruction(OperationType.WARRAY, new Operand(5, Type.VAL), new Operand(2, Type.VAL), "a"));
+		ins.add(new Instruction(OperationType.VAR, new Operand("1", Type.VAL), null, "x"));
+		ins.add(new Instruction(OperationType.RARRAY, new Operand("a", Type.ID), new Operand(2, Type.VAL), "x"));
+		ins.add(new Instruction(OperationType.RET, new Operand("x", Type.ID), null, null));
 		
 		return ins;
 	}
