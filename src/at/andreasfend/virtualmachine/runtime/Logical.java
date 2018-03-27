@@ -19,8 +19,8 @@ public class Logical {
 
 		if ((op1.getType() == DataType.INTEGER || op1.getType() == DataType.FLOAT)
 				&& (op2.getType() == DataType.INTEGER || op2.getType() == DataType.FLOAT)) {
-			Float f1 = Float.parseFloat(op1.getContent().toString());
-			Float f2 = Float.parseFloat(op2.getContent().toString());
+			Double f1 = Double.parseDouble(op1.getContent().toString());
+			Double f2 = Double.parseDouble(op2.getContent().toString());
 			return new DataUnit(f1 > f2, DataType.BOOL, false);
 		}
 
@@ -36,8 +36,8 @@ public class Logical {
 
 		if ((op1.getType() == DataType.INTEGER || op1.getType() == DataType.FLOAT)
 				&& (op2.getType() == DataType.INTEGER || op2.getType() == DataType.FLOAT)) {
-			Float f1 = Float.parseFloat(op1.getContent().toString());
-			Float f2 = Float.parseFloat(op2.getContent().toString());
+			Double f1 = Double.parseDouble(op1.getContent().toString());
+			Double f2 = Double.parseDouble(op2.getContent().toString());
 			return new DataUnit(f1 < f2, DataType.BOOL, false);
 		}
 

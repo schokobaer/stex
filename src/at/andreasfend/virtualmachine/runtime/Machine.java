@@ -105,6 +105,19 @@ public class Machine implements Runnable {
 			case ERR:
 				err(instruction);
 				break;
+				
+			case INT:
+				toInt(instruction);
+				break;
+			case FLOAT:
+				toFloat(instruction);
+				break;
+			case BOOL:
+				toBool(instruction);
+				break;
+			case STRING:
+				toString(instruction);
+				break;
 
 			case EQUALS:
 				equals(instruction);
@@ -360,6 +373,34 @@ public class Machine implements Runnable {
 		DataUnit data = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
 				: stack.get(instruction.getOp1().getIdentifier());
 		System.err.print(data.print());
+	}
+	
+	private void toInt(Instruction instruction) {
+		DataUnit data = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
+				: stack.get(instruction.getOp1().getIdentifier());
+		DataUnit conv = Convert.toInt(data);
+		stack.assign(instruction.getTarget(), conv);
+	}
+	
+	private void toFloat(Instruction instruction) {
+		DataUnit data = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
+				: stack.get(instruction.getOp1().getIdentifier());
+		DataUnit conv = Convert.toFloat(data);
+		stack.assign(instruction.getTarget(), conv);
+	}
+	
+	private void toBool(Instruction instruction) {
+		DataUnit data = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
+				: stack.get(instruction.getOp1().getIdentifier());
+		DataUnit conv = Convert.toBool(data);
+		stack.assign(instruction.getTarget(), conv);
+	}
+	
+	private void toString(Instruction instruction) {
+		DataUnit data = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
+				: stack.get(instruction.getOp1().getIdentifier());
+		DataUnit conv = Convert.toString(data);
+		stack.assign(instruction.getTarget(), conv);
 	}
 
 	private void equals(Instruction instruction) {

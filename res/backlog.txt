@@ -2,6 +2,10 @@
 
 > Arithetik und Logical auf alle Datentypen ausbauen
 
+> DataUnit: Equals, Compare
+
+> Operation for Array Size
+
 > Object DataType
 
 > Make Instruction/OperationType for Function header (Op1 = FunctionName)

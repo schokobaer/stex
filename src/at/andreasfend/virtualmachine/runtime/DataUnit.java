@@ -31,8 +31,8 @@ public class DataUnit {
 		return (Integer) content;
 	}
 	
-	public Float getFloat() {
-		return (Float) content;
+	public Double getFloat() {
+		return (Double) content;
 	}
 	
 	public Boolean getBool() {
@@ -107,7 +107,7 @@ public class DataUnit {
 		catch(Exception e) { }
 		
 		try {
-			return new DataUnit(Float.parseFloat(strContent),
+			return new DataUnit(Double.parseDouble(strContent),
 					DataType.FLOAT, true);
 		}
 		catch(Exception e) { }

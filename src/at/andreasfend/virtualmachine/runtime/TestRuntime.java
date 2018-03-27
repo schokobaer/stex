@@ -10,8 +10,9 @@ public class TestRuntime {
 
 	public static void main(String[] args) {
 
-		Machine machine = new Machine(io(), false);
+		Machine machine = new Machine(converts(), false);
 		machine.run();
+		
 		
 	}
 
@@ -228,6 +229,28 @@ public class TestRuntime {
 		ins.add(new Instruction(OperationType.READ, null, null, "x"));
 		ins.add(new Instruction(OperationType.ERR, new Operand("EXIT", Type.VAL), null, null));
 		ins.add(new Instruction(OperationType.RET, new Operand("x", Type.ID), null, null));
+		
+		return ins;
+	}
+	
+	private static List<Instruction> converts() {
+
+		List<Instruction> ins = new LinkedList<>();
+
+		// Main: 0
+		ins.add(new Instruction(OperationType.VAR, new Operand("false", Type.VAL), null, "x"));
+		ins.add(new Instruction(OperationType.VAR, null, null, "int"));
+		ins.add(new Instruction(OperationType.VAR, null, null, "float"));
+		ins.add(new Instruction(OperationType.VAR, null, null, "bool"));
+		ins.add(new Instruction(OperationType.VAR, null, null, "string"));
+		
+		
+		ins.add(new Instruction(OperationType.INT, new Operand("x", Type.ID), null, "int"));
+		ins.add(new Instruction(OperationType.FLOAT, new Operand("x", Type.ID), null, "float"));
+		ins.add(new Instruction(OperationType.BOOL, new Operand("x", Type.ID), null, "bool"));
+		ins.add(new Instruction(OperationType.STRING, new Operand("x", Type.ID), null, "string"));
+
+		ins.add(new Instruction(OperationType.RET, new Operand("string", Type.ID), null, null));
 		
 		return ins;
 	}
