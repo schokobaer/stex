@@ -4,10 +4,12 @@
 
 > DataUnit: Equals, Compare
 
-> Operation for Array Size
+> Change Integer to Long in Content for DataType.INTEGER
+
+> Operation for ARRAYSIZE(Length of array), INARRAY (boolean ob element in array)
 
 > Object DataType
 
-> Make Instruction/OperationType for Function header (Op1 = FunctionName)
+> Make Instruction/OperationType for Function header (Op1 = FunctionName) ==> IDEE FEHLERHAFT WGEN PARAM-NAME-ACCESSOR
     - CALL werden nicht als MIP-Zahl angegeben sondern als DataType.Function (Value = MIP oder Name)
     - Ermöglicht einführung von DataType.Function

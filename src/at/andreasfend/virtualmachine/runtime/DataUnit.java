@@ -57,6 +57,13 @@ public class DataUnit {
 	}
 	
 	public DataUnit copy() {
+		if(type == DataType.ARRAY) {
+			DataUnit[] arr = new DataUnit[getArray().length];
+			for (int i = 0; i < arr.length; i++) {
+				arr[i] = getArray()[i];
+			}
+			return new DataUnit(arr, type, constante);
+		}
 		return new DataUnit(content, type, constante);
 	}
 	

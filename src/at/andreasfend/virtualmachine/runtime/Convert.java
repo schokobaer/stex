@@ -16,6 +16,13 @@ public class Convert {
 		else if(data.getType() == DataType.STRING) {
 			return new DataUnit(Integer.parseInt(data.getString()), DataType.INTEGER);
 		}
+		else if(data.getType() == DataType.ARRAY) {
+			DataUnit copy = data.copy();
+			for (int i = 0; i < copy.getArray().length; i++) {
+				copy.getArray()[i] = toInt(copy.getArray()[i]);
+			}
+			return copy;
+		}
 		
 		throw new RuntimeException("Can not convert data type " + data.getType().name() + " to integer");
 	}
@@ -30,6 +37,13 @@ public class Convert {
 		else if(data.getType() == DataType.STRING) {
 			return new DataUnit(Double.parseDouble(data.getString()), DataType.FLOAT);
 		}
+		else if(data.getType() == DataType.ARRAY) {
+			DataUnit copy = data.copy();
+			for (int i = 0; i < copy.getArray().length; i++) {
+				copy.getArray()[i] = toFloat(copy.getArray()[i]);
+			}
+			return copy;
+		}
 		
 		throw new RuntimeException("Can not convert data type " + data.getType().name() + " to float");
 	}
@@ -43,6 +57,12 @@ public class Convert {
 			return data;
 		else if(data.getType() == DataType.STRING) {
 			return new DataUnit(Boolean.parseBoolean(data.getString()), DataType.BOOL);
+		}else if(data.getType() == DataType.ARRAY) {
+			DataUnit copy = data.copy();
+			for (int i = 0; i < copy.getArray().length; i++) {
+				copy.getArray()[i] = toBool(copy.getArray()[i]);
+			}
+			return copy;
 		}
 		
 		throw new RuntimeException("Can not convert data type " + data.getType().name() + " to bool");
@@ -57,6 +77,12 @@ public class Convert {
 			return new DataUnit(data.getBool().toString(), DataType.STRING);
 		else if(data.getType() == DataType.STRING) {
 			return data;
+		}else if(data.getType() == DataType.ARRAY) {
+			DataUnit copy = data.copy();
+			for (int i = 0; i < copy.getArray().length; i++) {
+				copy.getArray()[i] = toString(copy.getArray()[i]);
+			}
+			return copy;
 		}
 		
 		throw new RuntimeException("Can not convert data type " + data.getType().name() + " to string");
