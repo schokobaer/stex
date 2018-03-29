@@ -10,7 +10,9 @@ public class Convert {
 	}
 	
 	public static DataUnit toInt(DataUnit data) {
-		if(data.getType() == DataType.INTEGER)
+		if(data.getType() == DataType.NULL)
+			return new DataUnit(0, DataType.INTEGER);
+		else if(data.getType() == DataType.INTEGER)
 			return data;
 		else if(data.getType() == DataType.FLOAT)
 			return new DataUnit(data.getFloat().intValue(), DataType.INTEGER);
@@ -31,12 +33,14 @@ public class Convert {
 	}
 	
 	public static DataUnit toFloat(DataUnit data) {
-		if(data.getType() == DataType.INTEGER)
+		if(data.getType() == DataType.NULL)
+			return new DataUnit(0d, DataType.FLOAT);
+		else if(data.getType() == DataType.INTEGER)
 			return new DataUnit(data.getInteger().doubleValue(), DataType.FLOAT);
 		else if(data.getType() == DataType.FLOAT)
 			return data;
 		else if(data.getType() == DataType.BOOL)
-			return new DataUnit(data.getBool() ? 1.0 : 0.0, DataType.FLOAT);
+			return new DataUnit(data.getBool() ? 1.0d : 0.0d, DataType.FLOAT);
 		else if(data.getType() == DataType.STRING) {
 			return new DataUnit(Double.parseDouble(data.getString()), DataType.FLOAT);
 		}
@@ -52,7 +56,9 @@ public class Convert {
 	}
 	
 	public static DataUnit toBool(DataUnit data) {
-		if(data.getType() == DataType.INTEGER)
+		if(data.getType() == DataType.NULL)
+			return new DataUnit(false, DataType.BOOL);
+		else if(data.getType() == DataType.INTEGER)
 			return new DataUnit(data.getInteger() > 0, DataType.BOOL);
 		else if(data.getType() == DataType.FLOAT)
 			return new DataUnit(data.getFloat() > 0, DataType.BOOL);
@@ -72,7 +78,9 @@ public class Convert {
 	}
 	
 	public static DataUnit toString(DataUnit data) {
-		if(data.getType() == DataType.INTEGER)
+		if(data.getType() == DataType.NULL)
+			return new DataUnit("", DataType.STRING);
+		else if(data.getType() == DataType.INTEGER)
 			return new DataUnit(data.getInteger().toString(), DataType.STRING);
 		else if(data.getType() == DataType.FLOAT)
 			return new DataUnit(data.getFloat().toString(), DataType.STRING);

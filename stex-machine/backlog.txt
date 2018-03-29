@@ -1,0 +1,29 @@
+> Debug Instruction
+
+> Arithetik und Logical auf alle Datentypen ausbauen
+    - DataUnit: Compare
+
+> Change Integer to Long in Content for DataType.INTEGER ???
+
+> SubroutineStack termination
+
+> Try-Catch
+
+> Make Instruction/OperationType for Function header (Op1 = FunctionName) ==> IDEE FEHLERHAFT WGEN PARAM-NAME-ACCESSOR
+    - CALL werden nicht als MIP-Zahl angegeben sondern als DataType.Function (Value = MIP oder Name)
+    - Ermöglicht einführung von DataType.Function
+
+> RuntimeException-Helper:    
+Identifier not found
+Identifier already allocated
+Unvalid DataType code
+Unknown DataType
+Invalid DataType
+Uncaught Exception
+Nullpointer
+Dereferencing non Pointer
+OutOfIndex
+IOException
+LeaveMainBlock
+Converting Exception
+DataType Missmatch
