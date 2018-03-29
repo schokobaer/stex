@@ -1,0 +1,10 @@
+at\andreasfend\stex\parser\Parser.class
+at\andreasfend\stex\lexer\Lexer.class
+at\andreasfend\stex\parser\IfWhileStatement.class
+at\andreasfend\stex\parser\Function.class
+at\andreasfend\stex\parser\Node.class
+at\andreasfend\stex\lexer\Lexical.class
+at\andreasfend\stex\parser\Variable.class
+at\andreasfend\stex\lexer\Token.class
+at\andreasfend\stex\parser\Condition.class
+at\andreasfend\stex\parser\Statement.class
