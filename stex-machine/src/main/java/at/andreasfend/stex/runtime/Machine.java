@@ -10,11 +10,12 @@ import at.andreasfend.stex.runtime.operation.Arithetik;
 import at.andreasfend.stex.runtime.operation.Convert;
 import at.andreasfend.stex.runtime.operation.Logical;
 
-public class Machine implements Runnable {
+public class Machine {
 
 	private SubroutineStack stack;
 	private SubroutineStack sub = null;
 	private int mip;
+	private DataUnit result = null;
 	private boolean debug;
 	private List<Instruction> instructions;
 
@@ -25,8 +26,7 @@ public class Machine implements Runnable {
 		stack = new SubroutineStack();
 	}
 
-	@Override
-	public void run() {
+	public DataUnit execute() {
 
 		while (mip < instructions.size()) {
 			Instruction instruction = instructions.get(mip);
@@ -179,6 +179,8 @@ public class Machine implements Runnable {
 
 			mip++;
 		}
+		
+		return result;
 
 	}
 
@@ -280,7 +282,7 @@ public class Machine implements Runnable {
 
 		if (stack == null) {
 			if (data != null)
-				System.out.println(data.print());
+				result = data;
 			mip = instructions.size();
 		} else if (target != null)
 			stack.assign(target, data);
@@ -346,16 +348,7 @@ public class Machine implements Runnable {
 	}
 
 	private void assign(Instruction instruction) {
-		DataUnit data = null;
-		if(instruction.getOp1().getType() == Type.ID)
-			data = getOp1(instruction);
-		else if(instruction.getOp1().getType() == Type.VAL && instruction.getOp2() != null) {
-			Object content = instruction.getOp1().getValue();
-			DataType type = DataType.byCode(Integer.parseInt(instruction.getOp2().getValue().toString()));
-			data = new DataUnit(content, type);
-		}
-		else
-			throw new RuntimeException("No data type defined for value: " + instruction.getOp1().getValue());
+		DataUnit data = getOp1(instruction);		
 		stack.assign(instruction.getTarget(), data);
 	}
 
