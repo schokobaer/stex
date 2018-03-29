@@ -28,6 +28,12 @@ public class Machine implements Runnable {
 			Instruction instruction = instructions.get(mip);
 
 			switch (instruction.getOp()) {
+			case NOP:
+				break;
+			case DEBUG:
+				debug();
+				break;
+			
 			case ADD:
 				add(instruction);
 				break;
@@ -113,6 +119,9 @@ public class Machine implements Runnable {
 				err(instruction);
 				break;
 				
+			case TYPE:
+				type(instruction);
+				break;
 			case INT:
 				toInt(instruction);
 				break;
@@ -160,55 +169,63 @@ public class Machine implements Runnable {
 
 	}
 
-	private void add(Instruction instruction) {
+	private DataUnit getOp1(Instruction instruction) {
 		DataUnit op1 = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
 				: stack.get(instruction.getOp1().getIdentifier());
+		return op1;
+	}
+	
+	private DataUnit getOp2(Instruction instruction) {
 		DataUnit op2 = instruction.getOp2().getType() == Type.VAL ? DataUnit.parse(instruction.getOp2().getValue())
 				: stack.get(instruction.getOp2().getIdentifier());
+		return op2;
+	}
+	
+	
+	private void debug() {
+		if(this.debug) {
+			// TODO: Something
+		}
+	}
+	
+	private void add(Instruction instruction) {
+		DataUnit op1 = getOp1(instruction);
+		DataUnit op2 = getOp2(instruction);
 		DataUnit target = Arithetik.add(op1, op2);
 		stack.assign(instruction.getTarget(), target);
 
 	}
 
 	private void sub(Instruction instruction) {
-		DataUnit op1 = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
-				: stack.get(instruction.getOp1().getIdentifier());
-		DataUnit op2 = instruction.getOp2().getType() == Type.VAL ? DataUnit.parse(instruction.getOp2().getValue())
-				: stack.get(instruction.getOp2().getIdentifier());
+		DataUnit op1 = getOp1(instruction);
+		DataUnit op2 = getOp2(instruction);
 		DataUnit target = Arithetik.sub(op1, op2);
 		stack.assign(instruction.getTarget(), target);
 	}
 
 	private void mul(Instruction instruction) {
-		DataUnit op1 = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
-				: stack.get(instruction.getOp1().getIdentifier());
-		DataUnit op2 = instruction.getOp2().getType() == Type.VAL ? DataUnit.parse(instruction.getOp2().getValue())
-				: stack.get(instruction.getOp2().getIdentifier());
+		DataUnit op1 = getOp1(instruction);
+		DataUnit op2 = getOp2(instruction);
 		DataUnit target = Arithetik.mul(op1, op2);
 		stack.assign(instruction.getTarget(), target);
 	}
 
 	private void div(Instruction instruction) {
-		DataUnit op1 = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
-				: stack.get(instruction.getOp1().getIdentifier());
-		DataUnit op2 = instruction.getOp2().getType() == Type.VAL ? DataUnit.parse(instruction.getOp2().getValue())
-				: stack.get(instruction.getOp2().getIdentifier());
+		DataUnit op1 = getOp1(instruction);
+		DataUnit op2 = getOp2(instruction);
 		DataUnit target = Arithetik.div(op1, op2);
 		stack.assign(instruction.getTarget(), target);
 	}
 
 	private void mod(Instruction instruction) {
-		DataUnit op1 = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
-				: stack.get(instruction.getOp1().getIdentifier());
-		DataUnit op2 = instruction.getOp2().getType() == Type.VAL ? DataUnit.parse(instruction.getOp2().getValue())
-				: stack.get(instruction.getOp2().getIdentifier());
+		DataUnit op1 = getOp1(instruction);
+		DataUnit op2 = getOp2(instruction);
 		DataUnit target = Arithetik.mod(op1, op2);
 		stack.assign(instruction.getTarget(), target);
 	}
 	
 	private void size(Instruction instruction) {
-		DataUnit data = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
-				: stack.get(instruction.getOp1().getIdentifier());
+		DataUnit data = getOp1(instruction);
 		DataUnit target = null;
 		if(data.getType() == DataType.ARRAY)
 			target = new DataUnit(data.getArray().length, DataType.INTEGER);
@@ -227,9 +244,7 @@ public class Machine implements Runnable {
 	}
 
 	private void parameter(Instruction instruction) {
-		DataUnit data = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
-				: stack.get(instruction.getOp1().getIdentifier());
-
+		DataUnit data = getOp1(instruction);
 		sub.makeVar(instruction.getTarget());
 		sub.assign(instruction.getTarget(), data);
 	}
@@ -246,8 +261,7 @@ public class Machine implements Runnable {
 		String target = stack.getTarget();
 		DataUnit data = null;
 		if (instruction.getOp1() != null)
-			data = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
-					: stack.get(instruction.getOp1().getIdentifier());
+			data = getOp1(instruction);
 		mip = stack.getRetPointer();
 		stack = stack.getParent();
 
@@ -260,10 +274,8 @@ public class Machine implements Runnable {
 	}
 
 	private void cmp(Instruction instruction) {
-		DataUnit op1 = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
-				: stack.get(instruction.getOp1().getIdentifier());
-		DataUnit op2 = instruction.getOp2().getType() == Type.VAL ? DataUnit.parse(instruction.getOp2().getValue())
-				: stack.get(instruction.getOp2().getIdentifier());
+		DataUnit op1 = getOp1(instruction);
+		DataUnit op2 = getOp2(instruction);
 		if (op1.getType() != DataType.BOOL && op2.getType() != DataType.INTEGER)
 			throw new RuntimeException("Expected Bool and Integer, got datatypes: " + op1.getType().name() + " and "
 					+ op2.getType().name());
@@ -273,8 +285,7 @@ public class Machine implements Runnable {
 	}
 
 	private void jmp(Instruction instruction) {
-		DataUnit data = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
-				: stack.get(instruction.getOp1().getIdentifier());
+		DataUnit data = getOp1(instruction);
 		if (data.getType() != DataType.INTEGER)
 			throw new RuntimeException("Expected Integer, got datatype: " + data.getType().name());
 		mip = data.getInteger();
@@ -291,32 +302,38 @@ public class Machine implements Runnable {
 	private void var(Instruction instruction) {
 		DataUnit data = new DataUnit(null, DataType.NULL, false);
 		if (instruction.getOp1() != null)
-			data = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
-					: stack.get(instruction.getOp1().getIdentifier());
+			data = getOp1(instruction);
 		stack.makeVar(instruction.getTarget());
 		stack.assign(instruction.getTarget(), data);
 	}
 
+	@Deprecated
 	private void constante(Instruction instruction) {
 		stack.makeConstante(instruction.getTarget(), DataUnit.parse(instruction.getOp1().getValue()));
 	}
 
 	private void assign(Instruction instruction) {
-		DataUnit data = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
-				: stack.get(instruction.getOp1().getIdentifier());
+		DataUnit data = null;
+		if(instruction.getOp1().getType() == Type.ID)
+			data = getOp1(instruction);
+		else if(instruction.getOp1().getType() == Type.VAL && instruction.getOp2() != null) {
+			Object content = instruction.getOp1().getValue();
+			DataType type = DataType.byCode(Integer.parseInt(instruction.getOp2().getValue().toString()));
+			data = new DataUnit(content, type);
+		}
+		else
+			throw new RuntimeException("No data type defined for value: " + instruction.getOp1().getValue());
 		stack.assign(instruction.getTarget(), data);
 	}
 
 	private void ref(Instruction instruction) {
-		DataUnit data = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
-				: stack.get(instruction.getOp1().getIdentifier());
+		DataUnit data = getOp1(instruction);
 		DataUnit pointer = new DataUnit(data, DataType.POINTER, false);
 		stack.assign(instruction.getTarget(), pointer);
 	}
 
 	private void rref(Instruction instruction) {
-		DataUnit pointer = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
-				: stack.get(instruction.getOp1().getIdentifier());
+		DataUnit pointer = getOp1(instruction);
 		if (pointer.getType() != DataType.POINTER)
 			throw new RuntimeException("Trying to dereference a non-pointer: " + instruction.getOp1().getIdentifier());
 		DataUnit data = pointer.getPoiner();
@@ -324,8 +341,7 @@ public class Machine implements Runnable {
 	}
 
 	private void wref(Instruction instruction) {
-		DataUnit data = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
-				: stack.get(instruction.getOp1().getIdentifier());
+		DataUnit data = getOp1(instruction);
 		DataUnit pointer = stack.get(instruction.getTarget());
 		if (pointer.getType() != DataType.POINTER)
 			throw new RuntimeException("Trying to dereference a non-pointer: " + instruction.getOp1().getIdentifier());
@@ -333,8 +349,7 @@ public class Machine implements Runnable {
 	}
 
 	private void array(Instruction instruction) {
-		DataUnit size = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
-				: stack.get(instruction.getOp1().getIdentifier());
+		DataUnit size = getOp1(instruction);
 		if (size.getType() != DataType.INTEGER)
 			throw new RuntimeException("Expected data type integer, but got: " + size.getType().name());
 		DataUnit[] arr = new DataUnit[size.getInteger()];
@@ -346,12 +361,10 @@ public class Machine implements Runnable {
 	}
 
 	private void rarray(Instruction instruction) {
-		DataUnit arr = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
-				: stack.get(instruction.getOp1().getIdentifier());
+		DataUnit arr = getOp1(instruction);
 		if (arr.getType() != DataType.ARRAY && arr.getType() != DataType.STRING)
 			throw new RuntimeException("Invalid data type: " + arr.getType().name());
-		DataUnit index = instruction.getOp2().getType() == Type.VAL ? DataUnit.parse(instruction.getOp2().getValue())
-				: stack.get(instruction.getOp2().getIdentifier());
+		DataUnit index = getOp2(instruction);
 		if (index.getType() != DataType.INTEGER)
 			throw new RuntimeException("Expected data type integer, but got: " + index.getType().name());
 		
@@ -374,10 +387,8 @@ public class Machine implements Runnable {
 	}
 
 	private void warray(Instruction instruction) {
-		DataUnit data = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
-				: stack.get(instruction.getOp1().getIdentifier());
-		DataUnit index = instruction.getOp2().getType() == Type.VAL ? DataUnit.parse(instruction.getOp2().getValue())
-				: stack.get(instruction.getOp2().getIdentifier());
+		DataUnit data = getOp1(instruction);
+		DataUnit index = getOp2(instruction);
 		DataUnit arr = stack.get(instruction.getTarget());
 		if (arr.getType() != DataType.ARRAY && arr.getType() != DataType.STRING)
 			throw new RuntimeException("Expected data type array, but got: " + arr.getType().name());
@@ -419,111 +430,96 @@ public class Machine implements Runnable {
 	}
 
 	private void print(Instruction instruction) {
-		DataUnit data = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
-				: stack.get(instruction.getOp1().getIdentifier());
+		DataUnit data = getOp1(instruction);
 		System.out.print(data.print());
 	}
 	
 	private void err(Instruction instruction) {
-		DataUnit data = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
-				: stack.get(instruction.getOp1().getIdentifier());
+		DataUnit data = getOp1(instruction);
 		System.err.print(data.print());
 	}
 	
+	private void type(Instruction instruction) {
+		DataUnit data = getOp1(instruction);
+		DataUnit typeCode = new DataUnit(data.getType().getCode(), DataType.INTEGER);
+		stack.assign(instruction.getTarget(), typeCode);
+	}
+	
 	private void toInt(Instruction instruction) {
-		DataUnit data = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
-				: stack.get(instruction.getOp1().getIdentifier());
+		DataUnit data = getOp1(instruction);
 		DataUnit conv = Convert.toInt(data);
 		stack.assign(instruction.getTarget(), conv);
 	}
 	
 	private void toFloat(Instruction instruction) {
-		DataUnit data = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
-				: stack.get(instruction.getOp1().getIdentifier());
+		DataUnit data = getOp1(instruction);
 		DataUnit conv = Convert.toFloat(data);
 		stack.assign(instruction.getTarget(), conv);
 	}
 	
 	private void toBool(Instruction instruction) {
-		DataUnit data = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
-				: stack.get(instruction.getOp1().getIdentifier());
+		DataUnit data = getOp1(instruction);
 		DataUnit conv = Convert.toBool(data);
 		stack.assign(instruction.getTarget(), conv);
 	}
 	
 	private void toString(Instruction instruction) {
-		DataUnit data = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
-				: stack.get(instruction.getOp1().getIdentifier());
+		DataUnit data = getOp1(instruction);
 		DataUnit conv = Convert.toString(data);
 		stack.assign(instruction.getTarget(), conv);
 	}
 
 	private void equals(Instruction instruction) {
-		DataUnit op1 = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
-				: stack.get(instruction.getOp1().getIdentifier());
-		DataUnit op2 = instruction.getOp2().getType() == Type.VAL ? DataUnit.parse(instruction.getOp2().getValue())
-				: stack.get(instruction.getOp2().getIdentifier());
+		DataUnit op1 = getOp1(instruction);
+		DataUnit op2 = getOp2(instruction);
 		DataUnit target = Logical.equals(op1, op2);
 		stack.assign(instruction.getTarget(), target);
 	}
 
 	private void notEquals(Instruction instruction) {
-		DataUnit op1 = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
-				: stack.get(instruction.getOp1().getIdentifier());
-		DataUnit op2 = instruction.getOp2().getType() == Type.VAL ? DataUnit.parse(instruction.getOp2().getValue())
-				: stack.get(instruction.getOp2().getIdentifier());
+		DataUnit op1 = getOp1(instruction);
+		DataUnit op2 = getOp2(instruction);
 		DataUnit target = Logical.notEquals(op1, op2);
 		stack.assign(instruction.getTarget(), target);
 	}
 
 	private void bigger(Instruction instruction) {
-		DataUnit op1 = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
-				: stack.get(instruction.getOp1().getIdentifier());
-		DataUnit op2 = instruction.getOp2().getType() == Type.VAL ? DataUnit.parse(instruction.getOp2().getValue())
-				: stack.get(instruction.getOp2().getIdentifier());
+		DataUnit op1 = getOp1(instruction);
+		DataUnit op2 = getOp2(instruction);
 		DataUnit target = Logical.bigger(op1, op2);
 		stack.assign(instruction.getTarget(), target);
 	}
 
 	private void smaller(Instruction instruction) {
-		DataUnit op1 = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
-				: stack.get(instruction.getOp1().getIdentifier());
-		DataUnit op2 = instruction.getOp2().getType() == Type.VAL ? DataUnit.parse(instruction.getOp2().getValue())
-				: stack.get(instruction.getOp2().getIdentifier());
+		DataUnit op1 = getOp1(instruction);
+		DataUnit op2 = getOp2(instruction);
 		DataUnit target = Logical.smaller(op1, op2);
 		stack.assign(instruction.getTarget(), target);
 	}
 
 	private void and(Instruction instruction) {
-		DataUnit op1 = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
-				: stack.get(instruction.getOp1().getIdentifier());
-		DataUnit op2 = instruction.getOp2().getType() == Type.VAL ? DataUnit.parse(instruction.getOp2().getValue())
-				: stack.get(instruction.getOp2().getIdentifier());
+		DataUnit op1 = getOp1(instruction);
+		DataUnit op2 = getOp2(instruction);
 		DataUnit target = Logical.and(op1, op2);
 		stack.assign(instruction.getTarget(), target);
 	}
 
 	private void or(Instruction instruction) {
-		DataUnit op1 = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
-				: stack.get(instruction.getOp1().getIdentifier());
-		DataUnit op2 = instruction.getOp2().getType() == Type.VAL ? DataUnit.parse(instruction.getOp2().getValue())
-				: stack.get(instruction.getOp2().getIdentifier());
+		DataUnit op1 = getOp1(instruction);
+		DataUnit op2 = getOp2(instruction);
 		DataUnit target = Logical.or(op1, op2);
 		stack.assign(instruction.getTarget(), target);
 	}
 
 	private void not(Instruction instruction) {
-		DataUnit op1 = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
-				: stack.get(instruction.getOp1().getIdentifier());
+		DataUnit op1 = getOp1(instruction);
 		DataUnit target = Logical.not(op1);
 		stack.assign(instruction.getTarget(), target);
 	}
 	
 	private void in(Instruction instruction) {
-		DataUnit set = instruction.getOp1().getType() == Type.VAL ? DataUnit.parse(instruction.getOp1().getValue())
-				: stack.get(instruction.getOp1().getIdentifier());
-		DataUnit elem = instruction.getOp2().getType() == Type.VAL ? DataUnit.parse(instruction.getOp2().getValue())
-				: stack.get(instruction.getOp2().getIdentifier());
+		DataUnit set = getOp1(instruction);
+		DataUnit elem = getOp2(instruction);
 		DataUnit target = Logical.in(set, elem);
 		stack.assign(instruction.getTarget(), target);
 	}

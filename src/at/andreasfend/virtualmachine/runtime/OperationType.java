@@ -3,6 +3,7 @@ package at.andreasfend.virtualmachine.runtime;
 public enum OperationType {
 	
 	NOP,
+	DEBUG,
 	
 	// Arithmetik //
 	ADD,
@@ -40,6 +41,7 @@ public enum OperationType {
 	ERR,		// Print the DataUnit at op1 to STDERR
 	
 	// Converter //
+	TYPE,		// Returns the integer-code of the DataType of op1
 	INT,
 	FLOAT,
 	BOOL,

@@ -10,7 +10,7 @@ public class TestRuntime {
 
 	public static void main(String[] args) {
 
-		Machine machine = new Machine(byrefproblem(), false);
+		Machine machine = new Machine(converts(), false);
 		machine.run();
 		
 		
@@ -261,6 +261,10 @@ public class TestRuntime {
 		ins.add(new Instruction(OperationType.VAR, null, null, "bool"));
 		ins.add(new Instruction(OperationType.VAR, null, null, "string"));
 		
+		
+		// Check type
+		ins.add(new Instruction(OperationType.TYPE, new Operand("x", Type.ID), null, "int"));
+		ins.add(new Instruction(OperationType.RET, new Operand("int", Type.ID), null, null));
 		
 		ins.add(new Instruction(OperationType.INT, new Operand("x", Type.ID), null, "int"));
 		ins.add(new Instruction(OperationType.FLOAT, new Operand("x", Type.ID), null, "float"));

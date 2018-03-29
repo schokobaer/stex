@@ -54,6 +54,7 @@ public class DataUnit {
 		return (DataUnit[]) content;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public Map<String, DataUnit> getObject() {
 		return (Map<String, DataUnit>) content;
 	}

@@ -1,7 +1,6 @@
 package at.andreasfend.virtualmachine.parser;
 
 import at.andreasfend.virtualmachine.lex.Lexical;
-import at.andreasfend.virtualmachine.lex.Token;
 
 public class Statement extends Node {
 
