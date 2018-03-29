@@ -214,6 +214,8 @@ public class Machine implements Runnable {
 			target = new DataUnit(data.getArray().length, DataType.INTEGER);
 		else if(data.getType() == DataType.STRING)
 			target = new DataUnit(data.getString().length(), DataType.INTEGER);
+		else if(data.getType() == DataType.OBJECT)
+			target = new DataUnit(data.getObject().size(), DataType.INTEGER);
 		else
 			throw new RuntimeException("Invalid data type: " + data.getType().name());
 		stack.assign(instruction.getTarget(), target);

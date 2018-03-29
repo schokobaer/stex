@@ -1,5 +1,6 @@
 package at.andreasfend.virtualmachine.runtime;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class DataUnit {
@@ -71,7 +72,8 @@ public class DataUnit {
 			return new DataUnit(arr, type, constante);
 		}
 		if(type == DataType.OBJECT) {
-			// TODO: IMPLEMENT
+			Map<String, DataUnit> obj = new HashMap<>(getObject());
+			return new DataUnit(obj, type);
 		}
 		return new DataUnit(content, type, constante);
 	}

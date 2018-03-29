@@ -10,7 +10,7 @@ public class TestRuntime {
 
 	public static void main(String[] args) {
 
-		Machine machine = new Machine(object(), false);
+		Machine machine = new Machine(byrefproblem(), false);
 		machine.run();
 		
 		
@@ -194,7 +194,24 @@ public class TestRuntime {
 		List<Instruction> ins = new LinkedList<>();
 
 		// Main: 0
-		ins.add(new Instruction(OperationType.VAR, new Operand("5", Type.VAL), null, "x"));
+		// a = [10, 25, 33, 49, 51]
+		ins.add(new Instruction(OperationType.VAR, null, null, "a"));
+		ins.add(new Instruction(OperationType.ARRAY, new Operand(5, Type.VAL), null, "a"));
+		ins.add(new Instruction(OperationType.WARRAY, new Operand(10, Type.VAL), new Operand(0, Type.VAL), "a"));
+		ins.add(new Instruction(OperationType.WARRAY, new Operand(25, Type.VAL), new Operand(1, Type.VAL), "a"));
+		ins.add(new Instruction(OperationType.WARRAY, new Operand(33, Type.VAL), new Operand(2, Type.VAL), "a"));
+		ins.add(new Instruction(OperationType.WARRAY, new Operand(49, Type.VAL), new Operand(3, Type.VAL), "a"));
+		ins.add(new Instruction(OperationType.WARRAY, new Operand(51, Type.VAL), new Operand(4, Type.VAL), "a"));
+		
+		// b = a
+		ins.add(new Instruction(OperationType.VAR, new Operand("a", Type.ID), null, "b"));
+		
+		// b[3] = 100
+		ins.add(new Instruction(OperationType.WARRAY, new Operand(100, Type.VAL), new Operand(3, Type.VAL), "b"));
+		
+		ins.add(new Instruction(OperationType.RET, new Operand("a", Type.ID), null, null));
+		
+		ins.add(new Instruction(OperationType.VAR, null, null, "arr"));
 		ins.add(new Instruction(OperationType.VAR, new Operand("x", Type.ID), null, "y"));
 		ins.add(new Instruction(OperationType.VAR, null, null, "pointer"));
 		ins.add(new Instruction(OperationType.REF, new Operand("x", Type.ID), null, "pointer"));

@@ -8,7 +8,13 @@
 
 > SubroutineStack termination
 
-> Object DataType
+> RuntimeException-Helper
+
+> Try-Catch
+
+> ASSIGN: Op2 als DataType angeben, mit Konstanten als Datentyp, die auch beim programmieren verwendet werden können
+
+> TYPEOF: Returned Integer mit dem Typ (siehe ASSIGN)
 
 > Make Instruction/OperationType for Function header (Op1 = FunctionName) ==> IDEE FEHLERHAFT WGEN PARAM-NAME-ACCESSOR
     - CALL werden nicht als MIP-Zahl angegeben sondern als DataType.Function (Value = MIP oder Name)

@@ -14,12 +14,30 @@ public class SubroutineStack {
 		this.parent = parent;
 	}
 
+	public int getRetPointer() {
+		return retPointer;
+	}
+	public void setRetPointer(int retPointer) {
+		this.retPointer = retPointer;
+	}
+	public String getTarget() {
+		return target;
+	}
+	public void setTarget(String target) {
+		this.target = target;
+	}
+	
+	
+	
 	public DataUnit get(String id) {
 		return dataBlock.get(id);
 	}
 	
 	public void assign(String id, DataUnit val) {
-		dataBlock.assign(id, val.copy());
+		if(val.getType() == DataType.ARRAY || val.getType() == DataType.OBJECT)
+			dataBlock.assign(id, val);
+		else
+			dataBlock.assign(id, val.copy());
 	}
 	
 	public void makeVar(String id) {
@@ -36,21 +54,9 @@ public class SubroutineStack {
 		dataBlock = dataBlock.getParent();
 	}
 	
+	@Deprecated
 	public void makeConstante(String id, DataUnit val) {
 		dataBlock.makeConstante(id, val);
-	}
-	
-	public int getRetPointer() {
-		return retPointer;
-	}
-	public void setRetPointer(int retPointer) {
-		this.retPointer = retPointer;
-	}
-	public String getTarget() {
-		return target;
-	}
-	public void setTarget(String target) {
-		this.target = target;
 	}
 	
 	public void terminate() {
