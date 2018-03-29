@@ -3,7 +3,9 @@ package at.andreasfend.stex.runtime;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DataUnit {
+import at.andreasfend.stex.runtime.operation.Convert;
+
+public class DataUnit implements Comparable<DataUnit> {
 
 	private boolean constante = false;
 	private DataType type;
@@ -161,6 +163,41 @@ public class DataUnit {
 			return true;
 		}
 		return false;
+	}
+	
+	@Override
+	public int compareTo(DataUnit that) {
+		
+		if(type == DataType.NULL && that.getType() == DataType.NULL)
+			return 0;
+		if(type == DataType.NULL)
+			return -1;
+		if(that.getType() == DataType.NULL)
+			return 1;
+		
+		if(type == DataType.ARRAY && that.type == DataType.ARRAY) {
+			return getArray().length == that.getArray().length ? 0 :
+					getArray().length > that.getArray().length ? 1 : -1;
+		}
+		
+		if(type == DataType.STRING && that.type == DataType.STRING) {
+			return getString().compareTo(that.getString());
+		}
+		
+		// Object/Pointer/Function => Exception
+		// Object/Function/Pointer => NotAllowed
+		if(getType() == DataType.OBJECT || getType() == DataType.OBJECT ||
+				getType() == DataType.FUNCTION || getType() == DataType.FUNCTION ||
+				getType() == DataType.ARRAY || getType() == DataType.ARRAY ||
+				getType() == DataType.STRING || getType() == DataType.STRING ||
+				getType() == DataType.POINTER || getType() == DataType.POINTER) {
+			throw new RuntimeException("Unvalid comparison" + getType().name() + " + " + getType().name());
+		}
+		
+		DataUnit d1 = Convert.toFloat(this);
+		DataUnit d2 = Convert.toFloat(that);
+		
+		return d1.getFloat().compareTo(d2.getFloat());
 	}
 	
 	@Override

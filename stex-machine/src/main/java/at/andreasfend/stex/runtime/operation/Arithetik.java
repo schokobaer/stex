@@ -92,6 +92,11 @@ public class Arithetik {
 				if(index >= 0)
 					arr2.remove(index);
 			}
+			DataUnit[] arr3 = new DataUnit[arr2.size()];
+			for (int i = 0; i < arr2.size(); i++) {
+				arr3[i] = arr2.get(i);
+			}
+			return new DataUnit(arr3, DataType.ARRAY);
 		}
 		
 		// Object/Function/Pointer => NotAllowed
@@ -131,6 +136,7 @@ public class Arithetik {
 					int index = row * op1.getArray().length;
 					arr2[index + i] = op1.getArray()[i];
 				}
+				row++;
 			}
 			return new DataUnit(arr2, DataType.ARRAY);
 		}
@@ -169,13 +175,13 @@ public class Arithetik {
 				op1.getType() == DataType.ARRAY || op2.getType() == DataType.ARRAY ||
 				op1.getType() == DataType.STRING || op2.getType() == DataType.STRING ||
 				op1.getType() == DataType.POINTER || op2.getType() == DataType.POINTER) {
-			throw new RuntimeException("Unvalid multiplication" + op1.getType().name() + " + " + op2.getType().name());
+			throw new RuntimeException("Unvalid division" + op1.getType().name() + " + " + op2.getType().name());
 		}
 		
 		Double d1 = Convert.toFloat(op1).getFloat();
 		Double d2 = Convert.toFloat(op2).getFloat();
 		
-		if(d2.equals(0)) {
+		if(d2.equals(0.0d)) {
 			throw new RuntimeException("Division by zero");
 		}
 		
@@ -195,7 +201,7 @@ public class Arithetik {
 				op1.getType() == DataType.ARRAY || op2.getType() == DataType.ARRAY ||
 				op1.getType() == DataType.STRING || op2.getType() == DataType.STRING ||
 				op1.getType() == DataType.POINTER || op2.getType() == DataType.POINTER) {
-			throw new RuntimeException("Unvalid multiplication" + op1.getType().name() + " + " + op2.getType().name());
+			throw new RuntimeException("Unvalid modulo" + op1.getType().name() + " + " + op2.getType().name());
 		}
 		
 		Double d1 = Convert.toFloat(op1).getFloat();
