@@ -1,0 +1,24 @@
+main(args) {
+	var sum1 = 90;
+	var sum2 = 45.3;
+	var array = [ ];
+	var deinemudda = { 
+		name = "Margret",
+		alter = 16
+	};
+
+	if(a > b) {
+		throw("Ausnahme");
+	}
+	
+	while(12 != 5) {
+		try {
+		
+		}
+		catch(e) {
+		
+		}
+	}
+	
+	return semmel;
+}

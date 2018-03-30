@@ -15,6 +15,7 @@
 		<module>stex-core</module>
 		<module>stex-compiler</module>
 		<module>stex-machine</module>
+		<module>stex-interpreter</module>
 	</modules>
 
 	<dependencies>

@@ -2,6 +2,10 @@
 
 > SubroutineStack termination
 
+> BREAK for loops
+
+> DataUnit.parse() -> String replace escape characters
+
 > Make Instruction/OperationType for Function header (Op1 = FunctionName) ==> IDEE FEHLERHAFT WGEN PARAM-NAME-ACCESSOR
     - CALL werden nicht als MIP-Zahl angegeben sondern als DataType.Function (Value = MIP oder Name)
     - Ermöglicht einführung von DataType.Function
