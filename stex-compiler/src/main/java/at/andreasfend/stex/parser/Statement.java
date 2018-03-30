@@ -7,7 +7,7 @@ public class Statement extends Node {
 	
 	
 	@Override
-	public void parse() throws Exception {
+	public void parse() {
 		if(peekToken().getLexical() == Lexical.ID)
 			assign();
 		else if(peekToken().getLexical() == Lexical.RETURN)

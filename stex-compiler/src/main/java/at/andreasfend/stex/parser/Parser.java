@@ -26,7 +26,7 @@ public class Parser {
 	 */
 	
 	
-	public List<Function> parse(List<Token> tokens) throws Exception {
+	public List<Function> parse(List<Token> tokens) {
 		List<Function> functions = new LinkedList<>();
 		
 		while(tokens.size() > 0) {
@@ -38,14 +38,14 @@ public class Parser {
 		return functions;
 	}
 	
-	private Function findFunction(List<Token> tokens) throws Exception {
+	private Function findFunction(List<Token> tokens) {
 		Function n = new Function();
 		List<Token> entrys = new LinkedList<>();
 		
 		n.setTokens(entrys);
 		
 		if(tokens.get(0).getLexical() != Lexical.ID) {
-			throw new Exception("Invalid Token");
+			throw new RuntimeException("Invalid Token");
 		}
 		entrys.add(tokens.get(0));
 		tokens.remove(0);

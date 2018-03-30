@@ -26,15 +26,14 @@ public class Function extends Node {
 
 	
 	@Override
-	public void parse() throws Exception {
-		this.name = getTokens().get(0).getValue();
-		this.getTokens().remove(0);
+	public void parse() {
+		this.name = popToken().getValue();
 		
 		parseParamList();
-		parseStatements();
+		parseStatements2();
 	}
 	
-	private void parseParamList() throws Exception {
+	private void parseParamList() {
 		// Parameters
 		this.expected(popToken(), Lexical.KlammerAuf);
 				
@@ -65,7 +64,7 @@ public class Function extends Node {
 		}
 	}
 	
-	private void parseStatements() throws Exception {
+	private void parseStatements() {
 		this.expected(popToken(), Lexical.GKlammerAuf);
 		
 		while(!getTokens().isEmpty()) {
@@ -81,7 +80,7 @@ public class Function extends Node {
 				popToken();
 				if(getTokens().isEmpty())
 					return;
-				throw new Exception("Parsing error: missing '}'");
+				throw new RuntimeException("Parsing error: missing '}'");
 			}
 			
 			while(true) {
@@ -119,7 +118,54 @@ public class Function extends Node {
 			statements.add(st);
 			
 		}
-		throw new Exception("Parsing error: missing '}'");
+		throw new RuntimeException("Parsing error: missing '}'");
+	}
+	
+	private void parseStatements2() {
+		this.expected(popToken(), Lexical.GKlammerAuf);
+		
+		while(getTokens().size() > 1) {
+			Statement stmt = new Statement();
+			List<Token> stTks = new LinkedList<>();
+			stmt.setTokens(stTks);
+			int gklammerCount = 0;
+			
+			while(true) {
+				Token token = popToken();
+				stTks.add(token);
+				if(token.getLexical() == Lexical.GKlammerAuf) {
+					gklammerCount++;
+				}
+				if(token.getLexical() == Lexical.GKlammerZu) {
+					gklammerCount--;
+					if(gklammerCount < 0) {
+						throw new RuntimeException("} too much");
+					}
+					if(stTks.get(0).getLexical() == Lexical.WHILE) {
+						break;
+					}
+					if(stTks.get(0).getLexical() == Lexical.IF) {
+						// Check: when next is ELSE then skip, else break
+						if(peekToken().getLexical() != Lexical.ELSE)
+							break;
+					}
+					if(stTks.get(0).getLexical() == Lexical.TRY) {
+						// Check: when next is ELSE then skip, else break
+						if(peekToken().getLexical() != Lexical.CATCH)
+							break;
+					}
+				}
+				if(token.getLexical() == Lexical.SEMICOLON) {
+					if(gklammerCount == 0) {
+						break;
+					}
+				}
+			}
+			
+			statements.add(stmt);
+		}
+		
+		this.expected(popToken(), Lexical.GKlammerZu);
 	}
 	
 	

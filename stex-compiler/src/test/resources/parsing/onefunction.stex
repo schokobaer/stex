@@ -1,0 +1,22 @@
+main(args) {
+	var v1;
+	var v2 = "";
+	var v3 = [ ];
+	
+	if(v1 > v2) {
+		v1 = 14;
+	}
+	else {
+		v1 = 11;
+	}
+	
+	try {
+		v1 = 0;
+		throw(v1);
+	}
+	catch(e) {
+		v2 = subroutine(12, v1);
+	}
+	
+	return v1;
+}

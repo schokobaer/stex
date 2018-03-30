@@ -27,7 +27,7 @@ public abstract class Node {
 		return tokens.get(0);
 	}
 	
-	protected void expected(Token t, Lexical[] expect) throws Exception {
+	protected void expected(Token t, Lexical[] expect) {
 		String expStr = "";
 		for (Lexical lexical : expect) {
 			if(t.getLexical() == lexical)
@@ -35,14 +35,14 @@ public abstract class Node {
 			expStr += lexical.name() + " ";
 		}
 				
-		throw new Exception("Expected one of " + expStr + "but got " + t.getValue());
+		throw new RuntimeException("Expected one of " + expStr + "but got " + t.getValue());
 	}
 	
-	protected void expected(Token t, Lexical l) throws Exception {
+	protected void expected(Token t, Lexical l) {
 		this.expected(t, new Lexical[] {l});
 	}
 	
-	public abstract void parse() throws Exception;
+	public abstract void parse();
 	//public abstract void print();
 	
 }

@@ -12,7 +12,7 @@ public class IfWhileStatement extends Statement {
 	private List<Condition> conditions = new LinkedList<>();
 	
 	@Override
-	public void parse() throws Exception {
+	public void parse() {
 		expected(popToken(), new Lexical[] {Lexical.IF, Lexical.WHILE});
 		expected(popToken(), Lexical.KlammerAuf);
 		

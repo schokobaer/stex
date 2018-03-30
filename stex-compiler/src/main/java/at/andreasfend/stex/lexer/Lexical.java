@@ -13,6 +13,7 @@ public enum Lexical {
 	VAR("var"),
 	CONST("const"),
 	IF("if"),
+	ELSE("else"),
 	AND("and"),
 	OR("or"),
 	NOT("not"),
