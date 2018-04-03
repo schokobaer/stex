@@ -5,6 +5,7 @@ import java.util.List;
 
 import at.andreasfend.stex.lexer.Lexical;
 import at.andreasfend.stex.lexer.Token;
+import at.andreasfend.stex.parser.node.Function;
 
 public class Parser {
 

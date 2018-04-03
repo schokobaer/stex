@@ -22,6 +22,7 @@ public enum Lexical {
 	RETURN("return"),
 	TRY("try"),
 	CATCH("catch"),
+	THROW("throw"),
 	
 	
 	EQUALS("="),

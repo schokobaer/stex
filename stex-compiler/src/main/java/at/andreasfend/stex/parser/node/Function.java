@@ -1,36 +1,49 @@
-package at.andreasfend.stex.parser;
+package at.andreasfend.stex.parser.node;
 
 import java.util.LinkedList;
 import java.util.List;
 
+import at.andreasfend.stex.core.Instruction;
+import at.andreasfend.stex.core.Operand;
+import at.andreasfend.stex.core.Operand.Type;
+import at.andreasfend.stex.core.OperationType;
 import at.andreasfend.stex.lexer.Lexical;
 import at.andreasfend.stex.lexer.Token;
 
 public class Function extends Node {
 
 	private String name;
-	private List<Variable> paramList = new LinkedList<>();
-	private List<Statement> statements = new LinkedList<>();
+	private List<String> paramList = new LinkedList<>();
+	private List<ProgramCode> statements = new LinkedList<>();
 
 	public String getName() {
 		return name;
 	}
 	
-	public List<Variable> getParamList() {
-		return paramList;
-	}
-	
-	public List<Statement> getStatements() {
-		return statements;
-	}
-
 	
 	@Override
-	public void parse() {
+	public List<Instruction> parse() {
 		this.name = popToken().getValue();
 		
 		parseParamList();
-		parseStatements2();
+		parseStatements();
+		
+		List<Instruction> instructions = new LinkedList<>();
+		
+		instructions.add(new Instruction(OperationType.NOP,
+				new Operand(paramList, Type.VAL), null, name));
+		
+		for (ProgramCode pc : statements) {
+			instructions.addAll(pc.parse());
+		}
+		
+		// Add RET if needed
+		if(instructions.get(instructions.size()-1).getOp() != OperationType.RET && 
+				instructions.get(instructions.size()-1).getOp() != OperationType.THROW) {
+			instructions.add(new Instruction(OperationType.RET, null, null, null));
+		}
+		
+		return instructions;
 	}
 	
 	private void parseParamList() {
@@ -50,7 +63,7 @@ public class Function extends Node {
 			this.expected(t, expected);
 			
 			if(param) {
-				paramList.add(new Variable(t.getValue()));
+				paramList.add(t.getValue());
 				param = false;
 				expected = new Lexical[] { Lexical.KOMMA, Lexical.KlammerZu };
 			}
@@ -64,64 +77,8 @@ public class Function extends Node {
 		}
 	}
 	
-	private void parseStatements() {
-		this.expected(popToken(), Lexical.GKlammerAuf);
 		
-		while(!getTokens().isEmpty()) {
-			
-			Statement st = new Statement();
-			List<Token> stTokens = new LinkedList<>();
-			st.setTokens(stTokens);
-			boolean firstRead = false;
-			boolean ifWhile = false;
-			int gklammerCount = 0;
-			
-			if(peekToken().getLexical() == Lexical.GKlammerZu) {
-				popToken();
-				if(getTokens().isEmpty())
-					return;
-				throw new RuntimeException("Parsing error: missing '}'");
-			}
-			
-			while(true) {
-				Token t = popToken();
-				if(!firstRead) {
-					if(t.getLexical() == Lexical.IF ||
-							t.getLexical() == Lexical.WHILE)
-						ifWhile = true;
-					if(t.getLexical() == Lexical.SEMICOLON)
-						break;
-					firstRead = true;
-				}
-				
-				stTokens.add(t);
-				
-				// Normal statement
-				if(!ifWhile && t.getLexical() == Lexical.SEMICOLON)
-					break;
-				
-				if(ifWhile) {
-					if(t.getLexical() == Lexical.GKlammerAuf)
-						gklammerCount++;
-					if(t.getLexical() == Lexical.GKlammerZu) {
-						gklammerCount--;
-						if(gklammerCount == 0) {
-							IfWhileStatement iwSt = new IfWhileStatement();
-							iwSt.setTokens(st.getTokens());
-							st = iwSt;
-							break;
-						}
-					}
-				}
-			}
-			
-			statements.add(st);
-			
-		}
-		throw new RuntimeException("Parsing error: missing '}'");
-	}
-	
-	private void parseStatements2() {
+	private void parseStatements() {
 		this.expected(popToken(), Lexical.GKlammerAuf);
 		
 		while(getTokens().size() > 1) {
@@ -162,7 +119,17 @@ public class Function extends Node {
 				}
 			}
 			
-			statements.add(stmt);
+			// Check for ControlFlowStmt
+			Lexical firstStmtLexical = stmt.getTokens().get(0).getLexical(); 
+			if(firstStmtLexical == Lexical.IF || firstStmtLexical == Lexical.WHILE ||
+					firstStmtLexical == Lexical.TRY) {
+				ControlFlowStatement cstmt = new ControlFlowStatement();
+				cstmt.setTokens(stTks);
+				statements.add(cstmt);
+			}
+			else {
+				statements.add(stmt);
+			}
 		}
 		
 		this.expected(popToken(), Lexical.GKlammerZu);
@@ -172,8 +139,8 @@ public class Function extends Node {
 	@Override
 	public String toString() {
 		String params = "";
-		for (Variable v : paramList) {
-			params += v.getName() + ",";
+		for (String v : paramList) {
+			params += v + ",";
 		}
 		if(paramList.size() > 0)
 			params = params.substring(0, params.length()-1);

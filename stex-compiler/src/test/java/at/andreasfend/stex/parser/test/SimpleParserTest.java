@@ -10,8 +10,8 @@ import org.junit.Test;
 
 import at.andreasfend.stex.lexer.Lexer;
 import at.andreasfend.stex.lexer.Token;
-import at.andreasfend.stex.parser.Function;
 import at.andreasfend.stex.parser.Parser;
+import at.andreasfend.stex.parser.node.Function;
 
 public class SimpleParserTest {
 

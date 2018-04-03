@@ -1,11 +1,12 @@
-package at.andreasfend.stex.parser;
+package at.andreasfend.stex.parser.node;
 
 import java.util.List;
 
+import at.andreasfend.stex.core.Instruction;
 import at.andreasfend.stex.lexer.Lexical;
 import at.andreasfend.stex.lexer.Token;
 
-public abstract class Node {
+public abstract class Node implements Parsable {
 
 	private List<Token> tokens;
 	
@@ -41,8 +42,5 @@ public abstract class Node {
 	protected void expected(Token t, Lexical l) {
 		this.expected(t, new Lexical[] {l});
 	}
-	
-	public abstract void parse();
-	//public abstract void print();
-	
+		
 }
