@@ -1,13 +1,19 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>stex-compiler</artifactId>
-	
+
 	<parent>
 		<groupId>at.andreasfend.stex</groupId>
 		<artifactId>stex-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
+
+	<properties>
+		<antlr4.visitor>true</antlr4.visitor>
+		<antlr4.listener>true</antlr4.listener>
+	</properties>
 
 	<dependencies>
 		<dependency>
@@ -15,6 +21,34 @@
 			<artifactId>stex-core</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.antlr</groupId>
+			<artifactId>antlr4-runtime</artifactId>
+			<version>4.7</version>
+		</dependency>
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.antlr</groupId>
+				<artifactId>antlr4-maven-plugin</artifactId>
+				<version>4.3</version>
+				<executions>
+					<execution>
+						<configuration>
+							<outputDirectory>src/main/java/at/andreasfend/stex/parser/antlr4</outputDirectory>
+							<!-- <sourceDirectory>src/main/resources/grammar</sourceDirectory> -->
+						</configuration>
+						<id>antlr</id>
+						<goals>
+							<goal>antlr4</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>

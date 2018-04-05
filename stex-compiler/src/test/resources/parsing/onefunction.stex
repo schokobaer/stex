@@ -12,11 +12,18 @@ main(args) {
 	
 	try {
 		v1 = 0;
-		throw(v1);
+		throw null;
 	}
 	catch(e) {
-		v2 = subroutine(12, v1);
+		v2 = false;
+		v2 = summe(3, v2);
 	}
 	
 	return v1;
+}
+
+summe(s1, s2) {
+	var sum;
+	sum = s1 + s2;
+	return sum;
 }
