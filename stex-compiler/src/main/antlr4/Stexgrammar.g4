@@ -16,31 +16,31 @@ paramlist:  (ID (',' ID)*)? ;
 statement:			(ifstatement|trystatement|whilestatement|throwstatement|returnstatement
 					 |assignstatement|varstatement);
 					 
-ifstatement:		'if' '(' operand ')' '{' statement+ '}' ?elseblock ;
+ifstatement:		'if' '(' expression ')' '{' statement+ '}' ?elseblock ;
 elseblock:			'else' '{' statement+ '}' ;
 
 trystatement:		'try' '{' statement+ '}' catchblock ;
 catchblock:			'catch' '(' ID ')' '{' statement+ '}' ;
 
-whilestatement:		'while' '(' operand ')' '{' statement+ '}' ;
+whilestatement:		'while' '(' expression ')' '{' statement+ '}' ;
 
-throwstatement:		'throw' initialisation ';' ;
-returnstatement:	'return' initialisation ';' ;
+throwstatement:		'throw' expression ';' ;
+returnstatement:	'return' expression ';' ;
 
-assignstatement:	assignee '=' initialisation ';' ;
-varstatement:		'var' ID ('=' initialisation)? ';' ;
+assignstatement:	assignee '=' expression ';' ;
+varstatement:		'var' ID ('=' expression)? ';' ;
 
-initialisation:		(object|array|ref|expression);
+/* initialisation:		(object|array|ref|expression); */
 				
-expression:		(functioncall|operation|operand|arrayaccess|deref);
-expressionop:	(functioncall|operand|arrayaccess|deref);
+expression:		(functioncall|operation|operand|arrayaccess|deref|object|array|ref);
+expressionop:	(functioncall|operand|arrayaccess|deref|object|array|ref);
 
 operand:		(identifier|VAL);
 identifier:		ID ('.' ID)* ;
 arrayaccess:	identifier '[' expression ']' ;
 
 object:				'{' objectfield (',' objectfield)* '}';
-objectfield:		ID ;
+objectfield:		ID ('=' expression)? ;
 
 array:				'[' (expression (',' expression)*)? ']' ;
 
@@ -49,54 +49,14 @@ functioncallargs:	(expression (',' expression)*)? ;
 ref:				'&' identifier;
 deref:				'?' identifier;
 
-operation:			expressionop ('+'|'-'|'*'|'/'|'%'|'=='|'!='|'>'|'<'|'in'|'and'|'or') expression
-					| 'not' expression ;
+operation:			expressionop operationtype expression
+					| notoperation ;
+notoperation:		'not' expression ;
+operationtype:		('+'|'-'|'*'|'/'|'%'|'=='|'!='|'>'|'<'|'in'|'and'|'or') ;
 
 assignee:			deref | identifier | arrayaccess ;
 
 
-/*
-object:			'{' objectfields '}' ;
-objectfields:	ID '=' expression (',' ID '=' expression)* ;
-
-array:			'[' arrayelements ']';
-arrayelements:	(expression (',' expression)*)? ;
-
-functioncall:	ID '(' functioncallparams ')' ;
-functioncallparams:	(expression (',' expression)*)? ;
-
-operation:		  (addition|subtraktion|multiplikation|division|modulo|
-					isequal|isnotequal|bigger|smaller|isin);
-addition:		expression '+' expression ;
-subtraktion:	expression '-' expression ;
-multiplikation:	expression '*' expression ;
-division:		expression '/' expression ;
-modulo:			expression '%' expression ;
-isequal:		expression '==' expression ;
-isnotequal:		expression '!=' expression ;
-bigger:			expression '>' expression ;
-smaller:		expression '<' expression ;
-isin:			expression 'in' expression ;
-
-
-operand:		  identifier
-				| VAL
-				| '?' identifier
-				| arrayread 
-				| objectread ;
-identifier:		ID ('.' ID)* ;
-rarraylist:		(arrayaccess)* ;
-arrayread:		identifier (rarraylist | '.' ID)* arrayaccess ;
-objectread:		identifier (rarraylist | '.' ID)* '.' ID ;
-arrayaccess:	'[' expression ']' ;
-
-ref:			'&' identifier ;
-
-assignee:		  identifier
-				| '?' identifier
-				| arraywrite ;
-arraywrite:		identifier (rarraylist | '.' ID)* arrayaccess;
-*/
 
 /*
  * Lexer Rules

@@ -11,17 +11,6 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface StexgrammarListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link StexgrammarParser#initialisation}.
-	 * @param ctx the parse tree
-	 */
-	void enterInitialisation(@NotNull StexgrammarParser.InitialisationContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link StexgrammarParser#initialisation}.
-	 * @param ctx the parse tree
-	 */
-	void exitInitialisation(@NotNull StexgrammarParser.InitialisationContext ctx);
-
-	/**
 	 * Enter a parse tree produced by {@link StexgrammarParser#whilestatement}.
 	 * @param ctx the parse tree
 	 */
@@ -108,6 +97,17 @@ public interface StexgrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitRef(@NotNull StexgrammarParser.RefContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link StexgrammarParser#notoperation}.
+	 * @param ctx the parse tree
+	 */
+	void enterNotoperation(@NotNull StexgrammarParser.NotoperationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link StexgrammarParser#notoperation}.
+	 * @param ctx the parse tree
+	 */
+	void exitNotoperation(@NotNull StexgrammarParser.NotoperationContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link StexgrammarParser#array}.
@@ -251,6 +251,17 @@ public interface StexgrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitParamlist(@NotNull StexgrammarParser.ParamlistContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link StexgrammarParser#operationtype}.
+	 * @param ctx the parse tree
+	 */
+	void enterOperationtype(@NotNull StexgrammarParser.OperationtypeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link StexgrammarParser#operationtype}.
+	 * @param ctx the parse tree
+	 */
+	void exitOperationtype(@NotNull StexgrammarParser.OperationtypeContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link StexgrammarParser#ifstatement}.

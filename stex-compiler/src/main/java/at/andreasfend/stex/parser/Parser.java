@@ -30,6 +30,19 @@ public class Parser {
 		for (Instruction instruction : program) {
 			System.out.println(instruction);
 		}
+		
+		
+	}
+	
+	public ParseTree parse(String sourceCode) {
+		ANTLRInputStream input = new ANTLRInputStream(sourceCode);
+		StexgrammarLexer lexer = new StexgrammarLexer(input);
+		CommonTokenStream tokenstream = new CommonTokenStream(lexer);
+		StexgrammarParser parser = new StexgrammarParser(tokenstream);
+				
+		ParseTree tree = parser.program();
+		
+		return tree;
 	}
 	
 }

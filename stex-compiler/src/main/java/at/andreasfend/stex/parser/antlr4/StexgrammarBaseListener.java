@@ -19,19 +19,6 @@ public class StexgrammarBaseListener implements StexgrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterInitialisation(@NotNull StexgrammarParser.InitialisationContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitInitialisation(@NotNull StexgrammarParser.InitialisationContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterWhilestatement(@NotNull StexgrammarParser.WhilestatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -130,6 +117,19 @@ public class StexgrammarBaseListener implements StexgrammarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitRef(@NotNull StexgrammarParser.RefContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNotoperation(@NotNull StexgrammarParser.NotoperationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNotoperation(@NotNull StexgrammarParser.NotoperationContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
@@ -299,6 +299,19 @@ public class StexgrammarBaseListener implements StexgrammarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitParamlist(@NotNull StexgrammarParser.ParamlistContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterOperationtype(@NotNull StexgrammarParser.OperationtypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOperationtype(@NotNull StexgrammarParser.OperationtypeContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

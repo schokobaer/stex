@@ -32,6 +32,7 @@ public class Operand {
 
 	public enum Type {
 		ID,
-		VAL
+		VAL,
+		TMP
 	}
 }

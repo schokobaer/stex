@@ -14,13 +14,6 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface StexgrammarVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link StexgrammarParser#initialisation}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitInitialisation(@NotNull StexgrammarParser.InitialisationContext ctx);
-
-	/**
 	 * Visit a parse tree produced by {@link StexgrammarParser#whilestatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -75,6 +68,13 @@ public interface StexgrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitRef(@NotNull StexgrammarParser.RefContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link StexgrammarParser#notoperation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNotoperation(@NotNull StexgrammarParser.NotoperationContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link StexgrammarParser#array}.
@@ -166,6 +166,13 @@ public interface StexgrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitParamlist(@NotNull StexgrammarParser.ParamlistContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link StexgrammarParser#operationtype}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOperationtype(@NotNull StexgrammarParser.OperationtypeContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link StexgrammarParser#ifstatement}.
