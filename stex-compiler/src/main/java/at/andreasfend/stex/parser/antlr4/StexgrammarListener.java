@@ -11,6 +11,17 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface StexgrammarListener extends ParseTreeListener {
 	/**
+	 * Enter a parse tree produced by {@link StexgrammarParser#initialisation}.
+	 * @param ctx the parse tree
+	 */
+	void enterInitialisation(@NotNull StexgrammarParser.InitialisationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link StexgrammarParser#initialisation}.
+	 * @param ctx the parse tree
+	 */
+	void exitInitialisation(@NotNull StexgrammarParser.InitialisationContext ctx);
+
+	/**
 	 * Enter a parse tree produced by {@link StexgrammarParser#whilestatement}.
 	 * @param ctx the parse tree
 	 */
@@ -20,6 +31,17 @@ public interface StexgrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitWhilestatement(@NotNull StexgrammarParser.WhilestatementContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link StexgrammarParser#deref}.
+	 * @param ctx the parse tree
+	 */
+	void enterDeref(@NotNull StexgrammarParser.DerefContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link StexgrammarParser#deref}.
+	 * @param ctx the parse tree
+	 */
+	void exitDeref(@NotNull StexgrammarParser.DerefContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link StexgrammarParser#functioncall}.
@@ -121,6 +143,28 @@ public interface StexgrammarListener extends ParseTreeListener {
 	void exitStatement(@NotNull StexgrammarParser.StatementContext ctx);
 
 	/**
+	 * Enter a parse tree produced by {@link StexgrammarParser#expressionop}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpressionop(@NotNull StexgrammarParser.ExpressionopContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link StexgrammarParser#expressionop}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpressionop(@NotNull StexgrammarParser.ExpressionopContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link StexgrammarParser#arrayaccess}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayaccess(@NotNull StexgrammarParser.ArrayaccessContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link StexgrammarParser#arrayaccess}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayaccess(@NotNull StexgrammarParser.ArrayaccessContext ctx);
+
+	/**
 	 * Enter a parse tree produced by {@link StexgrammarParser#returnstatement}.
 	 * @param ctx the parse tree
 	 */
@@ -143,15 +187,15 @@ public interface StexgrammarListener extends ParseTreeListener {
 	void exitVarstatement(@NotNull StexgrammarParser.VarstatementContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link StexgrammarParser#conditionlist}.
+	 * Enter a parse tree produced by {@link StexgrammarParser#identifier}.
 	 * @param ctx the parse tree
 	 */
-	void enterConditionlist(@NotNull StexgrammarParser.ConditionlistContext ctx);
+	void enterIdentifier(@NotNull StexgrammarParser.IdentifierContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link StexgrammarParser#conditionlist}.
+	 * Exit a parse tree produced by {@link StexgrammarParser#identifier}.
 	 * @param ctx the parse tree
 	 */
-	void exitConditionlist(@NotNull StexgrammarParser.ConditionlistContext ctx);
+	void exitIdentifier(@NotNull StexgrammarParser.IdentifierContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link StexgrammarParser#expression}.
@@ -163,6 +207,17 @@ public interface StexgrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitExpression(@NotNull StexgrammarParser.ExpressionContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link StexgrammarParser#objectfield}.
+	 * @param ctx the parse tree
+	 */
+	void enterObjectfield(@NotNull StexgrammarParser.ObjectfieldContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link StexgrammarParser#objectfield}.
+	 * @param ctx the parse tree
+	 */
+	void exitObjectfield(@NotNull StexgrammarParser.ObjectfieldContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link StexgrammarParser#assignstatement}.
@@ -198,39 +253,6 @@ public interface StexgrammarListener extends ParseTreeListener {
 	void exitParamlist(@NotNull StexgrammarParser.ParamlistContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link StexgrammarParser#arraywrite}.
-	 * @param ctx the parse tree
-	 */
-	void enterArraywrite(@NotNull StexgrammarParser.ArraywriteContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link StexgrammarParser#arraywrite}.
-	 * @param ctx the parse tree
-	 */
-	void exitArraywrite(@NotNull StexgrammarParser.ArraywriteContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link StexgrammarParser#arrayread}.
-	 * @param ctx the parse tree
-	 */
-	void enterArrayread(@NotNull StexgrammarParser.ArrayreadContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link StexgrammarParser#arrayread}.
-	 * @param ctx the parse tree
-	 */
-	void exitArrayread(@NotNull StexgrammarParser.ArrayreadContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link StexgrammarParser#condition}.
-	 * @param ctx the parse tree
-	 */
-	void enterCondition(@NotNull StexgrammarParser.ConditionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link StexgrammarParser#condition}.
-	 * @param ctx the parse tree
-	 */
-	void exitCondition(@NotNull StexgrammarParser.ConditionContext ctx);
-
-	/**
 	 * Enter a parse tree produced by {@link StexgrammarParser#ifstatement}.
 	 * @param ctx the parse tree
 	 */
@@ -240,6 +262,17 @@ public interface StexgrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIfstatement(@NotNull StexgrammarParser.IfstatementContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link StexgrammarParser#functioncallargs}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunctioncallargs(@NotNull StexgrammarParser.FunctioncallargsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link StexgrammarParser#functioncallargs}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunctioncallargs(@NotNull StexgrammarParser.FunctioncallargsContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link StexgrammarParser#assignee}.

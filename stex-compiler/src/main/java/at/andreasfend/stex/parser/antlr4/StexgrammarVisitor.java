@@ -14,11 +14,25 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface StexgrammarVisitor<T> extends ParseTreeVisitor<T> {
 	/**
+	 * Visit a parse tree produced by {@link StexgrammarParser#initialisation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInitialisation(@NotNull StexgrammarParser.InitialisationContext ctx);
+
+	/**
 	 * Visit a parse tree produced by {@link StexgrammarParser#whilestatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitWhilestatement(@NotNull StexgrammarParser.WhilestatementContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link StexgrammarParser#deref}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDeref(@NotNull StexgrammarParser.DerefContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link StexgrammarParser#functioncall}.
@@ -84,6 +98,20 @@ public interface StexgrammarVisitor<T> extends ParseTreeVisitor<T> {
 	T visitStatement(@NotNull StexgrammarParser.StatementContext ctx);
 
 	/**
+	 * Visit a parse tree produced by {@link StexgrammarParser#expressionop}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpressionop(@NotNull StexgrammarParser.ExpressionopContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link StexgrammarParser#arrayaccess}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayaccess(@NotNull StexgrammarParser.ArrayaccessContext ctx);
+
+	/**
 	 * Visit a parse tree produced by {@link StexgrammarParser#returnstatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -98,11 +126,11 @@ public interface StexgrammarVisitor<T> extends ParseTreeVisitor<T> {
 	T visitVarstatement(@NotNull StexgrammarParser.VarstatementContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link StexgrammarParser#conditionlist}.
+	 * Visit a parse tree produced by {@link StexgrammarParser#identifier}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitConditionlist(@NotNull StexgrammarParser.ConditionlistContext ctx);
+	T visitIdentifier(@NotNull StexgrammarParser.IdentifierContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link StexgrammarParser#expression}.
@@ -110,6 +138,13 @@ public interface StexgrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitExpression(@NotNull StexgrammarParser.ExpressionContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link StexgrammarParser#objectfield}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitObjectfield(@NotNull StexgrammarParser.ObjectfieldContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link StexgrammarParser#assignstatement}.
@@ -133,32 +168,18 @@ public interface StexgrammarVisitor<T> extends ParseTreeVisitor<T> {
 	T visitParamlist(@NotNull StexgrammarParser.ParamlistContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link StexgrammarParser#arraywrite}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitArraywrite(@NotNull StexgrammarParser.ArraywriteContext ctx);
-
-	/**
-	 * Visit a parse tree produced by {@link StexgrammarParser#arrayread}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitArrayread(@NotNull StexgrammarParser.ArrayreadContext ctx);
-
-	/**
-	 * Visit a parse tree produced by {@link StexgrammarParser#condition}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitCondition(@NotNull StexgrammarParser.ConditionContext ctx);
-
-	/**
 	 * Visit a parse tree produced by {@link StexgrammarParser#ifstatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitIfstatement(@NotNull StexgrammarParser.IfstatementContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link StexgrammarParser#functioncallargs}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunctioncallargs(@NotNull StexgrammarParser.FunctioncallargsContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link StexgrammarParser#assignee}.

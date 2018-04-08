@@ -2,8 +2,13 @@ main(args) {
 	var v1;
 	var v2 = "";
 	var v3 = [ ];
+	var v4 = {
+		alter = 2,
+		mann = true
+	};
 	
-	if(v1 > v2) {
+	var cond = v1 > v2;
+	if(cond) {
 		v1 = 14;
 	}
 	else {

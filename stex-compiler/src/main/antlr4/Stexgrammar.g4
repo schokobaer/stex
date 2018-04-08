@@ -15,47 +15,88 @@ paramlist:  (ID (',' ID)*)? ;
 
 statement:			(ifstatement|trystatement|whilestatement|throwstatement|returnstatement
 					 |assignstatement|varstatement);
-ifstatement:		'if' '(' conditionlist ')' '{' statement+ '}' ?elseblock ;
+					 
+ifstatement:		'if' '(' operand ')' '{' statement+ '}' ?elseblock ;
 elseblock:			'else' '{' statement+ '}' ;
+
 trystatement:		'try' '{' statement+ '}' catchblock ;
 catchblock:			'catch' '(' ID ')' '{' statement+ '}' ;
-whilestatement:		'while' '(' conditionlist ')' '{' statement+ '}' ;
-throwstatement:		'throw' expression ';' ;
-returnstatement:	'return' expression ';' ;
-assignstatement:	assignee '=' expression ';' ;
-varstatement:		'var' ID ('=' expression)? ';' ;
 
-conditionlist:	condition+ ;
-condition:		  expression
-				| condition 'and' condition
-				| condition 'or' condition
-				| 'not' expression;
+whilestatement:		'while' '(' operand ')' '{' statement+ '}' ;
+
+throwstatement:		'throw' initialisation ';' ;
+returnstatement:	'return' initialisation ';' ;
+
+assignstatement:	assignee '=' initialisation ';' ;
+varstatement:		'var' ID ('=' initialisation)? ';' ;
+
+initialisation:		(object|array|ref|expression);
 				
-expression:		(object|array|functioncall|operation|operand|ref);
-object:			'{' (ID '=' expression (',' ID '=' expression)*)? '}' ;
-array:			'[' (expression (',' expression)*)? ']';
-functioncall:	ID '(' (ID (',' ID)*)? ')' ;
-operation:		  operand '+' operand ('+' operand)*
-				| operand '-' operand ('-' operand)*
-				| operand '*' operand ('*' operand)*
-				| operand '/' operand ('/' operand)*
-				| operand '%' operand ('%' operand)*
-				| operand '==' operand
-				| operand '!=' operand
-				| operand '>' operand
-				| operand '<' operand
-				| operand 'in' operand;
-operand:		  ID
-				| VAL
-				| '?' ID
-				| arrayread ;
-arrayread:		ID '[' expression ']' ;
-ref:			'&' ID ;
+expression:		(functioncall|operation|operand|arrayaccess|deref);
+expressionop:	(functioncall|operand|arrayaccess|deref);
 
-assignee:		  ID
-				| '?' ID
+operand:		(identifier|VAL);
+identifier:		ID ('.' ID)* ;
+arrayaccess:	identifier '[' expression ']' ;
+
+object:				'{' objectfield (',' objectfield)* '}';
+objectfield:		ID ;
+
+array:				'[' (expression (',' expression)*)? ']' ;
+
+functioncall:		ID '(' functioncallargs ')' ;
+functioncallargs:	(expression (',' expression)*)? ;
+ref:				'&' identifier;
+deref:				'?' identifier;
+
+operation:			expressionop ('+'|'-'|'*'|'/'|'%'|'=='|'!='|'>'|'<'|'in'|'and'|'or') expression
+					| 'not' expression ;
+
+assignee:			deref | identifier | arrayaccess ;
+
+
+/*
+object:			'{' objectfields '}' ;
+objectfields:	ID '=' expression (',' ID '=' expression)* ;
+
+array:			'[' arrayelements ']';
+arrayelements:	(expression (',' expression)*)? ;
+
+functioncall:	ID '(' functioncallparams ')' ;
+functioncallparams:	(expression (',' expression)*)? ;
+
+operation:		  (addition|subtraktion|multiplikation|division|modulo|
+					isequal|isnotequal|bigger|smaller|isin);
+addition:		expression '+' expression ;
+subtraktion:	expression '-' expression ;
+multiplikation:	expression '*' expression ;
+division:		expression '/' expression ;
+modulo:			expression '%' expression ;
+isequal:		expression '==' expression ;
+isnotequal:		expression '!=' expression ;
+bigger:			expression '>' expression ;
+smaller:		expression '<' expression ;
+isin:			expression 'in' expression ;
+
+
+operand:		  identifier
+				| VAL
+				| '?' identifier
+				| arrayread 
+				| objectread ;
+identifier:		ID ('.' ID)* ;
+rarraylist:		(arrayaccess)* ;
+arrayread:		identifier (rarraylist | '.' ID)* arrayaccess ;
+objectread:		identifier (rarraylist | '.' ID)* '.' ID ;
+arrayaccess:	'[' expression ']' ;
+
+ref:			'&' identifier ;
+
+assignee:		  identifier
+				| '?' identifier
 				| arraywrite ;
-arraywrite:		ID '[' expression ']' assignee? ;
+arraywrite:		identifier (rarraylist | '.' ID)* arrayaccess;
+*/
 
 /*
  * Lexer Rules

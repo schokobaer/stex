@@ -19,31 +19,33 @@ public class StexgrammarParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__31=1, T__30=2, T__29=3, T__28=4, T__27=5, T__26=6, T__25=7, T__24=8, 
-		T__23=9, T__22=10, T__21=11, T__20=12, T__19=13, T__18=14, T__17=15, T__16=16, 
-		T__15=17, T__14=18, T__13=19, T__12=20, T__11=21, T__10=22, T__9=23, T__8=24, 
-		T__7=25, T__6=26, T__5=27, T__4=28, T__3=29, T__2=30, T__1=31, T__0=32, 
-		WHITESPACE=33, VAL=34, ID=35;
+		T__32=1, T__31=2, T__30=3, T__29=4, T__28=5, T__27=6, T__26=7, T__25=8, 
+		T__24=9, T__23=10, T__22=11, T__21=12, T__20=13, T__19=14, T__18=15, T__17=16, 
+		T__16=17, T__15=18, T__14=19, T__13=20, T__12=21, T__11=22, T__10=23, 
+		T__9=24, T__8=25, T__7=26, T__6=27, T__5=28, T__4=29, T__3=30, T__2=31, 
+		T__1=32, T__0=33, WHITESPACE=34, VAL=35, ID=36;
 	public static final String[] tokenNames = {
 		"<INVALID>", "'/'", "'catch'", "'return'", "'!='", "';'", "'while'", "'{'", 
-		"'='", "'}'", "'if'", "'?'", "'try'", "'&'", "'('", "'*'", "','", "'throw'", 
-		"'var'", "'['", "'<'", "'=='", "']'", "'>'", "'or'", "'%'", "'in'", "'else'", 
-		"')'", "'and'", "'+'", "'not'", "'-'", "WHITESPACE", "VAL", "ID"
+		"'='", "'}'", "'if'", "'?'", "'try'", "'&'", "'('", "'*'", "','", "'.'", 
+		"'throw'", "'var'", "'['", "'<'", "'=='", "']'", "'>'", "'or'", "'%'", 
+		"'in'", "'else'", "')'", "'and'", "'+'", "'not'", "'-'", "WHITESPACE", 
+		"VAL", "ID"
 	};
 	public static final int
 		RULE_program = 0, RULE_function = 1, RULE_paramlist = 2, RULE_statement = 3, 
 		RULE_ifstatement = 4, RULE_elseblock = 5, RULE_trystatement = 6, RULE_catchblock = 7, 
 		RULE_whilestatement = 8, RULE_throwstatement = 9, RULE_returnstatement = 10, 
-		RULE_assignstatement = 11, RULE_varstatement = 12, RULE_conditionlist = 13, 
-		RULE_condition = 14, RULE_expression = 15, RULE_object = 16, RULE_array = 17, 
-		RULE_functioncall = 18, RULE_operation = 19, RULE_operand = 20, RULE_arrayread = 21, 
-		RULE_ref = 22, RULE_assignee = 23, RULE_arraywrite = 24;
+		RULE_assignstatement = 11, RULE_varstatement = 12, RULE_initialisation = 13, 
+		RULE_expression = 14, RULE_expressionop = 15, RULE_operand = 16, RULE_identifier = 17, 
+		RULE_arrayaccess = 18, RULE_object = 19, RULE_objectfield = 20, RULE_array = 21, 
+		RULE_functioncall = 22, RULE_functioncallargs = 23, RULE_ref = 24, RULE_deref = 25, 
+		RULE_operation = 26, RULE_assignee = 27;
 	public static final String[] ruleNames = {
 		"program", "function", "paramlist", "statement", "ifstatement", "elseblock", 
 		"trystatement", "catchblock", "whilestatement", "throwstatement", "returnstatement", 
-		"assignstatement", "varstatement", "conditionlist", "condition", "expression", 
-		"object", "array", "functioncall", "operation", "operand", "arrayread", 
-		"ref", "assignee", "arraywrite"
+		"assignstatement", "varstatement", "initialisation", "expression", "expressionop", 
+		"operand", "identifier", "arrayaccess", "object", "objectfield", "array", 
+		"functioncall", "functioncallargs", "ref", "deref", "operation", "assignee"
 	};
 
 	@Override
@@ -98,16 +100,16 @@ public class StexgrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(51); 
+			setState(57); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(50); function();
+				setState(56); function();
 				}
 				}
-				setState(53); 
+				setState(59); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( _la==ID );
@@ -161,25 +163,25 @@ public class StexgrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(55); match(ID);
-			setState(56); match(T__18);
-			setState(57); paramlist();
-			setState(58); match(T__4);
-			setState(59); match(T__25);
-			setState(61); 
+			setState(61); match(ID);
+			setState(62); match(T__19);
+			setState(63); paramlist();
+			setState(64); match(T__4);
+			setState(65); match(T__26);
+			setState(67); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(60); statement();
+				setState(66); statement();
 				}
 				}
-				setState(63); 
+				setState(69); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__29) | (1L << T__26) | (1L << T__22) | (1L << T__21) | (1L << T__20) | (1L << T__15) | (1L << T__14) | (1L << ID))) != 0) );
-			setState(65); match(T__23);
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__30) | (1L << T__27) | (1L << T__23) | (1L << T__22) | (1L << T__21) | (1L << T__15) | (1L << T__14) | (1L << ID))) != 0) );
+			setState(71); match(T__24);
 			}
 		}
 		catch (RecognitionException re) {
@@ -224,22 +226,22 @@ public class StexgrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(75);
+			setState(81);
 			_la = _input.LA(1);
 			if (_la==ID) {
 				{
-				setState(67); match(ID);
-				setState(72);
+				setState(73); match(ID);
+				setState(78);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while (_la==T__16) {
+				while (_la==T__17) {
 					{
 					{
-					setState(68); match(T__16);
-					setState(69); match(ID);
+					setState(74); match(T__17);
+					setState(75); match(ID);
 					}
 					}
-					setState(74);
+					setState(80);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
@@ -306,42 +308,42 @@ public class StexgrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(84);
+			setState(90);
 			switch (_input.LA(1)) {
-			case T__22:
+			case T__23:
 				{
-				setState(77); ifstatement();
+				setState(83); ifstatement();
 				}
 				break;
-			case T__20:
+			case T__21:
 				{
-				setState(78); trystatement();
+				setState(84); trystatement();
 				}
 				break;
-			case T__26:
+			case T__27:
 				{
-				setState(79); whilestatement();
+				setState(85); whilestatement();
 				}
 				break;
 			case T__15:
 				{
-				setState(80); throwstatement();
+				setState(86); throwstatement();
 				}
 				break;
-			case T__29:
+			case T__30:
 				{
-				setState(81); returnstatement();
+				setState(87); returnstatement();
 				}
 				break;
-			case T__21:
+			case T__22:
 			case ID:
 				{
-				setState(82); assignstatement();
+				setState(88); assignstatement();
 				}
 				break;
 			case T__14:
 				{
-				setState(83); varstatement();
+				setState(89); varstatement();
 				}
 				break;
 			default:
@@ -361,9 +363,6 @@ public class StexgrammarParser extends Parser {
 	}
 
 	public static class IfstatementContext extends ParserRuleContext {
-		public ConditionlistContext conditionlist() {
-			return getRuleContext(ConditionlistContext.class,0);
-		}
 		public ElseblockContext elseblock() {
 			return getRuleContext(ElseblockContext.class,0);
 		}
@@ -372,6 +371,9 @@ public class StexgrammarParser extends Parser {
 		}
 		public List<StatementContext> statement() {
 			return getRuleContexts(StatementContext.class);
+		}
+		public OperandContext operand() {
+			return getRuleContext(OperandContext.class,0);
 		}
 		public IfstatementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -399,33 +401,33 @@ public class StexgrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(86); match(T__22);
-			setState(87); match(T__18);
-			setState(88); conditionlist();
-			setState(89); match(T__4);
-			setState(90); match(T__25);
-			setState(92); 
+			setState(92); match(T__23);
+			setState(93); match(T__19);
+			setState(94); operand();
+			setState(95); match(T__4);
+			setState(96); match(T__26);
+			setState(98); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(91); statement();
+				setState(97); statement();
 				}
 				}
-				setState(94); 
+				setState(100); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__29) | (1L << T__26) | (1L << T__22) | (1L << T__21) | (1L << T__20) | (1L << T__15) | (1L << T__14) | (1L << ID))) != 0) );
-			setState(97);
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__30) | (1L << T__27) | (1L << T__23) | (1L << T__22) | (1L << T__21) | (1L << T__15) | (1L << T__14) | (1L << ID))) != 0) );
+			setState(103);
 			_la = _input.LA(1);
-			if (_la==T__23) {
+			if (_la==T__24) {
 				{
-				setState(96); match(T__23);
+				setState(102); match(T__24);
 				}
 			}
 
-			setState(99); elseblock();
+			setState(105); elseblock();
 			}
 		}
 		catch (RecognitionException re) {
@@ -472,22 +474,22 @@ public class StexgrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(101); match(T__5);
-			setState(102); match(T__25);
-			setState(104); 
+			setState(107); match(T__5);
+			setState(108); match(T__26);
+			setState(110); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(103); statement();
+				setState(109); statement();
 				}
 				}
-				setState(106); 
+				setState(112); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__29) | (1L << T__26) | (1L << T__22) | (1L << T__21) | (1L << T__20) | (1L << T__15) | (1L << T__14) | (1L << ID))) != 0) );
-			setState(108); match(T__23);
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__30) | (1L << T__27) | (1L << T__23) | (1L << T__22) | (1L << T__21) | (1L << T__15) | (1L << T__14) | (1L << ID))) != 0) );
+			setState(114); match(T__24);
 			}
 		}
 		catch (RecognitionException re) {
@@ -537,23 +539,23 @@ public class StexgrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(110); match(T__20);
-			setState(111); match(T__25);
-			setState(113); 
+			setState(116); match(T__21);
+			setState(117); match(T__26);
+			setState(119); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(112); statement();
+				setState(118); statement();
 				}
 				}
-				setState(115); 
+				setState(121); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__29) | (1L << T__26) | (1L << T__22) | (1L << T__21) | (1L << T__20) | (1L << T__15) | (1L << T__14) | (1L << ID))) != 0) );
-			setState(117); match(T__23);
-			setState(118); catchblock();
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__30) | (1L << T__27) | (1L << T__23) | (1L << T__22) | (1L << T__21) | (1L << T__15) | (1L << T__14) | (1L << ID))) != 0) );
+			setState(123); match(T__24);
+			setState(124); catchblock();
 			}
 		}
 		catch (RecognitionException re) {
@@ -601,25 +603,25 @@ public class StexgrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(120); match(T__30);
-			setState(121); match(T__18);
-			setState(122); match(ID);
-			setState(123); match(T__4);
-			setState(124); match(T__25);
-			setState(126); 
+			setState(126); match(T__31);
+			setState(127); match(T__19);
+			setState(128); match(ID);
+			setState(129); match(T__4);
+			setState(130); match(T__26);
+			setState(132); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(125); statement();
+				setState(131); statement();
 				}
 				}
-				setState(128); 
+				setState(134); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__29) | (1L << T__26) | (1L << T__22) | (1L << T__21) | (1L << T__20) | (1L << T__15) | (1L << T__14) | (1L << ID))) != 0) );
-			setState(130); match(T__23);
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__30) | (1L << T__27) | (1L << T__23) | (1L << T__22) | (1L << T__21) | (1L << T__15) | (1L << T__14) | (1L << ID))) != 0) );
+			setState(136); match(T__24);
 			}
 		}
 		catch (RecognitionException re) {
@@ -634,14 +636,14 @@ public class StexgrammarParser extends Parser {
 	}
 
 	public static class WhilestatementContext extends ParserRuleContext {
-		public ConditionlistContext conditionlist() {
-			return getRuleContext(ConditionlistContext.class,0);
-		}
 		public StatementContext statement(int i) {
 			return getRuleContext(StatementContext.class,i);
 		}
 		public List<StatementContext> statement() {
 			return getRuleContexts(StatementContext.class);
+		}
+		public OperandContext operand() {
+			return getRuleContext(OperandContext.class,0);
 		}
 		public WhilestatementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -669,25 +671,25 @@ public class StexgrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(132); match(T__26);
-			setState(133); match(T__18);
-			setState(134); conditionlist();
-			setState(135); match(T__4);
-			setState(136); match(T__25);
-			setState(138); 
+			setState(138); match(T__27);
+			setState(139); match(T__19);
+			setState(140); operand();
+			setState(141); match(T__4);
+			setState(142); match(T__26);
+			setState(144); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(137); statement();
+				setState(143); statement();
 				}
 				}
-				setState(140); 
+				setState(146); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__29) | (1L << T__26) | (1L << T__22) | (1L << T__21) | (1L << T__20) | (1L << T__15) | (1L << T__14) | (1L << ID))) != 0) );
-			setState(142); match(T__23);
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__30) | (1L << T__27) | (1L << T__23) | (1L << T__22) | (1L << T__21) | (1L << T__15) | (1L << T__14) | (1L << ID))) != 0) );
+			setState(148); match(T__24);
 			}
 		}
 		catch (RecognitionException re) {
@@ -702,8 +704,8 @@ public class StexgrammarParser extends Parser {
 	}
 
 	public static class ThrowstatementContext extends ParserRuleContext {
-		public ExpressionContext expression() {
-			return getRuleContext(ExpressionContext.class,0);
+		public InitialisationContext initialisation() {
+			return getRuleContext(InitialisationContext.class,0);
 		}
 		public ThrowstatementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -730,9 +732,9 @@ public class StexgrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(144); match(T__15);
-			setState(145); expression();
-			setState(146); match(T__27);
+			setState(150); match(T__15);
+			setState(151); initialisation();
+			setState(152); match(T__28);
 			}
 		}
 		catch (RecognitionException re) {
@@ -747,8 +749,8 @@ public class StexgrammarParser extends Parser {
 	}
 
 	public static class ReturnstatementContext extends ParserRuleContext {
-		public ExpressionContext expression() {
-			return getRuleContext(ExpressionContext.class,0);
+		public InitialisationContext initialisation() {
+			return getRuleContext(InitialisationContext.class,0);
 		}
 		public ReturnstatementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -775,9 +777,9 @@ public class StexgrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(148); match(T__29);
-			setState(149); expression();
-			setState(150); match(T__27);
+			setState(154); match(T__30);
+			setState(155); initialisation();
+			setState(156); match(T__28);
 			}
 		}
 		catch (RecognitionException re) {
@@ -795,8 +797,8 @@ public class StexgrammarParser extends Parser {
 		public AssigneeContext assignee() {
 			return getRuleContext(AssigneeContext.class,0);
 		}
-		public ExpressionContext expression() {
-			return getRuleContext(ExpressionContext.class,0);
+		public InitialisationContext initialisation() {
+			return getRuleContext(InitialisationContext.class,0);
 		}
 		public AssignstatementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -823,10 +825,10 @@ public class StexgrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(152); assignee();
-			setState(153); match(T__24);
-			setState(154); expression();
-			setState(155); match(T__27);
+			setState(158); assignee();
+			setState(159); match(T__25);
+			setState(160); initialisation();
+			setState(161); match(T__28);
 			}
 		}
 		catch (RecognitionException re) {
@@ -842,8 +844,8 @@ public class StexgrammarParser extends Parser {
 
 	public static class VarstatementContext extends ParserRuleContext {
 		public TerminalNode ID() { return getToken(StexgrammarParser.ID, 0); }
-		public ExpressionContext expression() {
-			return getRuleContext(ExpressionContext.class,0);
+		public InitialisationContext initialisation() {
+			return getRuleContext(InitialisationContext.class,0);
 		}
 		public VarstatementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -871,18 +873,18 @@ public class StexgrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(157); match(T__14);
-			setState(158); match(ID);
-			setState(161);
+			setState(163); match(T__14);
+			setState(164); match(ID);
+			setState(167);
 			_la = _input.LA(1);
-			if (_la==T__24) {
+			if (_la==T__25) {
 				{
-				setState(159); match(T__24);
-				setState(160); expression();
+				setState(165); match(T__25);
+				setState(166); initialisation();
 				}
 			}
 
-			setState(163); match(T__27);
+			setState(169); match(T__28);
 			}
 		}
 		catch (RecognitionException re) {
@@ -896,200 +898,100 @@ public class StexgrammarParser extends Parser {
 		return _localctx;
 	}
 
-	public static class ConditionlistContext extends ParserRuleContext {
-		public ConditionContext condition(int i) {
-			return getRuleContext(ConditionContext.class,i);
-		}
-		public List<ConditionContext> condition() {
-			return getRuleContexts(ConditionContext.class);
-		}
-		public ConditionlistContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_conditionlist; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof StexgrammarListener ) ((StexgrammarListener)listener).enterConditionlist(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof StexgrammarListener ) ((StexgrammarListener)listener).exitConditionlist(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof StexgrammarVisitor ) return ((StexgrammarVisitor<? extends T>)visitor).visitConditionlist(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final ConditionlistContext conditionlist() throws RecognitionException {
-		ConditionlistContext _localctx = new ConditionlistContext(_ctx, getState());
-		enterRule(_localctx, 26, RULE_conditionlist);
-		int _la;
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(166); 
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			do {
-				{
-				{
-				setState(165); condition(0);
-				}
-				}
-				setState(168); 
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__25) | (1L << T__21) | (1L << T__19) | (1L << T__13) | (1L << T__1) | (1L << VAL) | (1L << ID))) != 0) );
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	public static class ConditionContext extends ParserRuleContext {
-		public ConditionContext condition(int i) {
-			return getRuleContext(ConditionContext.class,i);
-		}
-		public ExpressionContext expression() {
-			return getRuleContext(ExpressionContext.class,0);
-		}
-		public List<ConditionContext> condition() {
-			return getRuleContexts(ConditionContext.class);
-		}
-		public ConditionContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_condition; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof StexgrammarListener ) ((StexgrammarListener)listener).enterCondition(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof StexgrammarListener ) ((StexgrammarListener)listener).exitCondition(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof StexgrammarVisitor ) return ((StexgrammarVisitor<? extends T>)visitor).visitCondition(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final ConditionContext condition() throws RecognitionException {
-		return condition(0);
-	}
-
-	private ConditionContext condition(int _p) throws RecognitionException {
-		ParserRuleContext _parentctx = _ctx;
-		int _parentState = getState();
-		ConditionContext _localctx = new ConditionContext(_ctx, _parentState);
-		ConditionContext _prevctx = _localctx;
-		int _startState = 28;
-		enterRecursionRule(_localctx, 28, RULE_condition, _p);
-		try {
-			int _alt;
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(174);
-			switch (_input.LA(1)) {
-			case T__25:
-			case T__21:
-			case T__19:
-			case T__13:
-			case VAL:
-			case ID:
-				{
-				setState(171); expression();
-				}
-				break;
-			case T__1:
-				{
-				setState(172); match(T__1);
-				setState(173); expression();
-				}
-				break;
-			default:
-				throw new NoViableAltException(this);
-			}
-			_ctx.stop = _input.LT(-1);
-			setState(184);
-			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,15,_ctx);
-			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
-				if ( _alt==1 ) {
-					if ( _parseListeners!=null ) triggerExitRuleEvent();
-					_prevctx = _localctx;
-					{
-					setState(182);
-					switch ( getInterpreter().adaptivePredict(_input,14,_ctx) ) {
-					case 1:
-						{
-						_localctx = new ConditionContext(_parentctx, _parentState);
-						pushNewRecursionContext(_localctx, _startState, RULE_condition);
-						setState(176);
-						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
-						setState(177); match(T__3);
-						setState(178); condition(4);
-						}
-						break;
-
-					case 2:
-						{
-						_localctx = new ConditionContext(_parentctx, _parentState);
-						pushNewRecursionContext(_localctx, _startState, RULE_condition);
-						setState(179);
-						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
-						setState(180); match(T__8);
-						setState(181); condition(3);
-						}
-						break;
-					}
-					} 
-				}
-				setState(186);
-				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,15,_ctx);
-			}
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			unrollRecursionContexts(_parentctx);
-		}
-		return _localctx;
-	}
-
-	public static class ExpressionContext extends ParserRuleContext {
+	public static class InitialisationContext extends ParserRuleContext {
 		public RefContext ref() {
 			return getRuleContext(RefContext.class,0);
 		}
-		public OperationContext operation() {
-			return getRuleContext(OperationContext.class,0);
-		}
-		public FunctioncallContext functioncall() {
-			return getRuleContext(FunctioncallContext.class,0);
-		}
-		public OperandContext operand() {
-			return getRuleContext(OperandContext.class,0);
+		public ExpressionContext expression() {
+			return getRuleContext(ExpressionContext.class,0);
 		}
 		public ObjectContext object() {
 			return getRuleContext(ObjectContext.class,0);
 		}
 		public ArrayContext array() {
 			return getRuleContext(ArrayContext.class,0);
+		}
+		public InitialisationContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_initialisation; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof StexgrammarListener ) ((StexgrammarListener)listener).enterInitialisation(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof StexgrammarListener ) ((StexgrammarListener)listener).exitInitialisation(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof StexgrammarVisitor ) return ((StexgrammarVisitor<? extends T>)visitor).visitInitialisation(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final InitialisationContext initialisation() throws RecognitionException {
+		InitialisationContext _localctx = new InitialisationContext(_ctx, getState());
+		enterRule(_localctx, 26, RULE_initialisation);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(175);
+			switch (_input.LA(1)) {
+			case T__26:
+				{
+				setState(171); object();
+				}
+				break;
+			case T__13:
+				{
+				setState(172); array();
+				}
+				break;
+			case T__20:
+				{
+				setState(173); ref();
+				}
+				break;
+			case T__22:
+			case T__1:
+			case VAL:
+			case ID:
+				{
+				setState(174); expression();
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class ExpressionContext extends ParserRuleContext {
+		public DerefContext deref() {
+			return getRuleContext(DerefContext.class,0);
+		}
+		public OperationContext operation() {
+			return getRuleContext(OperationContext.class,0);
+		}
+		public ArrayaccessContext arrayaccess() {
+			return getRuleContext(ArrayaccessContext.class,0);
+		}
+		public FunctioncallContext functioncall() {
+			return getRuleContext(FunctioncallContext.class,0);
+		}
+		public OperandContext operand() {
+			return getRuleContext(OperandContext.class,0);
 		}
 		public ExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -1112,45 +1014,39 @@ public class StexgrammarParser extends Parser {
 
 	public final ExpressionContext expression() throws RecognitionException {
 		ExpressionContext _localctx = new ExpressionContext(_ctx, getState());
-		enterRule(_localctx, 30, RULE_expression);
+		enterRule(_localctx, 28, RULE_expression);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(193);
-			switch ( getInterpreter().adaptivePredict(_input,16,_ctx) ) {
+			setState(182);
+			switch ( getInterpreter().adaptivePredict(_input,13,_ctx) ) {
 			case 1:
 				{
-				setState(187); object();
+				setState(177); functioncall();
 				}
 				break;
 
 			case 2:
 				{
-				setState(188); array();
+				setState(178); operation();
 				}
 				break;
 
 			case 3:
 				{
-				setState(189); functioncall();
+				setState(179); operand();
 				}
 				break;
 
 			case 4:
 				{
-				setState(190); operation();
+				setState(180); arrayaccess();
 				}
 				break;
 
 			case 5:
 				{
-				setState(191); operand();
-				}
-				break;
-
-			case 6:
-				{
-				setState(192); ref();
+				setState(181); deref();
 				}
 				break;
 			}
@@ -1167,16 +1063,255 @@ public class StexgrammarParser extends Parser {
 		return _localctx;
 	}
 
-	public static class ObjectContext extends ParserRuleContext {
-		public List<TerminalNode> ID() { return getTokens(StexgrammarParser.ID); }
-		public ExpressionContext expression(int i) {
-			return getRuleContext(ExpressionContext.class,i);
+	public static class ExpressionopContext extends ParserRuleContext {
+		public DerefContext deref() {
+			return getRuleContext(DerefContext.class,0);
 		}
+		public ArrayaccessContext arrayaccess() {
+			return getRuleContext(ArrayaccessContext.class,0);
+		}
+		public FunctioncallContext functioncall() {
+			return getRuleContext(FunctioncallContext.class,0);
+		}
+		public OperandContext operand() {
+			return getRuleContext(OperandContext.class,0);
+		}
+		public ExpressionopContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_expressionop; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof StexgrammarListener ) ((StexgrammarListener)listener).enterExpressionop(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof StexgrammarListener ) ((StexgrammarListener)listener).exitExpressionop(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof StexgrammarVisitor ) return ((StexgrammarVisitor<? extends T>)visitor).visitExpressionop(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final ExpressionopContext expressionop() throws RecognitionException {
+		ExpressionopContext _localctx = new ExpressionopContext(_ctx, getState());
+		enterRule(_localctx, 30, RULE_expressionop);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(188);
+			switch ( getInterpreter().adaptivePredict(_input,14,_ctx) ) {
+			case 1:
+				{
+				setState(184); functioncall();
+				}
+				break;
+
+			case 2:
+				{
+				setState(185); operand();
+				}
+				break;
+
+			case 3:
+				{
+				setState(186); arrayaccess();
+				}
+				break;
+
+			case 4:
+				{
+				setState(187); deref();
+				}
+				break;
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class OperandContext extends ParserRuleContext {
+		public TerminalNode VAL() { return getToken(StexgrammarParser.VAL, 0); }
+		public IdentifierContext identifier() {
+			return getRuleContext(IdentifierContext.class,0);
+		}
+		public OperandContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_operand; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof StexgrammarListener ) ((StexgrammarListener)listener).enterOperand(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof StexgrammarListener ) ((StexgrammarListener)listener).exitOperand(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof StexgrammarVisitor ) return ((StexgrammarVisitor<? extends T>)visitor).visitOperand(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final OperandContext operand() throws RecognitionException {
+		OperandContext _localctx = new OperandContext(_ctx, getState());
+		enterRule(_localctx, 32, RULE_operand);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(192);
+			switch (_input.LA(1)) {
+			case ID:
+				{
+				setState(190); identifier();
+				}
+				break;
+			case VAL:
+				{
+				setState(191); match(VAL);
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class IdentifierContext extends ParserRuleContext {
+		public List<TerminalNode> ID() { return getTokens(StexgrammarParser.ID); }
 		public TerminalNode ID(int i) {
 			return getToken(StexgrammarParser.ID, i);
 		}
-		public List<ExpressionContext> expression() {
-			return getRuleContexts(ExpressionContext.class);
+		public IdentifierContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_identifier; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof StexgrammarListener ) ((StexgrammarListener)listener).enterIdentifier(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof StexgrammarListener ) ((StexgrammarListener)listener).exitIdentifier(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof StexgrammarVisitor ) return ((StexgrammarVisitor<? extends T>)visitor).visitIdentifier(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final IdentifierContext identifier() throws RecognitionException {
+		IdentifierContext _localctx = new IdentifierContext(_ctx, getState());
+		enterRule(_localctx, 34, RULE_identifier);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(194); match(ID);
+			setState(199);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			while (_la==T__16) {
+				{
+				{
+				setState(195); match(T__16);
+				setState(196); match(ID);
+				}
+				}
+				setState(201);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class ArrayaccessContext extends ParserRuleContext {
+		public IdentifierContext identifier() {
+			return getRuleContext(IdentifierContext.class,0);
+		}
+		public ExpressionContext expression() {
+			return getRuleContext(ExpressionContext.class,0);
+		}
+		public ArrayaccessContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_arrayaccess; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof StexgrammarListener ) ((StexgrammarListener)listener).enterArrayaccess(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof StexgrammarListener ) ((StexgrammarListener)listener).exitArrayaccess(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof StexgrammarVisitor ) return ((StexgrammarVisitor<? extends T>)visitor).visitArrayaccess(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final ArrayaccessContext arrayaccess() throws RecognitionException {
+		ArrayaccessContext _localctx = new ArrayaccessContext(_ctx, getState());
+		enterRule(_localctx, 36, RULE_arrayaccess);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(202); identifier();
+			setState(203); match(T__13);
+			setState(204); expression();
+			setState(205); match(T__10);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class ObjectContext extends ParserRuleContext {
+		public ObjectfieldContext objectfield(int i) {
+			return getRuleContext(ObjectfieldContext.class,i);
+		}
+		public List<ObjectfieldContext> objectfield() {
+			return getRuleContexts(ObjectfieldContext.class);
 		}
 		public ObjectContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -1199,39 +1334,69 @@ public class StexgrammarParser extends Parser {
 
 	public final ObjectContext object() throws RecognitionException {
 		ObjectContext _localctx = new ObjectContext(_ctx, getState());
-		enterRule(_localctx, 32, RULE_object);
+		enterRule(_localctx, 38, RULE_object);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(195); match(T__25);
-			setState(208);
+			setState(207); match(T__26);
+			setState(208); objectfield();
+			setState(213);
+			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (_la==ID) {
+			while (_la==T__17) {
 				{
-				setState(196); match(ID);
-				setState(197); match(T__24);
-				setState(198); expression();
-				setState(205);
+				{
+				setState(209); match(T__17);
+				setState(210); objectfield();
+				}
+				}
+				setState(215);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while (_la==T__16) {
-					{
-					{
-					setState(199); match(T__16);
-					setState(200); match(ID);
-					setState(201); match(T__24);
-					setState(202); expression();
-					}
-					}
-					setState(207);
-					_errHandler.sync(this);
-					_la = _input.LA(1);
-				}
-				}
 			}
+			setState(216); match(T__24);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
 
-			setState(210); match(T__23);
+	public static class ObjectfieldContext extends ParserRuleContext {
+		public TerminalNode ID() { return getToken(StexgrammarParser.ID, 0); }
+		public ObjectfieldContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_objectfield; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof StexgrammarListener ) ((StexgrammarListener)listener).enterObjectfield(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof StexgrammarListener ) ((StexgrammarListener)listener).exitObjectfield(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof StexgrammarVisitor ) return ((StexgrammarVisitor<? extends T>)visitor).visitObjectfield(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final ObjectfieldContext objectfield() throws RecognitionException {
+		ObjectfieldContext _localctx = new ObjectfieldContext(_ctx, getState());
+		enterRule(_localctx, 40, RULE_objectfield);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(218); match(ID);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1273,35 +1438,35 @@ public class StexgrammarParser extends Parser {
 
 	public final ArrayContext array() throws RecognitionException {
 		ArrayContext _localctx = new ArrayContext(_ctx, getState());
-		enterRule(_localctx, 34, RULE_array);
+		enterRule(_localctx, 42, RULE_array);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(212); match(T__13);
-			setState(221);
+			setState(220); match(T__13);
+			setState(229);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__25) | (1L << T__21) | (1L << T__19) | (1L << T__13) | (1L << VAL) | (1L << ID))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__22) | (1L << T__1) | (1L << VAL) | (1L << ID))) != 0)) {
 				{
-				setState(213); expression();
-				setState(218);
+				setState(221); expression();
+				setState(226);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while (_la==T__16) {
+				while (_la==T__17) {
 					{
 					{
-					setState(214); match(T__16);
-					setState(215); expression();
+					setState(222); match(T__17);
+					setState(223); expression();
 					}
 					}
-					setState(220);
+					setState(228);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
 				}
 			}
 
-			setState(223); match(T__10);
+			setState(231); match(T__10);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1316,9 +1481,9 @@ public class StexgrammarParser extends Parser {
 	}
 
 	public static class FunctioncallContext extends ParserRuleContext {
-		public List<TerminalNode> ID() { return getTokens(StexgrammarParser.ID); }
-		public TerminalNode ID(int i) {
-			return getToken(StexgrammarParser.ID, i);
+		public TerminalNode ID() { return getToken(StexgrammarParser.ID, 0); }
+		public FunctioncallargsContext functioncallargs() {
+			return getRuleContext(FunctioncallargsContext.class,0);
 		}
 		public FunctioncallContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -1341,36 +1506,170 @@ public class StexgrammarParser extends Parser {
 
 	public final FunctioncallContext functioncall() throws RecognitionException {
 		FunctioncallContext _localctx = new FunctioncallContext(_ctx, getState());
-		enterRule(_localctx, 36, RULE_functioncall);
+		enterRule(_localctx, 44, RULE_functioncall);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(233); match(ID);
+			setState(234); match(T__19);
+			setState(235); functioncallargs();
+			setState(236); match(T__4);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class FunctioncallargsContext extends ParserRuleContext {
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
+		public List<ExpressionContext> expression() {
+			return getRuleContexts(ExpressionContext.class);
+		}
+		public FunctioncallargsContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_functioncallargs; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof StexgrammarListener ) ((StexgrammarListener)listener).enterFunctioncallargs(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof StexgrammarListener ) ((StexgrammarListener)listener).exitFunctioncallargs(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof StexgrammarVisitor ) return ((StexgrammarVisitor<? extends T>)visitor).visitFunctioncallargs(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final FunctioncallargsContext functioncallargs() throws RecognitionException {
+		FunctioncallargsContext _localctx = new FunctioncallargsContext(_ctx, getState());
+		enterRule(_localctx, 46, RULE_functioncallargs);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(225); match(ID);
-			setState(226); match(T__18);
-			setState(235);
+			setState(246);
 			_la = _input.LA(1);
-			if (_la==ID) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__22) | (1L << T__1) | (1L << VAL) | (1L << ID))) != 0)) {
 				{
-				setState(227); match(ID);
-				setState(232);
+				setState(238); expression();
+				setState(243);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while (_la==T__16) {
+				while (_la==T__17) {
 					{
 					{
-					setState(228); match(T__16);
-					setState(229); match(ID);
+					setState(239); match(T__17);
+					setState(240); expression();
 					}
 					}
-					setState(234);
+					setState(245);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
 				}
 			}
 
-			setState(237); match(T__4);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class RefContext extends ParserRuleContext {
+		public IdentifierContext identifier() {
+			return getRuleContext(IdentifierContext.class,0);
+		}
+		public RefContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_ref; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof StexgrammarListener ) ((StexgrammarListener)listener).enterRef(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof StexgrammarListener ) ((StexgrammarListener)listener).exitRef(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof StexgrammarVisitor ) return ((StexgrammarVisitor<? extends T>)visitor).visitRef(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final RefContext ref() throws RecognitionException {
+		RefContext _localctx = new RefContext(_ctx, getState());
+		enterRule(_localctx, 48, RULE_ref);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(248); match(T__20);
+			setState(249); identifier();
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class DerefContext extends ParserRuleContext {
+		public IdentifierContext identifier() {
+			return getRuleContext(IdentifierContext.class,0);
+		}
+		public DerefContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_deref; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof StexgrammarListener ) ((StexgrammarListener)listener).enterDeref(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof StexgrammarListener ) ((StexgrammarListener)listener).exitDeref(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof StexgrammarVisitor ) return ((StexgrammarVisitor<? extends T>)visitor).visitDeref(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final DerefContext deref() throws RecognitionException {
+		DerefContext _localctx = new DerefContext(_ctx, getState());
+		enterRule(_localctx, 50, RULE_deref);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(251); match(T__22);
+			setState(252); identifier();
 			}
 		}
 		catch (RecognitionException re) {
@@ -1385,11 +1684,11 @@ public class StexgrammarParser extends Parser {
 	}
 
 	public static class OperationContext extends ParserRuleContext {
-		public List<OperandContext> operand() {
-			return getRuleContexts(OperandContext.class);
+		public ExpressionopContext expressionop() {
+			return getRuleContext(ExpressionopContext.class,0);
 		}
-		public OperandContext operand(int i) {
-			return getRuleContext(OperandContext.class,i);
+		public ExpressionContext expression() {
+			return getRuleContext(ExpressionContext.class,0);
 		}
 		public OperationContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -1412,341 +1711,35 @@ public class StexgrammarParser extends Parser {
 
 	public final OperationContext operation() throws RecognitionException {
 		OperationContext _localctx = new OperationContext(_ctx, getState());
-		enterRule(_localctx, 38, RULE_operation);
+		enterRule(_localctx, 52, RULE_operation);
+		int _la;
 		try {
-			int _alt;
-			setState(309);
-			switch ( getInterpreter().adaptivePredict(_input,28,_ctx) ) {
-			case 1:
+			setState(260);
+			switch (_input.LA(1)) {
+			case T__22:
+			case VAL:
+			case ID:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(239); operand();
-				setState(240); match(T__2);
-				setState(241); operand();
-				setState(246);
-				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,23,_ctx);
-				while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
-					if ( _alt==1 ) {
-						{
-						{
-						setState(242); match(T__2);
-						setState(243); operand();
-						}
-						} 
-					}
-					setState(248);
-					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,23,_ctx);
+				setState(254); expressionop();
+				setState(255);
+				_la = _input.LA(1);
+				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__32) | (1L << T__29) | (1L << T__18) | (1L << T__12) | (1L << T__11) | (1L << T__9) | (1L << T__8) | (1L << T__7) | (1L << T__6) | (1L << T__3) | (1L << T__2) | (1L << T__0))) != 0)) ) {
+				_errHandler.recoverInline(this);
 				}
+				consume();
+				setState(256); expression();
 				}
 				break;
-
-			case 2:
+			case T__1:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(249); operand();
-				setState(250); match(T__0);
-				setState(251); operand();
-				setState(256);
-				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,24,_ctx);
-				while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
-					if ( _alt==1 ) {
-						{
-						{
-						setState(252); match(T__0);
-						setState(253); operand();
-						}
-						} 
-					}
-					setState(258);
-					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,24,_ctx);
-				}
+				setState(258); match(T__1);
+				setState(259); expression();
 				}
 				break;
-
-			case 3:
-				enterOuterAlt(_localctx, 3);
-				{
-				setState(259); operand();
-				setState(260); match(T__17);
-				setState(261); operand();
-				setState(266);
-				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,25,_ctx);
-				while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
-					if ( _alt==1 ) {
-						{
-						{
-						setState(262); match(T__17);
-						setState(263); operand();
-						}
-						} 
-					}
-					setState(268);
-					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,25,_ctx);
-				}
-				}
-				break;
-
-			case 4:
-				enterOuterAlt(_localctx, 4);
-				{
-				setState(269); operand();
-				setState(270); match(T__31);
-				setState(271); operand();
-				setState(276);
-				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,26,_ctx);
-				while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
-					if ( _alt==1 ) {
-						{
-						{
-						setState(272); match(T__31);
-						setState(273); operand();
-						}
-						} 
-					}
-					setState(278);
-					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,26,_ctx);
-				}
-				}
-				break;
-
-			case 5:
-				enterOuterAlt(_localctx, 5);
-				{
-				setState(279); operand();
-				setState(280); match(T__7);
-				setState(281); operand();
-				setState(286);
-				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,27,_ctx);
-				while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
-					if ( _alt==1 ) {
-						{
-						{
-						setState(282); match(T__7);
-						setState(283); operand();
-						}
-						} 
-					}
-					setState(288);
-					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,27,_ctx);
-				}
-				}
-				break;
-
-			case 6:
-				enterOuterAlt(_localctx, 6);
-				{
-				setState(289); operand();
-				setState(290); match(T__11);
-				setState(291); operand();
-				}
-				break;
-
-			case 7:
-				enterOuterAlt(_localctx, 7);
-				{
-				setState(293); operand();
-				setState(294); match(T__28);
-				setState(295); operand();
-				}
-				break;
-
-			case 8:
-				enterOuterAlt(_localctx, 8);
-				{
-				setState(297); operand();
-				setState(298); match(T__9);
-				setState(299); operand();
-				}
-				break;
-
-			case 9:
-				enterOuterAlt(_localctx, 9);
-				{
-				setState(301); operand();
-				setState(302); match(T__12);
-				setState(303); operand();
-				}
-				break;
-
-			case 10:
-				enterOuterAlt(_localctx, 10);
-				{
-				setState(305); operand();
-				setState(306); match(T__6);
-				setState(307); operand();
-				}
-				break;
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	public static class OperandContext extends ParserRuleContext {
-		public TerminalNode ID() { return getToken(StexgrammarParser.ID, 0); }
-		public TerminalNode VAL() { return getToken(StexgrammarParser.VAL, 0); }
-		public ArrayreadContext arrayread() {
-			return getRuleContext(ArrayreadContext.class,0);
-		}
-		public OperandContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_operand; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof StexgrammarListener ) ((StexgrammarListener)listener).enterOperand(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof StexgrammarListener ) ((StexgrammarListener)listener).exitOperand(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof StexgrammarVisitor ) return ((StexgrammarVisitor<? extends T>)visitor).visitOperand(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final OperandContext operand() throws RecognitionException {
-		OperandContext _localctx = new OperandContext(_ctx, getState());
-		enterRule(_localctx, 40, RULE_operand);
-		try {
-			setState(316);
-			switch ( getInterpreter().adaptivePredict(_input,29,_ctx) ) {
-			case 1:
-				enterOuterAlt(_localctx, 1);
-				{
-				setState(311); match(ID);
-				}
-				break;
-
-			case 2:
-				enterOuterAlt(_localctx, 2);
-				{
-				setState(312); match(VAL);
-				}
-				break;
-
-			case 3:
-				enterOuterAlt(_localctx, 3);
-				{
-				setState(313); match(T__21);
-				setState(314); match(ID);
-				}
-				break;
-
-			case 4:
-				enterOuterAlt(_localctx, 4);
-				{
-				setState(315); arrayread();
-				}
-				break;
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	public static class ArrayreadContext extends ParserRuleContext {
-		public TerminalNode ID() { return getToken(StexgrammarParser.ID, 0); }
-		public ExpressionContext expression() {
-			return getRuleContext(ExpressionContext.class,0);
-		}
-		public ArrayreadContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_arrayread; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof StexgrammarListener ) ((StexgrammarListener)listener).enterArrayread(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof StexgrammarListener ) ((StexgrammarListener)listener).exitArrayread(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof StexgrammarVisitor ) return ((StexgrammarVisitor<? extends T>)visitor).visitArrayread(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final ArrayreadContext arrayread() throws RecognitionException {
-		ArrayreadContext _localctx = new ArrayreadContext(_ctx, getState());
-		enterRule(_localctx, 42, RULE_arrayread);
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(318); match(ID);
-			setState(319); match(T__13);
-			setState(320); expression();
-			setState(321); match(T__10);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	public static class RefContext extends ParserRuleContext {
-		public TerminalNode ID() { return getToken(StexgrammarParser.ID, 0); }
-		public RefContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_ref; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof StexgrammarListener ) ((StexgrammarListener)listener).enterRef(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof StexgrammarListener ) ((StexgrammarListener)listener).exitRef(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof StexgrammarVisitor ) return ((StexgrammarVisitor<? extends T>)visitor).visitRef(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final RefContext ref() throws RecognitionException {
-		RefContext _localctx = new RefContext(_ctx, getState());
-		enterRule(_localctx, 44, RULE_ref);
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(323); match(T__19);
-			setState(324); match(ID);
+			default:
+				throw new NoViableAltException(this);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1761,9 +1754,14 @@ public class StexgrammarParser extends Parser {
 	}
 
 	public static class AssigneeContext extends ParserRuleContext {
-		public TerminalNode ID() { return getToken(StexgrammarParser.ID, 0); }
-		public ArraywriteContext arraywrite() {
-			return getRuleContext(ArraywriteContext.class,0);
+		public DerefContext deref() {
+			return getRuleContext(DerefContext.class,0);
+		}
+		public IdentifierContext identifier() {
+			return getRuleContext(IdentifierContext.class,0);
+		}
+		public ArrayaccessContext arrayaccess() {
+			return getRuleContext(ArrayaccessContext.class,0);
 		}
 		public AssigneeContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -1786,29 +1784,28 @@ public class StexgrammarParser extends Parser {
 
 	public final AssigneeContext assignee() throws RecognitionException {
 		AssigneeContext _localctx = new AssigneeContext(_ctx, getState());
-		enterRule(_localctx, 46, RULE_assignee);
+		enterRule(_localctx, 54, RULE_assignee);
 		try {
-			setState(330);
-			switch ( getInterpreter().adaptivePredict(_input,30,_ctx) ) {
+			setState(265);
+			switch ( getInterpreter().adaptivePredict(_input,23,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(326); match(ID);
+				setState(262); deref();
 				}
 				break;
 
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(327); match(T__21);
-				setState(328); match(ID);
+				setState(263); identifier();
 				}
 				break;
 
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(329); arraywrite();
+				setState(264); arrayaccess();
 				}
 				break;
 			}
@@ -1824,201 +1821,96 @@ public class StexgrammarParser extends Parser {
 		return _localctx;
 	}
 
-	public static class ArraywriteContext extends ParserRuleContext {
-		public TerminalNode ID() { return getToken(StexgrammarParser.ID, 0); }
-		public AssigneeContext assignee() {
-			return getRuleContext(AssigneeContext.class,0);
-		}
-		public ExpressionContext expression() {
-			return getRuleContext(ExpressionContext.class,0);
-		}
-		public ArraywriteContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_arraywrite; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof StexgrammarListener ) ((StexgrammarListener)listener).enterArraywrite(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof StexgrammarListener ) ((StexgrammarListener)listener).exitArraywrite(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof StexgrammarVisitor ) return ((StexgrammarVisitor<? extends T>)visitor).visitArraywrite(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final ArraywriteContext arraywrite() throws RecognitionException {
-		ArraywriteContext _localctx = new ArraywriteContext(_ctx, getState());
-		enterRule(_localctx, 48, RULE_arraywrite);
-		int _la;
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(332); match(ID);
-			setState(333); match(T__13);
-			setState(334); expression();
-			setState(335); match(T__10);
-			setState(337);
-			_la = _input.LA(1);
-			if (_la==T__21 || _la==ID) {
-				{
-				setState(336); assignee();
-				}
-			}
-
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	public boolean sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
-		switch (ruleIndex) {
-		case 14: return condition_sempred((ConditionContext)_localctx, predIndex);
-		}
-		return true;
-	}
-	private boolean condition_sempred(ConditionContext _localctx, int predIndex) {
-		switch (predIndex) {
-		case 0: return precpred(_ctx, 3);
-
-		case 1: return precpred(_ctx, 2);
-		}
-		return true;
-	}
-
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3%\u0156\4\2\t\2\4"+
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3&\u010e\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31\t\31"+
-		"\4\32\t\32\3\2\6\2\66\n\2\r\2\16\2\67\3\3\3\3\3\3\3\3\3\3\3\3\6\3@\n\3"+
-		"\r\3\16\3A\3\3\3\3\3\4\3\4\3\4\7\4I\n\4\f\4\16\4L\13\4\5\4N\n\4\3\5\3"+
-		"\5\3\5\3\5\3\5\3\5\3\5\5\5W\n\5\3\6\3\6\3\6\3\6\3\6\3\6\6\6_\n\6\r\6\16"+
-		"\6`\3\6\5\6d\n\6\3\6\3\6\3\7\3\7\3\7\6\7k\n\7\r\7\16\7l\3\7\3\7\3\b\3"+
-		"\b\3\b\6\bt\n\b\r\b\16\bu\3\b\3\b\3\b\3\t\3\t\3\t\3\t\3\t\3\t\6\t\u0081"+
-		"\n\t\r\t\16\t\u0082\3\t\3\t\3\n\3\n\3\n\3\n\3\n\3\n\6\n\u008d\n\n\r\n"+
-		"\16\n\u008e\3\n\3\n\3\13\3\13\3\13\3\13\3\f\3\f\3\f\3\f\3\r\3\r\3\r\3"+
-		"\r\3\r\3\16\3\16\3\16\3\16\5\16\u00a4\n\16\3\16\3\16\3\17\6\17\u00a9\n"+
-		"\17\r\17\16\17\u00aa\3\20\3\20\3\20\3\20\5\20\u00b1\n\20\3\20\3\20\3\20"+
-		"\3\20\3\20\3\20\7\20\u00b9\n\20\f\20\16\20\u00bc\13\20\3\21\3\21\3\21"+
-		"\3\21\3\21\3\21\5\21\u00c4\n\21\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22"+
-		"\7\22\u00ce\n\22\f\22\16\22\u00d1\13\22\5\22\u00d3\n\22\3\22\3\22\3\23"+
-		"\3\23\3\23\3\23\7\23\u00db\n\23\f\23\16\23\u00de\13\23\5\23\u00e0\n\23"+
-		"\3\23\3\23\3\24\3\24\3\24\3\24\3\24\7\24\u00e9\n\24\f\24\16\24\u00ec\13"+
-		"\24\5\24\u00ee\n\24\3\24\3\24\3\25\3\25\3\25\3\25\3\25\7\25\u00f7\n\25"+
-		"\f\25\16\25\u00fa\13\25\3\25\3\25\3\25\3\25\3\25\7\25\u0101\n\25\f\25"+
-		"\16\25\u0104\13\25\3\25\3\25\3\25\3\25\3\25\7\25\u010b\n\25\f\25\16\25"+
-		"\u010e\13\25\3\25\3\25\3\25\3\25\3\25\7\25\u0115\n\25\f\25\16\25\u0118"+
-		"\13\25\3\25\3\25\3\25\3\25\3\25\7\25\u011f\n\25\f\25\16\25\u0122\13\25"+
-		"\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25"+
-		"\3\25\3\25\3\25\3\25\3\25\3\25\5\25\u0138\n\25\3\26\3\26\3\26\3\26\3\26"+
-		"\5\26\u013f\n\26\3\27\3\27\3\27\3\27\3\27\3\30\3\30\3\30\3\31\3\31\3\31"+
-		"\3\31\5\31\u014d\n\31\3\32\3\32\3\32\3\32\3\32\5\32\u0154\n\32\3\32\2"+
-		"\3\36\33\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$&(*,.\60\62\2\2\u0170"+
-		"\2\65\3\2\2\2\49\3\2\2\2\6M\3\2\2\2\bV\3\2\2\2\nX\3\2\2\2\fg\3\2\2\2\16"+
-		"p\3\2\2\2\20z\3\2\2\2\22\u0086\3\2\2\2\24\u0092\3\2\2\2\26\u0096\3\2\2"+
-		"\2\30\u009a\3\2\2\2\32\u009f\3\2\2\2\34\u00a8\3\2\2\2\36\u00b0\3\2\2\2"+
-		" \u00c3\3\2\2\2\"\u00c5\3\2\2\2$\u00d6\3\2\2\2&\u00e3\3\2\2\2(\u0137\3"+
-		"\2\2\2*\u013e\3\2\2\2,\u0140\3\2\2\2.\u0145\3\2\2\2\60\u014c\3\2\2\2\62"+
-		"\u014e\3\2\2\2\64\66\5\4\3\2\65\64\3\2\2\2\66\67\3\2\2\2\67\65\3\2\2\2"+
-		"\678\3\2\2\28\3\3\2\2\29:\7%\2\2:;\7\20\2\2;<\5\6\4\2<=\7\36\2\2=?\7\t"+
-		"\2\2>@\5\b\5\2?>\3\2\2\2@A\3\2\2\2A?\3\2\2\2AB\3\2\2\2BC\3\2\2\2CD\7\13"+
-		"\2\2D\5\3\2\2\2EJ\7%\2\2FG\7\22\2\2GI\7%\2\2HF\3\2\2\2IL\3\2\2\2JH\3\2"+
-		"\2\2JK\3\2\2\2KN\3\2\2\2LJ\3\2\2\2ME\3\2\2\2MN\3\2\2\2N\7\3\2\2\2OW\5"+
-		"\n\6\2PW\5\16\b\2QW\5\22\n\2RW\5\24\13\2SW\5\26\f\2TW\5\30\r\2UW\5\32"+
-		"\16\2VO\3\2\2\2VP\3\2\2\2VQ\3\2\2\2VR\3\2\2\2VS\3\2\2\2VT\3\2\2\2VU\3"+
-		"\2\2\2W\t\3\2\2\2XY\7\f\2\2YZ\7\20\2\2Z[\5\34\17\2[\\\7\36\2\2\\^\7\t"+
-		"\2\2]_\5\b\5\2^]\3\2\2\2_`\3\2\2\2`^\3\2\2\2`a\3\2\2\2ac\3\2\2\2bd\7\13"+
-		"\2\2cb\3\2\2\2cd\3\2\2\2de\3\2\2\2ef\5\f\7\2f\13\3\2\2\2gh\7\35\2\2hj"+
-		"\7\t\2\2ik\5\b\5\2ji\3\2\2\2kl\3\2\2\2lj\3\2\2\2lm\3\2\2\2mn\3\2\2\2n"+
-		"o\7\13\2\2o\r\3\2\2\2pq\7\16\2\2qs\7\t\2\2rt\5\b\5\2sr\3\2\2\2tu\3\2\2"+
-		"\2us\3\2\2\2uv\3\2\2\2vw\3\2\2\2wx\7\13\2\2xy\5\20\t\2y\17\3\2\2\2z{\7"+
-		"\4\2\2{|\7\20\2\2|}\7%\2\2}~\7\36\2\2~\u0080\7\t\2\2\177\u0081\5\b\5\2"+
-		"\u0080\177\3\2\2\2\u0081\u0082\3\2\2\2\u0082\u0080\3\2\2\2\u0082\u0083"+
-		"\3\2\2\2\u0083\u0084\3\2\2\2\u0084\u0085\7\13\2\2\u0085\21\3\2\2\2\u0086"+
-		"\u0087\7\b\2\2\u0087\u0088\7\20\2\2\u0088\u0089\5\34\17\2\u0089\u008a"+
-		"\7\36\2\2\u008a\u008c\7\t\2\2\u008b\u008d\5\b\5\2\u008c\u008b\3\2\2\2"+
-		"\u008d\u008e\3\2\2\2\u008e\u008c\3\2\2\2\u008e\u008f\3\2\2\2\u008f\u0090"+
-		"\3\2\2\2\u0090\u0091\7\13\2\2\u0091\23\3\2\2\2\u0092\u0093\7\23\2\2\u0093"+
-		"\u0094\5 \21\2\u0094\u0095\7\7\2\2\u0095\25\3\2\2\2\u0096\u0097\7\5\2"+
-		"\2\u0097\u0098\5 \21\2\u0098\u0099\7\7\2\2\u0099\27\3\2\2\2\u009a\u009b"+
-		"\5\60\31\2\u009b\u009c\7\n\2\2\u009c\u009d\5 \21\2\u009d\u009e\7\7\2\2"+
-		"\u009e\31\3\2\2\2\u009f\u00a0\7\24\2\2\u00a0\u00a3\7%\2\2\u00a1\u00a2"+
-		"\7\n\2\2\u00a2\u00a4\5 \21\2\u00a3\u00a1\3\2\2\2\u00a3\u00a4\3\2\2\2\u00a4"+
-		"\u00a5\3\2\2\2\u00a5\u00a6\7\7\2\2\u00a6\33\3\2\2\2\u00a7\u00a9\5\36\20"+
-		"\2\u00a8\u00a7\3\2\2\2\u00a9\u00aa\3\2\2\2\u00aa\u00a8\3\2\2\2\u00aa\u00ab"+
-		"\3\2\2\2\u00ab\35\3\2\2\2\u00ac\u00ad\b\20\1\2\u00ad\u00b1\5 \21\2\u00ae"+
-		"\u00af\7!\2\2\u00af\u00b1\5 \21\2\u00b0\u00ac\3\2\2\2\u00b0\u00ae\3\2"+
-		"\2\2\u00b1\u00ba\3\2\2\2\u00b2\u00b3\f\5\2\2\u00b3\u00b4\7\37\2\2\u00b4"+
-		"\u00b9\5\36\20\6\u00b5\u00b6\f\4\2\2\u00b6\u00b7\7\32\2\2\u00b7\u00b9"+
-		"\5\36\20\5\u00b8\u00b2\3\2\2\2\u00b8\u00b5\3\2\2\2\u00b9\u00bc\3\2\2\2"+
-		"\u00ba\u00b8\3\2\2\2\u00ba\u00bb\3\2\2\2\u00bb\37\3\2\2\2\u00bc\u00ba"+
-		"\3\2\2\2\u00bd\u00c4\5\"\22\2\u00be\u00c4\5$\23\2\u00bf\u00c4\5&\24\2"+
-		"\u00c0\u00c4\5(\25\2\u00c1\u00c4\5*\26\2\u00c2\u00c4\5.\30\2\u00c3\u00bd"+
-		"\3\2\2\2\u00c3\u00be\3\2\2\2\u00c3\u00bf\3\2\2\2\u00c3\u00c0\3\2\2\2\u00c3"+
-		"\u00c1\3\2\2\2\u00c3\u00c2\3\2\2\2\u00c4!\3\2\2\2\u00c5\u00d2\7\t\2\2"+
-		"\u00c6\u00c7\7%\2\2\u00c7\u00c8\7\n\2\2\u00c8\u00cf\5 \21\2\u00c9\u00ca"+
-		"\7\22\2\2\u00ca\u00cb\7%\2\2\u00cb\u00cc\7\n\2\2\u00cc\u00ce\5 \21\2\u00cd"+
-		"\u00c9\3\2\2\2\u00ce\u00d1\3\2\2\2\u00cf\u00cd\3\2\2\2\u00cf\u00d0\3\2"+
-		"\2\2\u00d0\u00d3\3\2\2\2\u00d1\u00cf\3\2\2\2\u00d2\u00c6\3\2\2\2\u00d2"+
-		"\u00d3\3\2\2\2\u00d3\u00d4\3\2\2\2\u00d4\u00d5\7\13\2\2\u00d5#\3\2\2\2"+
-		"\u00d6\u00df\7\25\2\2\u00d7\u00dc\5 \21\2\u00d8\u00d9\7\22\2\2\u00d9\u00db"+
-		"\5 \21\2\u00da\u00d8\3\2\2\2\u00db\u00de\3\2\2\2\u00dc\u00da\3\2\2\2\u00dc"+
-		"\u00dd\3\2\2\2\u00dd\u00e0\3\2\2\2\u00de\u00dc\3\2\2\2\u00df\u00d7\3\2"+
-		"\2\2\u00df\u00e0\3\2\2\2\u00e0\u00e1\3\2\2\2\u00e1\u00e2\7\30\2\2\u00e2"+
-		"%\3\2\2\2\u00e3\u00e4\7%\2\2\u00e4\u00ed\7\20\2\2\u00e5\u00ea\7%\2\2\u00e6"+
-		"\u00e7\7\22\2\2\u00e7\u00e9\7%\2\2\u00e8\u00e6\3\2\2\2\u00e9\u00ec\3\2"+
-		"\2\2\u00ea\u00e8\3\2\2\2\u00ea\u00eb\3\2\2\2\u00eb\u00ee\3\2\2\2\u00ec"+
-		"\u00ea\3\2\2\2\u00ed\u00e5\3\2\2\2\u00ed\u00ee\3\2\2\2\u00ee\u00ef\3\2"+
-		"\2\2\u00ef\u00f0\7\36\2\2\u00f0\'\3\2\2\2\u00f1\u00f2\5*\26\2\u00f2\u00f3"+
-		"\7 \2\2\u00f3\u00f8\5*\26\2\u00f4\u00f5\7 \2\2\u00f5\u00f7\5*\26\2\u00f6"+
-		"\u00f4\3\2\2\2\u00f7\u00fa\3\2\2\2\u00f8\u00f6\3\2\2\2\u00f8\u00f9\3\2"+
-		"\2\2\u00f9\u0138\3\2\2\2\u00fa\u00f8\3\2\2\2\u00fb\u00fc\5*\26\2\u00fc"+
-		"\u00fd\7\"\2\2\u00fd\u0102\5*\26\2\u00fe\u00ff\7\"\2\2\u00ff\u0101\5*"+
-		"\26\2\u0100\u00fe\3\2\2\2\u0101\u0104\3\2\2\2\u0102\u0100\3\2\2\2\u0102"+
-		"\u0103\3\2\2\2\u0103\u0138\3\2\2\2\u0104\u0102\3\2\2\2\u0105\u0106\5*"+
-		"\26\2\u0106\u0107\7\21\2\2\u0107\u010c\5*\26\2\u0108\u0109\7\21\2\2\u0109"+
-		"\u010b\5*\26\2\u010a\u0108\3\2\2\2\u010b\u010e\3\2\2\2\u010c\u010a\3\2"+
-		"\2\2\u010c\u010d\3\2\2\2\u010d\u0138\3\2\2\2\u010e\u010c\3\2\2\2\u010f"+
-		"\u0110\5*\26\2\u0110\u0111\7\3\2\2\u0111\u0116\5*\26\2\u0112\u0113\7\3"+
-		"\2\2\u0113\u0115\5*\26\2\u0114\u0112\3\2\2\2\u0115\u0118\3\2\2\2\u0116"+
-		"\u0114\3\2\2\2\u0116\u0117\3\2\2\2\u0117\u0138\3\2\2\2\u0118\u0116\3\2"+
-		"\2\2\u0119\u011a\5*\26\2\u011a\u011b\7\33\2\2\u011b\u0120\5*\26\2\u011c"+
-		"\u011d\7\33\2\2\u011d\u011f\5*\26\2\u011e\u011c\3\2\2\2\u011f\u0122\3"+
-		"\2\2\2\u0120\u011e\3\2\2\2\u0120\u0121\3\2\2\2\u0121\u0138\3\2\2\2\u0122"+
-		"\u0120\3\2\2\2\u0123\u0124\5*\26\2\u0124\u0125\7\27\2\2\u0125\u0126\5"+
-		"*\26\2\u0126\u0138\3\2\2\2\u0127\u0128\5*\26\2\u0128\u0129\7\6\2\2\u0129"+
-		"\u012a\5*\26\2\u012a\u0138\3\2\2\2\u012b\u012c\5*\26\2\u012c\u012d\7\31"+
-		"\2\2\u012d\u012e\5*\26\2\u012e\u0138\3\2\2\2\u012f\u0130\5*\26\2\u0130"+
-		"\u0131\7\26\2\2\u0131\u0132\5*\26\2\u0132\u0138\3\2\2\2\u0133\u0134\5"+
-		"*\26\2\u0134\u0135\7\34\2\2\u0135\u0136\5*\26\2\u0136\u0138\3\2\2\2\u0137"+
-		"\u00f1\3\2\2\2\u0137\u00fb\3\2\2\2\u0137\u0105\3\2\2\2\u0137\u010f\3\2"+
-		"\2\2\u0137\u0119\3\2\2\2\u0137\u0123\3\2\2\2\u0137\u0127\3\2\2\2\u0137"+
-		"\u012b\3\2\2\2\u0137\u012f\3\2\2\2\u0137\u0133\3\2\2\2\u0138)\3\2\2\2"+
-		"\u0139\u013f\7%\2\2\u013a\u013f\7$\2\2\u013b\u013c\7\r\2\2\u013c\u013f"+
-		"\7%\2\2\u013d\u013f\5,\27\2\u013e\u0139\3\2\2\2\u013e\u013a\3\2\2\2\u013e"+
-		"\u013b\3\2\2\2\u013e\u013d\3\2\2\2\u013f+\3\2\2\2\u0140\u0141\7%\2\2\u0141"+
-		"\u0142\7\25\2\2\u0142\u0143\5 \21\2\u0143\u0144\7\30\2\2\u0144-\3\2\2"+
-		"\2\u0145\u0146\7\17\2\2\u0146\u0147\7%\2\2\u0147/\3\2\2\2\u0148\u014d"+
-		"\7%\2\2\u0149\u014a\7\r\2\2\u014a\u014d\7%\2\2\u014b\u014d\5\62\32\2\u014c"+
-		"\u0148\3\2\2\2\u014c\u0149\3\2\2\2\u014c\u014b\3\2\2\2\u014d\61\3\2\2"+
-		"\2\u014e\u014f\7%\2\2\u014f\u0150\7\25\2\2\u0150\u0151\5 \21\2\u0151\u0153"+
-		"\7\30\2\2\u0152\u0154\5\60\31\2\u0153\u0152\3\2\2\2\u0153\u0154\3\2\2"+
-		"\2\u0154\63\3\2\2\2\"\67AJMV`clu\u0082\u008e\u00a3\u00aa\u00b0\u00b8\u00ba"+
-		"\u00c3\u00cf\u00d2\u00dc\u00df\u00ea\u00ed\u00f8\u0102\u010c\u0116\u0120"+
-		"\u0137\u013e\u014c\u0153";
+		"\4\32\t\32\4\33\t\33\4\34\t\34\4\35\t\35\3\2\6\2<\n\2\r\2\16\2=\3\3\3"+
+		"\3\3\3\3\3\3\3\3\3\6\3F\n\3\r\3\16\3G\3\3\3\3\3\4\3\4\3\4\7\4O\n\4\f\4"+
+		"\16\4R\13\4\5\4T\n\4\3\5\3\5\3\5\3\5\3\5\3\5\3\5\5\5]\n\5\3\6\3\6\3\6"+
+		"\3\6\3\6\3\6\6\6e\n\6\r\6\16\6f\3\6\5\6j\n\6\3\6\3\6\3\7\3\7\3\7\6\7q"+
+		"\n\7\r\7\16\7r\3\7\3\7\3\b\3\b\3\b\6\bz\n\b\r\b\16\b{\3\b\3\b\3\b\3\t"+
+		"\3\t\3\t\3\t\3\t\3\t\6\t\u0087\n\t\r\t\16\t\u0088\3\t\3\t\3\n\3\n\3\n"+
+		"\3\n\3\n\3\n\6\n\u0093\n\n\r\n\16\n\u0094\3\n\3\n\3\13\3\13\3\13\3\13"+
+		"\3\f\3\f\3\f\3\f\3\r\3\r\3\r\3\r\3\r\3\16\3\16\3\16\3\16\5\16\u00aa\n"+
+		"\16\3\16\3\16\3\17\3\17\3\17\3\17\5\17\u00b2\n\17\3\20\3\20\3\20\3\20"+
+		"\3\20\5\20\u00b9\n\20\3\21\3\21\3\21\3\21\5\21\u00bf\n\21\3\22\3\22\5"+
+		"\22\u00c3\n\22\3\23\3\23\3\23\7\23\u00c8\n\23\f\23\16\23\u00cb\13\23\3"+
+		"\24\3\24\3\24\3\24\3\24\3\25\3\25\3\25\3\25\7\25\u00d6\n\25\f\25\16\25"+
+		"\u00d9\13\25\3\25\3\25\3\26\3\26\3\27\3\27\3\27\3\27\7\27\u00e3\n\27\f"+
+		"\27\16\27\u00e6\13\27\5\27\u00e8\n\27\3\27\3\27\3\30\3\30\3\30\3\30\3"+
+		"\30\3\31\3\31\3\31\7\31\u00f4\n\31\f\31\16\31\u00f7\13\31\5\31\u00f9\n"+
+		"\31\3\32\3\32\3\32\3\33\3\33\3\33\3\34\3\34\3\34\3\34\3\34\3\34\5\34\u0107"+
+		"\n\34\3\35\3\35\3\35\5\35\u010c\n\35\3\35\2\2\36\2\4\6\b\n\f\16\20\22"+
+		"\24\26\30\32\34\36 \"$&(*,.\60\62\64\668\2\3\t\2\3\3\6\6\21\21\27\30\32"+
+		"\35 !##\u0116\2;\3\2\2\2\4?\3\2\2\2\6S\3\2\2\2\b\\\3\2\2\2\n^\3\2\2\2"+
+		"\fm\3\2\2\2\16v\3\2\2\2\20\u0080\3\2\2\2\22\u008c\3\2\2\2\24\u0098\3\2"+
+		"\2\2\26\u009c\3\2\2\2\30\u00a0\3\2\2\2\32\u00a5\3\2\2\2\34\u00b1\3\2\2"+
+		"\2\36\u00b8\3\2\2\2 \u00be\3\2\2\2\"\u00c2\3\2\2\2$\u00c4\3\2\2\2&\u00cc"+
+		"\3\2\2\2(\u00d1\3\2\2\2*\u00dc\3\2\2\2,\u00de\3\2\2\2.\u00eb\3\2\2\2\60"+
+		"\u00f8\3\2\2\2\62\u00fa\3\2\2\2\64\u00fd\3\2\2\2\66\u0106\3\2\2\28\u010b"+
+		"\3\2\2\2:<\5\4\3\2;:\3\2\2\2<=\3\2\2\2=;\3\2\2\2=>\3\2\2\2>\3\3\2\2\2"+
+		"?@\7&\2\2@A\7\20\2\2AB\5\6\4\2BC\7\37\2\2CE\7\t\2\2DF\5\b\5\2ED\3\2\2"+
+		"\2FG\3\2\2\2GE\3\2\2\2GH\3\2\2\2HI\3\2\2\2IJ\7\13\2\2J\5\3\2\2\2KP\7&"+
+		"\2\2LM\7\22\2\2MO\7&\2\2NL\3\2\2\2OR\3\2\2\2PN\3\2\2\2PQ\3\2\2\2QT\3\2"+
+		"\2\2RP\3\2\2\2SK\3\2\2\2ST\3\2\2\2T\7\3\2\2\2U]\5\n\6\2V]\5\16\b\2W]\5"+
+		"\22\n\2X]\5\24\13\2Y]\5\26\f\2Z]\5\30\r\2[]\5\32\16\2\\U\3\2\2\2\\V\3"+
+		"\2\2\2\\W\3\2\2\2\\X\3\2\2\2\\Y\3\2\2\2\\Z\3\2\2\2\\[\3\2\2\2]\t\3\2\2"+
+		"\2^_\7\f\2\2_`\7\20\2\2`a\5\"\22\2ab\7\37\2\2bd\7\t\2\2ce\5\b\5\2dc\3"+
+		"\2\2\2ef\3\2\2\2fd\3\2\2\2fg\3\2\2\2gi\3\2\2\2hj\7\13\2\2ih\3\2\2\2ij"+
+		"\3\2\2\2jk\3\2\2\2kl\5\f\7\2l\13\3\2\2\2mn\7\36\2\2np\7\t\2\2oq\5\b\5"+
+		"\2po\3\2\2\2qr\3\2\2\2rp\3\2\2\2rs\3\2\2\2st\3\2\2\2tu\7\13\2\2u\r\3\2"+
+		"\2\2vw\7\16\2\2wy\7\t\2\2xz\5\b\5\2yx\3\2\2\2z{\3\2\2\2{y\3\2\2\2{|\3"+
+		"\2\2\2|}\3\2\2\2}~\7\13\2\2~\177\5\20\t\2\177\17\3\2\2\2\u0080\u0081\7"+
+		"\4\2\2\u0081\u0082\7\20\2\2\u0082\u0083\7&\2\2\u0083\u0084\7\37\2\2\u0084"+
+		"\u0086\7\t\2\2\u0085\u0087\5\b\5\2\u0086\u0085\3\2\2\2\u0087\u0088\3\2"+
+		"\2\2\u0088\u0086\3\2\2\2\u0088\u0089\3\2\2\2\u0089\u008a\3\2\2\2\u008a"+
+		"\u008b\7\13\2\2\u008b\21\3\2\2\2\u008c\u008d\7\b\2\2\u008d\u008e\7\20"+
+		"\2\2\u008e\u008f\5\"\22\2\u008f\u0090\7\37\2\2\u0090\u0092\7\t\2\2\u0091"+
+		"\u0093\5\b\5\2\u0092\u0091\3\2\2\2\u0093\u0094\3\2\2\2\u0094\u0092\3\2"+
+		"\2\2\u0094\u0095\3\2\2\2\u0095\u0096\3\2\2\2\u0096\u0097\7\13\2\2\u0097"+
+		"\23\3\2\2\2\u0098\u0099\7\24\2\2\u0099\u009a\5\34\17\2\u009a\u009b\7\7"+
+		"\2\2\u009b\25\3\2\2\2\u009c\u009d\7\5\2\2\u009d\u009e\5\34\17\2\u009e"+
+		"\u009f\7\7\2\2\u009f\27\3\2\2\2\u00a0\u00a1\58\35\2\u00a1\u00a2\7\n\2"+
+		"\2\u00a2\u00a3\5\34\17\2\u00a3\u00a4\7\7\2\2\u00a4\31\3\2\2\2\u00a5\u00a6"+
+		"\7\25\2\2\u00a6\u00a9\7&\2\2\u00a7\u00a8\7\n\2\2\u00a8\u00aa\5\34\17\2"+
+		"\u00a9\u00a7\3\2\2\2\u00a9\u00aa\3\2\2\2\u00aa\u00ab\3\2\2\2\u00ab\u00ac"+
+		"\7\7\2\2\u00ac\33\3\2\2\2\u00ad\u00b2\5(\25\2\u00ae\u00b2\5,\27\2\u00af"+
+		"\u00b2\5\62\32\2\u00b0\u00b2\5\36\20\2\u00b1\u00ad\3\2\2\2\u00b1\u00ae"+
+		"\3\2\2\2\u00b1\u00af\3\2\2\2\u00b1\u00b0\3\2\2\2\u00b2\35\3\2\2\2\u00b3"+
+		"\u00b9\5.\30\2\u00b4\u00b9\5\66\34\2\u00b5\u00b9\5\"\22\2\u00b6\u00b9"+
+		"\5&\24\2\u00b7\u00b9\5\64\33\2\u00b8\u00b3\3\2\2\2\u00b8\u00b4\3\2\2\2"+
+		"\u00b8\u00b5\3\2\2\2\u00b8\u00b6\3\2\2\2\u00b8\u00b7\3\2\2\2\u00b9\37"+
+		"\3\2\2\2\u00ba\u00bf\5.\30\2\u00bb\u00bf\5\"\22\2\u00bc\u00bf\5&\24\2"+
+		"\u00bd\u00bf\5\64\33\2\u00be\u00ba\3\2\2\2\u00be\u00bb\3\2\2\2\u00be\u00bc"+
+		"\3\2\2\2\u00be\u00bd\3\2\2\2\u00bf!\3\2\2\2\u00c0\u00c3\5$\23\2\u00c1"+
+		"\u00c3\7%\2\2\u00c2\u00c0\3\2\2\2\u00c2\u00c1\3\2\2\2\u00c3#\3\2\2\2\u00c4"+
+		"\u00c9\7&\2\2\u00c5\u00c6\7\23\2\2\u00c6\u00c8\7&\2\2\u00c7\u00c5\3\2"+
+		"\2\2\u00c8\u00cb\3\2\2\2\u00c9\u00c7\3\2\2\2\u00c9\u00ca\3\2\2\2\u00ca"+
+		"%\3\2\2\2\u00cb\u00c9\3\2\2\2\u00cc\u00cd\5$\23\2\u00cd\u00ce\7\26\2\2"+
+		"\u00ce\u00cf\5\36\20\2\u00cf\u00d0\7\31\2\2\u00d0\'\3\2\2\2\u00d1\u00d2"+
+		"\7\t\2\2\u00d2\u00d7\5*\26\2\u00d3\u00d4\7\22\2\2\u00d4\u00d6\5*\26\2"+
+		"\u00d5\u00d3\3\2\2\2\u00d6\u00d9\3\2\2\2\u00d7\u00d5\3\2\2\2\u00d7\u00d8"+
+		"\3\2\2\2\u00d8\u00da\3\2\2\2\u00d9\u00d7\3\2\2\2\u00da\u00db\7\13\2\2"+
+		"\u00db)\3\2\2\2\u00dc\u00dd\7&\2\2\u00dd+\3\2\2\2\u00de\u00e7\7\26\2\2"+
+		"\u00df\u00e4\5\36\20\2\u00e0\u00e1\7\22\2\2\u00e1\u00e3\5\36\20\2\u00e2"+
+		"\u00e0\3\2\2\2\u00e3\u00e6\3\2\2\2\u00e4\u00e2\3\2\2\2\u00e4\u00e5\3\2"+
+		"\2\2\u00e5\u00e8\3\2\2\2\u00e6\u00e4\3\2\2\2\u00e7\u00df\3\2\2\2\u00e7"+
+		"\u00e8\3\2\2\2\u00e8\u00e9\3\2\2\2\u00e9\u00ea\7\31\2\2\u00ea-\3\2\2\2"+
+		"\u00eb\u00ec\7&\2\2\u00ec\u00ed\7\20\2\2\u00ed\u00ee\5\60\31\2\u00ee\u00ef"+
+		"\7\37\2\2\u00ef/\3\2\2\2\u00f0\u00f5\5\36\20\2\u00f1\u00f2\7\22\2\2\u00f2"+
+		"\u00f4\5\36\20\2\u00f3\u00f1\3\2\2\2\u00f4\u00f7\3\2\2\2\u00f5\u00f3\3"+
+		"\2\2\2\u00f5\u00f6\3\2\2\2\u00f6\u00f9\3\2\2\2\u00f7\u00f5\3\2\2\2\u00f8"+
+		"\u00f0\3\2\2\2\u00f8\u00f9\3\2\2\2\u00f9\61\3\2\2\2\u00fa\u00fb\7\17\2"+
+		"\2\u00fb\u00fc\5$\23\2\u00fc\63\3\2\2\2\u00fd\u00fe\7\r\2\2\u00fe\u00ff"+
+		"\5$\23\2\u00ff\65\3\2\2\2\u0100\u0101\5 \21\2\u0101\u0102\t\2\2\2\u0102"+
+		"\u0103\5\36\20\2\u0103\u0107\3\2\2\2\u0104\u0105\7\"\2\2\u0105\u0107\5"+
+		"\36\20\2\u0106\u0100\3\2\2\2\u0106\u0104\3\2\2\2\u0107\67\3\2\2\2\u0108"+
+		"\u010c\5\64\33\2\u0109\u010c\5$\23\2\u010a\u010c\5&\24\2\u010b\u0108\3"+
+		"\2\2\2\u010b\u0109\3\2\2\2\u010b\u010a\3\2\2\2\u010c9\3\2\2\2\32=GPS\\"+
+		"fir{\u0088\u0094\u00a9\u00b1\u00b8\u00be\u00c2\u00c9\u00d7\u00e4\u00e7"+
+		"\u00f5\u00f8\u0106\u010b";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

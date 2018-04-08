@@ -19,6 +19,19 @@ public class StexgrammarBaseListener implements StexgrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterInitialisation(@NotNull StexgrammarParser.InitialisationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitInitialisation(@NotNull StexgrammarParser.InitialisationContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterWhilestatement(@NotNull StexgrammarParser.WhilestatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -26,6 +39,19 @@ public class StexgrammarBaseListener implements StexgrammarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitWhilestatement(@NotNull StexgrammarParser.WhilestatementContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDeref(@NotNull StexgrammarParser.DerefContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDeref(@NotNull StexgrammarParser.DerefContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
@@ -149,6 +175,32 @@ public class StexgrammarBaseListener implements StexgrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterExpressionop(@NotNull StexgrammarParser.ExpressionopContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExpressionop(@NotNull StexgrammarParser.ExpressionopContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterArrayaccess(@NotNull StexgrammarParser.ArrayaccessContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArrayaccess(@NotNull StexgrammarParser.ArrayaccessContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterReturnstatement(@NotNull StexgrammarParser.ReturnstatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -175,13 +227,13 @@ public class StexgrammarBaseListener implements StexgrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterConditionlist(@NotNull StexgrammarParser.ConditionlistContext ctx) { }
+	@Override public void enterIdentifier(@NotNull StexgrammarParser.IdentifierContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitConditionlist(@NotNull StexgrammarParser.ConditionlistContext ctx) { }
+	@Override public void exitIdentifier(@NotNull StexgrammarParser.IdentifierContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
@@ -195,6 +247,19 @@ public class StexgrammarBaseListener implements StexgrammarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitExpression(@NotNull StexgrammarParser.ExpressionContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterObjectfield(@NotNull StexgrammarParser.ObjectfieldContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitObjectfield(@NotNull StexgrammarParser.ObjectfieldContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
@@ -240,45 +305,6 @@ public class StexgrammarBaseListener implements StexgrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArraywrite(@NotNull StexgrammarParser.ArraywriteContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitArraywrite(@NotNull StexgrammarParser.ArraywriteContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterArrayread(@NotNull StexgrammarParser.ArrayreadContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitArrayread(@NotNull StexgrammarParser.ArrayreadContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterCondition(@NotNull StexgrammarParser.ConditionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitCondition(@NotNull StexgrammarParser.ConditionContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterIfstatement(@NotNull StexgrammarParser.IfstatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -286,6 +312,19 @@ public class StexgrammarBaseListener implements StexgrammarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitIfstatement(@NotNull StexgrammarParser.IfstatementContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFunctioncallargs(@NotNull StexgrammarParser.FunctioncallargsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunctioncallargs(@NotNull StexgrammarParser.FunctioncallargsContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
