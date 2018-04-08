@@ -14,6 +14,13 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface StexgrammarVisitor<T> extends ParseTreeVisitor<T> {
 	/**
+	 * Visit a parse tree produced by {@link StexgrammarParser#functionlist}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunctionlist(@NotNull StexgrammarParser.FunctionlistContext ctx);
+
+	/**
 	 * Visit a parse tree produced by {@link StexgrammarParser#whilestatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

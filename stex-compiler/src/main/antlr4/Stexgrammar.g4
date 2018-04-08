@@ -8,7 +8,8 @@ grammar Stexgrammar;
  * Parser Rules
  */
 
-program:	function+ ;
+program:	functionlist ;
+functionlist:	function+ ;
 
 function:	ID '(' paramlist ')' '{' statement+ '}' ;
 paramlist:  (ID (',' ID)*)? ;
@@ -16,7 +17,7 @@ paramlist:  (ID (',' ID)*)? ;
 statement:			(ifstatement|trystatement|whilestatement|throwstatement|returnstatement
 					 |assignstatement|varstatement);
 					 
-ifstatement:		'if' '(' expression ')' '{' statement+ '}' ?elseblock ;
+ifstatement:		'if' '(' expression ')' '{' statement+ '}' (elseblock)? ;
 elseblock:			'else' '{' statement+ '}' ;
 
 trystatement:		'try' '{' statement+ '}' catchblock ;
@@ -25,7 +26,7 @@ catchblock:			'catch' '(' ID ')' '{' statement+ '}' ;
 whilestatement:		'while' '(' expression ')' '{' statement+ '}' ;
 
 throwstatement:		'throw' expression ';' ;
-returnstatement:	'return' expression ';' ;
+returnstatement:	'return' (expression)? ';' ;
 
 assignstatement:	assignee '=' expression ';' ;
 varstatement:		'var' ID ('=' expression)? ';' ;

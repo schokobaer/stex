@@ -19,6 +19,19 @@ public class StexgrammarBaseListener implements StexgrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterFunctionlist(@NotNull StexgrammarParser.FunctionlistContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunctionlist(@NotNull StexgrammarParser.FunctionlistContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterWhilestatement(@NotNull StexgrammarParser.WhilestatementContext ctx) { }
 	/**
 	 * {@inheritDoc}

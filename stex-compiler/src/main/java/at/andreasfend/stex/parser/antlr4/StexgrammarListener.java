@@ -11,6 +11,17 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface StexgrammarListener extends ParseTreeListener {
 	/**
+	 * Enter a parse tree produced by {@link StexgrammarParser#functionlist}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunctionlist(@NotNull StexgrammarParser.FunctionlistContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link StexgrammarParser#functionlist}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunctionlist(@NotNull StexgrammarParser.FunctionlistContext ctx);
+
+	/**
 	 * Enter a parse tree produced by {@link StexgrammarParser#whilestatement}.
 	 * @param ctx the parse tree
 	 */

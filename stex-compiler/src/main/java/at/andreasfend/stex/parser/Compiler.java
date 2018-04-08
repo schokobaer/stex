@@ -45,6 +45,7 @@ public class Compiler {
 		List<Instruction> program = compiler.compile(
 				new File[] {new File("D:\\Workspace\\stex\\stex-compiler\\src\\test\\resources\\parsing\\summe.stex")});
 		
+		System.out.println();
 		for (Instruction instruction : program) {
 			System.out.println(instruction);
 		}

@@ -16,11 +16,13 @@ import at.andreasfend.stex.parser.antlr4.StexgrammarParser.ExpressionContext;
 import at.andreasfend.stex.parser.antlr4.StexgrammarParser.ExpressionopContext;
 import at.andreasfend.stex.parser.antlr4.StexgrammarParser.FunctionContext;
 import at.andreasfend.stex.parser.antlr4.StexgrammarParser.FunctioncallContext;
+import at.andreasfend.stex.parser.antlr4.StexgrammarParser.FunctionlistContext;
 import at.andreasfend.stex.parser.antlr4.StexgrammarParser.IfstatementContext;
 import at.andreasfend.stex.parser.antlr4.StexgrammarParser.NotoperationContext;
 import at.andreasfend.stex.parser.antlr4.StexgrammarParser.ObjectContext;
 import at.andreasfend.stex.parser.antlr4.StexgrammarParser.ObjectfieldContext;
 import at.andreasfend.stex.parser.antlr4.StexgrammarParser.OperationContext;
+import at.andreasfend.stex.parser.antlr4.StexgrammarParser.ProgramContext;
 import at.andreasfend.stex.parser.antlr4.StexgrammarParser.RefContext;
 import at.andreasfend.stex.parser.antlr4.StexgrammarParser.ReturnstatementContext;
 import at.andreasfend.stex.parser.antlr4.StexgrammarParser.StatementContext;
@@ -52,6 +54,18 @@ public class StexVisitor extends StexgrammarBaseVisitor<List<Instruction>> {
 	}
 
 	@Override
+	public List<Instruction> visitFunctionlist(FunctionlistContext ctx) {
+		List<Instruction> ins = new LinkedList<>();
+		for (FunctionContext fc : ctx.function()) {
+			List<Instruction> child = visitChildren(fc);
+			child = visitFunction(fc);
+			if(child != null)
+				ins.addAll(child);
+		}
+		return ins;
+	}
+	
+	@Override
 	public List<Instruction> visitFunction(FunctionContext ctx) {
 
 		List<Instruction> ins = new LinkedList<>();
@@ -78,6 +92,18 @@ public class StexVisitor extends StexgrammarBaseVisitor<List<Instruction>> {
 			if(tmpVarIndex > maxTmpVar)
 				maxTmpVar = tmpVarIndex;
 		}
+		
+		// checkMaxTmp Var
+		int checkMax = 0;
+		for (Instruction istr: stmtIns) {
+			if(istr.getOp() != OperationType.VAR && istr.getTarget() != null &&
+					istr.getTarget().startsWith("_tmp")) {
+				int varIndex = Integer.parseInt(istr.getTarget().substring(4));
+				if(varIndex > checkMax)
+					checkMax = varIndex;
+			}
+		}
+		maxTmpVar = checkMax;
 		
 		// Make the needed tmpVars
 		for (int i = 0; i < maxTmpVar; i++) {
@@ -113,6 +139,11 @@ public class StexVisitor extends StexgrammarBaseVisitor<List<Instruction>> {
 	public List<Instruction> visitReturnstatement(ReturnstatementContext ctx) {
 		List<Instruction> ins = new LinkedList<>();
 
+		if(ctx.expression() == null) {
+			ins.add(new Instruction(OperationType.RET, null, null, null));
+			return ins;
+		}
+		
 		Operand op = getExpressionOperand(ctx.expression());
 		if (op == null) {
 			List<Instruction> child = visitChildren(ctx.expression());

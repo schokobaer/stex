@@ -20,6 +20,14 @@ public class StexgrammarBaseVisitor<T> extends AbstractParseTreeVisitor<T> imple
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitFunctionlist(@NotNull StexgrammarParser.FunctionlistContext ctx) { return visitChildren(ctx); }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitWhilestatement(@NotNull StexgrammarParser.WhilestatementContext ctx) { return visitChildren(ctx); }
 
 	/**
