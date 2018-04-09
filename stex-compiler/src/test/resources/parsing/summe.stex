@@ -3,18 +3,26 @@ summe(s1, s2) {
 	return result;
 }
 
-foo(a) {
-	return a;
-}
-
-bar() {
-	return ;
-}
-
 main() {
 	var a;
 	var b;
 	if(a > b) {
-		return ;
+		return summe(a, b);
 	}
+	else {
+		throw [];
+	}
+}
+
+person(name, alter) {
+	return {
+		name = name,
+		alter = alter,
+		weight
+	};
+}
+
+quickmath() {
+	var x = foo(a, b+b) + ?p % foo(bar(x, c), d);
+	return x;
 }

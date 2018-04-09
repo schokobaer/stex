@@ -3,6 +3,7 @@ package at.andreasfend.stex.core;
 public enum OperationType {
 	
 	NOP,
+	MARK,
 	DEBUG,
 	
 	// Arithmetik //

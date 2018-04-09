@@ -9,6 +9,7 @@ import java.util.List;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import at.andreasfend.stex.core.Instruction;
+import at.andreasfend.stex.core.OperationType;
 
 public class Compiler {
 
@@ -45,9 +46,12 @@ public class Compiler {
 		List<Instruction> program = compiler.compile(
 				new File[] {new File("D:\\Workspace\\stex\\stex-compiler\\src\\test\\resources\\parsing\\summe.stex")});
 		
-		System.out.println();
-		for (Instruction instruction : program) {
-			System.out.println(instruction);
+		for (int i=0; i < program.size(); i++) {
+			Instruction instruction = program.get(i);
+			if(instruction.getOp() == OperationType.MARK && instruction.getTarget() != null
+					&& !instruction.getTarget().contains("_") && i > 0)
+				System.out.println();
+			System.out.println(i + "\t" + instruction);
 		}
 		
 	}

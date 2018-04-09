@@ -19,7 +19,7 @@ public class ReferenzResolver {
 		// First round find marks and funcs
 		for (int i = 0; i < program.size(); i++) {
 			Instruction ins = program.get(i);
-			if(ins.getOp() != OperationType.NOP)
+			if(ins.getOp() != OperationType.MARK)
 				continue;
 			if(ins.getTarget() != null) {
 				FunctionBean fb = new FunctionBean();
@@ -31,15 +31,20 @@ public class ReferenzResolver {
 			}
 			else {
 				marks.put(ins.getOp1().getValue(), i);
+				ins.setTarget(ins.getOp1().getValue().toString());
+				ins.setOp1(null);
 			}
 		}
 		
 		// Second round resolve open TMP
 		for (int i = 0; i < program.size(); i++) {
 			Instruction ins = program.get(i);
-			if(ins.getOp() == OperationType.CMP || ins.getOp() == OperationType.JMP ||
-					ins.getOp() == OperationType.TRYCATCH) {
-				int index = marks.get(ins.getOp1());
+			if(ins.getOp() == OperationType.CMP) {
+				int index = marks.get(ins.getOp2().getValue());
+				ins.setOp2(new Operand(index, Type.VAL));
+			}
+			else if(ins.getOp() == OperationType.JMP || ins.getOp() == OperationType.TRYCATCH) {
+				int index = marks.get(ins.getOp1().getValue());
 				ins.setOp1(new Operand(index, Type.VAL));
 			}
 			else if(ins.getOp() == OperationType.CALL) {

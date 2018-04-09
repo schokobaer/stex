@@ -81,7 +81,7 @@ public class StexVisitor extends StexgrammarBaseVisitor<List<Instruction>> {
 		}
 
 		// Mark the head of the function with the metadata
-		ins.add(new Instruction(OperationType.NOP, new Operand(args, Type.TMP), null, name));
+		ins.add(new Instruction(OperationType.MARK, new Operand(args, Type.TMP), null, name));
 
 		// Make all statements of the function
 		List<Instruction> stmtIns = new LinkedList<>();
@@ -94,7 +94,7 @@ public class StexVisitor extends StexgrammarBaseVisitor<List<Instruction>> {
 		}
 		
 		// checkMaxTmp Var
-		int checkMax = 0;
+		int checkMax = -1;
 		for (Instruction istr: stmtIns) {
 			if(istr.getOp() != OperationType.VAR && istr.getTarget() != null &&
 					istr.getTarget().startsWith("_tmp")) {
@@ -106,7 +106,7 @@ public class StexVisitor extends StexgrammarBaseVisitor<List<Instruction>> {
 		maxTmpVar = checkMax;
 		
 		// Make the needed tmpVars
-		for (int i = 0; i < maxTmpVar; i++) {
+		for (int i = 0; i <= maxTmpVar; i++) {
 			tmpVarIndex = i;
 			String target = tmpVar();
 			ins.add(new Instruction(OperationType.VAR, null, null, target));
@@ -114,6 +114,12 @@ public class StexVisitor extends StexgrammarBaseVisitor<List<Instruction>> {
 		
 		// Add statements
 		ins.addAll(stmtIns);
+		
+		// If last statement is not a RET or THROW insert an empty RET
+		if(ins.get(ins.size()-1).getOp() != OperationType.RET && 
+				ins.get(ins.size()-1).getOp() != OperationType.THROW) {
+			ins.add(new Instruction(OperationType.RET, null, null, null));
+		}
 		
 		return ins;
 	}
@@ -161,9 +167,9 @@ public class StexVisitor extends StexgrammarBaseVisitor<List<Instruction>> {
 
 		List<Instruction> ins = new LinkedList<>();
 
-		Object endIf = new Object();
-		Object startThen = new Object();
-		Object startElse = new Object();
+		Object endIf = "EndIf_" + new Object();
+		Object startThen = "StartThen_" + new Object();
+		Object startElse = "StartElse_" + new Object();
 
 		// Condition
 		Operand op = getExpressionOperand(ctx.expression());
@@ -185,7 +191,7 @@ public class StexVisitor extends StexgrammarBaseVisitor<List<Instruction>> {
 		}
 
 		// Now mark the thenStart
-		ins.add(new Instruction(OperationType.NOP, new Operand(startThen, Type.TMP), null, null));
+		ins.add(new Instruction(OperationType.MARK, new Operand(startThen, Type.TMP), null, null));
 		ins.add(new Instruction(OperationType.BLOCK, null, null, null));
 
 		// Make all the IfThen-Statements
@@ -205,7 +211,7 @@ public class StexVisitor extends StexgrammarBaseVisitor<List<Instruction>> {
 
 		// if there is a else block -> mark startElse and make all the Else-Statements
 		if (ctx.elseblock() != null) {
-			ins.add(new Instruction(OperationType.NOP, new Operand(startElse, Type.TMP), null, null));
+			ins.add(new Instruction(OperationType.MARK, new Operand(startElse, Type.TMP), null, null));
 			ins.add(new Instruction(OperationType.BLOCK, null, null, null));
 			// Make the If-Statements
 			for (StatementContext stmt : ctx.elseblock().statement()) {
@@ -218,7 +224,7 @@ public class StexVisitor extends StexgrammarBaseVisitor<List<Instruction>> {
 		}
 
 		// Mark the end of the IF
-		ins.add(new Instruction(OperationType.NOP, new Operand(endIf, Type.TMP), null, null));
+		ins.add(new Instruction(OperationType.MARK, new Operand(endIf, Type.TMP), null, null));
 
 		// Set the maximum of TmpVars
 		tmpVarIndex = maxTmpVar;
@@ -231,8 +237,8 @@ public class StexVisitor extends StexgrammarBaseVisitor<List<Instruction>> {
 
 		List<Instruction> ins = new LinkedList<>();
 
-		Object endTry = new Object();
-		Object startCatch = new Object();
+		Object endTry = "EndTry_" + new Object();
+		Object startCatch = "StartCatch_" + new Object();
 
 		String expId = ctx.catchblock().getChild(2).getText();
 
@@ -253,7 +259,7 @@ public class StexVisitor extends StexgrammarBaseVisitor<List<Instruction>> {
 		ins.add(new Instruction(OperationType.JMP, new Operand(endTry, Type.TMP), null, null));
 
 		// Mark the start of the Catch-Block
-		ins.add(new Instruction(OperationType.NOP, new Operand(startCatch, Type.TMP), null, null));
+		ins.add(new Instruction(OperationType.MARK, new Operand(startCatch, Type.TMP), null, null));
 
 		// Make all the Try-Statements
 		for (StatementContext stmt : ctx.catchblock().statement()) {
@@ -277,12 +283,12 @@ public class StexVisitor extends StexgrammarBaseVisitor<List<Instruction>> {
 
 		List<Instruction> ins = new LinkedList<>();
 
-		Object headWhile = new Object();
-		Object bodyWhile = new Object();
-		Object endWhile = new Object();
+		Object headWhile = "HeadWhile_" + new Object();
+		Object bodyWhile = "BodyWhile_" + new Object();
+		Object endWhile = "EndWhile_" + new Object();
 
 		// Mark Head
-		ins.add(new Instruction(OperationType.NOP, new Operand(headWhile, Type.TMP), null, null));
+		ins.add(new Instruction(OperationType.MARK, new Operand(headWhile, Type.TMP), null, null));
 
 		// Condition
 		Operand condition = getExpressionOperand(ctx.expression());
@@ -298,7 +304,7 @@ public class StexVisitor extends StexgrammarBaseVisitor<List<Instruction>> {
 		ins.add(new Instruction(OperationType.JMP, new Operand(endWhile, Type.TMP), null, null));
 
 		// Mark Body
-		ins.add(new Instruction(OperationType.NOP, new Operand(bodyWhile, Type.TMP), null, null));
+		ins.add(new Instruction(OperationType.MARK, new Operand(bodyWhile, Type.TMP), null, null));
 
 		// Make While-Statements
 		int maxTmpVar = 0;
@@ -313,7 +319,7 @@ public class StexVisitor extends StexgrammarBaseVisitor<List<Instruction>> {
 		ins.add(new Instruction(OperationType.JMP, new Operand(headWhile, Type.TMP), null, null));
 
 		// Mark EndWhile
-		ins.add(new Instruction(OperationType.NOP, new Operand(endWhile, Type.TMP), null, null));
+		ins.add(new Instruction(OperationType.MARK, new Operand(endWhile, Type.TMP), null, null));
 
 		// Set the maximum of TmpVars
 		tmpVarIndex = maxTmpVar;
