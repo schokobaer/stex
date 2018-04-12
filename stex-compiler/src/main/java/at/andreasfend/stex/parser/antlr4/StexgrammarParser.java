@@ -23,31 +23,32 @@ public class StexgrammarParser extends Parser {
 		T__24=9, T__23=10, T__22=11, T__21=12, T__20=13, T__19=14, T__18=15, T__17=16, 
 		T__16=17, T__15=18, T__14=19, T__13=20, T__12=21, T__11=22, T__10=23, 
 		T__9=24, T__8=25, T__7=26, T__6=27, T__5=28, T__4=29, T__3=30, T__2=31, 
-		T__1=32, T__0=33, WHITESPACE=34, VAL=35, ID=36;
+		T__1=32, T__0=33, WHITESPACE=34, COMMENT=35, NUMBER=36, BOOLEAN=37, NULL=38, 
+		STRING=39, ID=40;
 	public static final String[] tokenNames = {
 		"<INVALID>", "'/'", "'catch'", "'return'", "'!='", "';'", "'while'", "'{'", 
 		"'='", "'}'", "'if'", "'?'", "'try'", "'&'", "'('", "'*'", "','", "'.'", 
 		"'throw'", "'var'", "'['", "'<'", "'=='", "']'", "'>'", "'or'", "'%'", 
 		"'in'", "'else'", "')'", "'and'", "'+'", "'not'", "'-'", "WHITESPACE", 
-		"VAL", "ID"
+		"COMMENT", "NUMBER", "BOOLEAN", "'null'", "STRING", "ID"
 	};
 	public static final int
 		RULE_program = 0, RULE_functionlist = 1, RULE_function = 2, RULE_paramlist = 3, 
 		RULE_statement = 4, RULE_ifstatement = 5, RULE_elseblock = 6, RULE_trystatement = 7, 
 		RULE_catchblock = 8, RULE_whilestatement = 9, RULE_throwstatement = 10, 
 		RULE_returnstatement = 11, RULE_assignstatement = 12, RULE_varstatement = 13, 
-		RULE_expression = 14, RULE_expressionop = 15, RULE_operand = 16, RULE_identifier = 17, 
-		RULE_arrayaccess = 18, RULE_object = 19, RULE_objectfield = 20, RULE_array = 21, 
-		RULE_functioncall = 22, RULE_functioncallargs = 23, RULE_ref = 24, RULE_deref = 25, 
-		RULE_operation = 26, RULE_notoperation = 27, RULE_operationtype = 28, 
-		RULE_assignee = 29;
+		RULE_voidfunction = 14, RULE_expression = 15, RULE_expressionop = 16, 
+		RULE_operand = 17, RULE_identifier = 18, RULE_value = 19, RULE_arrayaccess = 20, 
+		RULE_object = 21, RULE_objectfield = 22, RULE_array = 23, RULE_functioncall = 24, 
+		RULE_functioncallargs = 25, RULE_ref = 26, RULE_deref = 27, RULE_operation = 28, 
+		RULE_notoperation = 29, RULE_operationtype = 30, RULE_assignee = 31;
 	public static final String[] ruleNames = {
 		"program", "functionlist", "function", "paramlist", "statement", "ifstatement", 
 		"elseblock", "trystatement", "catchblock", "whilestatement", "throwstatement", 
-		"returnstatement", "assignstatement", "varstatement", "expression", "expressionop", 
-		"operand", "identifier", "arrayaccess", "object", "objectfield", "array", 
-		"functioncall", "functioncallargs", "ref", "deref", "operation", "notoperation", 
-		"operationtype", "assignee"
+		"returnstatement", "assignstatement", "varstatement", "voidfunction", 
+		"expression", "expressionop", "operand", "identifier", "value", "arrayaccess", 
+		"object", "objectfield", "array", "functioncall", "functioncallargs", 
+		"ref", "deref", "operation", "notoperation", "operationtype", "assignee"
 	};
 
 	@Override
@@ -98,7 +99,7 @@ public class StexgrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(60); functionlist();
+			setState(64); functionlist();
 			}
 		}
 		catch (RecognitionException re) {
@@ -145,16 +146,16 @@ public class StexgrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(63); 
+			setState(67); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(62); function();
+				setState(66); function();
 				}
 				}
-				setState(65); 
+				setState(69); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( _la==ID );
@@ -208,25 +209,25 @@ public class StexgrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(67); match(ID);
-			setState(68); match(T__19);
-			setState(69); paramlist();
-			setState(70); match(T__4);
-			setState(71); match(T__26);
-			setState(73); 
+			setState(71); match(ID);
+			setState(72); match(T__19);
+			setState(73); paramlist();
+			setState(74); match(T__4);
+			setState(75); match(T__26);
+			setState(77); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(72); statement();
+				setState(76); statement();
 				}
 				}
-				setState(75); 
+				setState(79); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__30) | (1L << T__27) | (1L << T__23) | (1L << T__22) | (1L << T__21) | (1L << T__15) | (1L << T__14) | (1L << ID))) != 0) );
-			setState(77); match(T__24);
+			setState(81); match(T__24);
 			}
 		}
 		catch (RecognitionException re) {
@@ -271,22 +272,22 @@ public class StexgrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(87);
+			setState(91);
 			_la = _input.LA(1);
 			if (_la==ID) {
 				{
-				setState(79); match(ID);
-				setState(84);
+				setState(83); match(ID);
+				setState(88);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while (_la==T__17) {
 					{
 					{
-					setState(80); match(T__17);
-					setState(81); match(ID);
+					setState(84); match(T__17);
+					setState(85); match(ID);
 					}
 					}
-					setState(86);
+					setState(90);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
@@ -328,6 +329,9 @@ public class StexgrammarParser extends Parser {
 		public VarstatementContext varstatement() {
 			return getRuleContext(VarstatementContext.class,0);
 		}
+		public VoidfunctionContext voidfunction() {
+			return getRuleContext(VoidfunctionContext.class,0);
+		}
 		public StatementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -353,46 +357,55 @@ public class StexgrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(96);
-			switch (_input.LA(1)) {
-			case T__23:
+			setState(101);
+			switch ( getInterpreter().adaptivePredict(_input,4,_ctx) ) {
+			case 1:
 				{
-				setState(89); ifstatement();
+				setState(93); ifstatement();
 				}
 				break;
-			case T__21:
+
+			case 2:
 				{
-				setState(90); trystatement();
+				setState(94); trystatement();
 				}
 				break;
-			case T__27:
+
+			case 3:
 				{
-				setState(91); whilestatement();
+				setState(95); whilestatement();
 				}
 				break;
-			case T__15:
+
+			case 4:
 				{
-				setState(92); throwstatement();
+				setState(96); throwstatement();
 				}
 				break;
-			case T__30:
+
+			case 5:
 				{
-				setState(93); returnstatement();
+				setState(97); returnstatement();
 				}
 				break;
-			case T__22:
-			case ID:
+
+			case 6:
 				{
-				setState(94); assignstatement();
+				setState(98); assignstatement();
 				}
 				break;
-			case T__14:
+
+			case 7:
 				{
-				setState(95); varstatement();
+				setState(99); varstatement();
 				}
 				break;
-			default:
-				throw new NoViableAltException(this);
+
+			case 8:
+				{
+				setState(100); voidfunction();
+				}
+				break;
 			}
 			}
 		}
@@ -446,30 +459,30 @@ public class StexgrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(98); match(T__23);
-			setState(99); match(T__19);
-			setState(100); expression();
-			setState(101); match(T__4);
-			setState(102); match(T__26);
-			setState(104); 
+			setState(103); match(T__23);
+			setState(104); match(T__19);
+			setState(105); expression();
+			setState(106); match(T__4);
+			setState(107); match(T__26);
+			setState(109); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(103); statement();
+				setState(108); statement();
 				}
 				}
-				setState(106); 
+				setState(111); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__30) | (1L << T__27) | (1L << T__23) | (1L << T__22) | (1L << T__21) | (1L << T__15) | (1L << T__14) | (1L << ID))) != 0) );
-			setState(108); match(T__24);
-			setState(110);
+			setState(113); match(T__24);
+			setState(115);
 			_la = _input.LA(1);
 			if (_la==T__5) {
 				{
-				setState(109); elseblock();
+				setState(114); elseblock();
 				}
 			}
 
@@ -519,22 +532,22 @@ public class StexgrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(112); match(T__5);
-			setState(113); match(T__26);
-			setState(115); 
+			setState(117); match(T__5);
+			setState(118); match(T__26);
+			setState(120); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(114); statement();
+				setState(119); statement();
 				}
 				}
-				setState(117); 
+				setState(122); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__30) | (1L << T__27) | (1L << T__23) | (1L << T__22) | (1L << T__21) | (1L << T__15) | (1L << T__14) | (1L << ID))) != 0) );
-			setState(119); match(T__24);
+			setState(124); match(T__24);
 			}
 		}
 		catch (RecognitionException re) {
@@ -584,23 +597,23 @@ public class StexgrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(121); match(T__21);
-			setState(122); match(T__26);
-			setState(124); 
+			setState(126); match(T__21);
+			setState(127); match(T__26);
+			setState(129); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(123); statement();
+				setState(128); statement();
 				}
 				}
-				setState(126); 
+				setState(131); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__30) | (1L << T__27) | (1L << T__23) | (1L << T__22) | (1L << T__21) | (1L << T__15) | (1L << T__14) | (1L << ID))) != 0) );
-			setState(128); match(T__24);
-			setState(129); catchblock();
+			setState(133); match(T__24);
+			setState(134); catchblock();
 			}
 		}
 		catch (RecognitionException re) {
@@ -648,25 +661,25 @@ public class StexgrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(131); match(T__31);
-			setState(132); match(T__19);
-			setState(133); match(ID);
-			setState(134); match(T__4);
-			setState(135); match(T__26);
-			setState(137); 
+			setState(136); match(T__31);
+			setState(137); match(T__19);
+			setState(138); match(ID);
+			setState(139); match(T__4);
+			setState(140); match(T__26);
+			setState(142); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(136); statement();
+				setState(141); statement();
 				}
 				}
-				setState(139); 
+				setState(144); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__30) | (1L << T__27) | (1L << T__23) | (1L << T__22) | (1L << T__21) | (1L << T__15) | (1L << T__14) | (1L << ID))) != 0) );
-			setState(141); match(T__24);
+			setState(146); match(T__24);
 			}
 		}
 		catch (RecognitionException re) {
@@ -716,25 +729,25 @@ public class StexgrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(143); match(T__27);
-			setState(144); match(T__19);
-			setState(145); expression();
-			setState(146); match(T__4);
-			setState(147); match(T__26);
-			setState(149); 
+			setState(148); match(T__27);
+			setState(149); match(T__19);
+			setState(150); expression();
+			setState(151); match(T__4);
+			setState(152); match(T__26);
+			setState(154); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(148); statement();
+				setState(153); statement();
 				}
 				}
-				setState(151); 
+				setState(156); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__30) | (1L << T__27) | (1L << T__23) | (1L << T__22) | (1L << T__21) | (1L << T__15) | (1L << T__14) | (1L << ID))) != 0) );
-			setState(153); match(T__24);
+			setState(158); match(T__24);
 			}
 		}
 		catch (RecognitionException re) {
@@ -777,9 +790,9 @@ public class StexgrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(155); match(T__15);
-			setState(156); expression();
-			setState(157); match(T__28);
+			setState(160); match(T__15);
+			setState(161); expression();
+			setState(162); match(T__28);
 			}
 		}
 		catch (RecognitionException re) {
@@ -823,16 +836,16 @@ public class StexgrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(159); match(T__30);
-			setState(161);
+			setState(164); match(T__30);
+			setState(166);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__26) | (1L << T__22) | (1L << T__20) | (1L << T__13) | (1L << T__1) | (1L << VAL) | (1L << ID))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__26) | (1L << T__22) | (1L << T__20) | (1L << T__13) | (1L << T__1) | (1L << NUMBER) | (1L << BOOLEAN) | (1L << NULL) | (1L << STRING) | (1L << ID))) != 0)) {
 				{
-				setState(160); expression();
+				setState(165); expression();
 				}
 			}
 
-			setState(163); match(T__28);
+			setState(168); match(T__28);
 			}
 		}
 		catch (RecognitionException re) {
@@ -878,10 +891,10 @@ public class StexgrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(165); assignee();
-			setState(166); match(T__25);
-			setState(167); expression();
-			setState(168); match(T__28);
+			setState(170); assignee();
+			setState(171); match(T__25);
+			setState(172); expression();
+			setState(173); match(T__28);
 			}
 		}
 		catch (RecognitionException re) {
@@ -926,18 +939,62 @@ public class StexgrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(170); match(T__14);
-			setState(171); match(ID);
-			setState(174);
+			setState(175); match(T__14);
+			setState(176); match(ID);
+			setState(179);
 			_la = _input.LA(1);
 			if (_la==T__25) {
 				{
-				setState(172); match(T__25);
-				setState(173); expression();
+				setState(177); match(T__25);
+				setState(178); expression();
 				}
 			}
 
-			setState(176); match(T__28);
+			setState(181); match(T__28);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class VoidfunctionContext extends ParserRuleContext {
+		public FunctioncallContext functioncall() {
+			return getRuleContext(FunctioncallContext.class,0);
+		}
+		public VoidfunctionContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_voidfunction; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof StexgrammarListener ) ((StexgrammarListener)listener).enterVoidfunction(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof StexgrammarListener ) ((StexgrammarListener)listener).exitVoidfunction(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof StexgrammarVisitor ) return ((StexgrammarVisitor<? extends T>)visitor).visitVoidfunction(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final VoidfunctionContext voidfunction() throws RecognitionException {
+		VoidfunctionContext _localctx = new VoidfunctionContext(_ctx, getState());
+		enterRule(_localctx, 28, RULE_voidfunction);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(183); functioncall();
+			setState(184); match(T__28);
 			}
 		}
 		catch (RecognitionException re) {
@@ -997,57 +1054,57 @@ public class StexgrammarParser extends Parser {
 
 	public final ExpressionContext expression() throws RecognitionException {
 		ExpressionContext _localctx = new ExpressionContext(_ctx, getState());
-		enterRule(_localctx, 28, RULE_expression);
+		enterRule(_localctx, 30, RULE_expression);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(186);
+			setState(194);
 			switch ( getInterpreter().adaptivePredict(_input,13,_ctx) ) {
 			case 1:
 				{
-				setState(178); functioncall();
+				setState(186); functioncall();
 				}
 				break;
 
 			case 2:
 				{
-				setState(179); operation();
+				setState(187); operation();
 				}
 				break;
 
 			case 3:
 				{
-				setState(180); operand();
+				setState(188); operand();
 				}
 				break;
 
 			case 4:
 				{
-				setState(181); arrayaccess();
+				setState(189); arrayaccess();
 				}
 				break;
 
 			case 5:
 				{
-				setState(182); deref();
+				setState(190); deref();
 				}
 				break;
 
 			case 6:
 				{
-				setState(183); object();
+				setState(191); object();
 				}
 				break;
 
 			case 7:
 				{
-				setState(184); array();
+				setState(192); array();
 				}
 				break;
 
 			case 8:
 				{
-				setState(185); ref();
+				setState(193); ref();
 				}
 				break;
 			}
@@ -1107,51 +1164,51 @@ public class StexgrammarParser extends Parser {
 
 	public final ExpressionopContext expressionop() throws RecognitionException {
 		ExpressionopContext _localctx = new ExpressionopContext(_ctx, getState());
-		enterRule(_localctx, 30, RULE_expressionop);
+		enterRule(_localctx, 32, RULE_expressionop);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(195);
+			setState(203);
 			switch ( getInterpreter().adaptivePredict(_input,14,_ctx) ) {
 			case 1:
 				{
-				setState(188); functioncall();
+				setState(196); functioncall();
 				}
 				break;
 
 			case 2:
 				{
-				setState(189); operand();
+				setState(197); operand();
 				}
 				break;
 
 			case 3:
 				{
-				setState(190); arrayaccess();
+				setState(198); arrayaccess();
 				}
 				break;
 
 			case 4:
 				{
-				setState(191); deref();
+				setState(199); deref();
 				}
 				break;
 
 			case 5:
 				{
-				setState(192); object();
+				setState(200); object();
 				}
 				break;
 
 			case 6:
 				{
-				setState(193); array();
+				setState(201); array();
 				}
 				break;
 
 			case 7:
 				{
-				setState(194); ref();
+				setState(202); ref();
 				}
 				break;
 			}
@@ -1169,7 +1226,9 @@ public class StexgrammarParser extends Parser {
 	}
 
 	public static class OperandContext extends ParserRuleContext {
-		public TerminalNode VAL() { return getToken(StexgrammarParser.VAL, 0); }
+		public ValueContext value() {
+			return getRuleContext(ValueContext.class,0);
+		}
 		public IdentifierContext identifier() {
 			return getRuleContext(IdentifierContext.class,0);
 		}
@@ -1194,20 +1253,23 @@ public class StexgrammarParser extends Parser {
 
 	public final OperandContext operand() throws RecognitionException {
 		OperandContext _localctx = new OperandContext(_ctx, getState());
-		enterRule(_localctx, 32, RULE_operand);
+		enterRule(_localctx, 34, RULE_operand);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(199);
+			setState(207);
 			switch (_input.LA(1)) {
 			case ID:
 				{
-				setState(197); identifier();
+				setState(205); identifier();
 				}
 				break;
-			case VAL:
+			case NUMBER:
+			case BOOLEAN:
+			case NULL:
+			case STRING:
 				{
-				setState(198); match(VAL);
+				setState(206); value();
 				}
 				break;
 			default:
@@ -1252,26 +1314,76 @@ public class StexgrammarParser extends Parser {
 
 	public final IdentifierContext identifier() throws RecognitionException {
 		IdentifierContext _localctx = new IdentifierContext(_ctx, getState());
-		enterRule(_localctx, 34, RULE_identifier);
+		enterRule(_localctx, 36, RULE_identifier);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(201); match(ID);
-			setState(206);
+			setState(209); match(ID);
+			setState(214);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==T__16) {
 				{
 				{
-				setState(202); match(T__16);
-				setState(203); match(ID);
+				setState(210); match(T__16);
+				setState(211); match(ID);
 				}
 				}
-				setState(208);
+				setState(216);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class ValueContext extends ParserRuleContext {
+		public TerminalNode NULL() { return getToken(StexgrammarParser.NULL, 0); }
+		public TerminalNode STRING() { return getToken(StexgrammarParser.STRING, 0); }
+		public TerminalNode NUMBER() { return getToken(StexgrammarParser.NUMBER, 0); }
+		public TerminalNode BOOLEAN() { return getToken(StexgrammarParser.BOOLEAN, 0); }
+		public ValueContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_value; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof StexgrammarListener ) ((StexgrammarListener)listener).enterValue(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof StexgrammarListener ) ((StexgrammarListener)listener).exitValue(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof StexgrammarVisitor ) return ((StexgrammarVisitor<? extends T>)visitor).visitValue(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final ValueContext value() throws RecognitionException {
+		ValueContext _localctx = new ValueContext(_ctx, getState());
+		enterRule(_localctx, 38, RULE_value);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(217);
+			_la = _input.LA(1);
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NUMBER) | (1L << BOOLEAN) | (1L << NULL) | (1L << STRING))) != 0)) ) {
+			_errHandler.recoverInline(this);
+			}
+			consume();
 			}
 		}
 		catch (RecognitionException re) {
@@ -1313,14 +1425,14 @@ public class StexgrammarParser extends Parser {
 
 	public final ArrayaccessContext arrayaccess() throws RecognitionException {
 		ArrayaccessContext _localctx = new ArrayaccessContext(_ctx, getState());
-		enterRule(_localctx, 36, RULE_arrayaccess);
+		enterRule(_localctx, 40, RULE_arrayaccess);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(209); identifier();
-			setState(210); match(T__13);
-			setState(211); expression();
-			setState(212); match(T__10);
+			setState(219); identifier();
+			setState(220); match(T__13);
+			setState(221); expression();
+			setState(222); match(T__10);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1362,28 +1474,28 @@ public class StexgrammarParser extends Parser {
 
 	public final ObjectContext object() throws RecognitionException {
 		ObjectContext _localctx = new ObjectContext(_ctx, getState());
-		enterRule(_localctx, 38, RULE_object);
+		enterRule(_localctx, 42, RULE_object);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(214); match(T__26);
-			setState(215); objectfield();
-			setState(220);
+			setState(224); match(T__26);
+			setState(225); objectfield();
+			setState(230);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==T__17) {
 				{
 				{
-				setState(216); match(T__17);
-				setState(217); objectfield();
+				setState(226); match(T__17);
+				setState(227); objectfield();
 				}
 				}
-				setState(222);
+				setState(232);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(223); match(T__24);
+			setState(233); match(T__24);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1423,18 +1535,18 @@ public class StexgrammarParser extends Parser {
 
 	public final ObjectfieldContext objectfield() throws RecognitionException {
 		ObjectfieldContext _localctx = new ObjectfieldContext(_ctx, getState());
-		enterRule(_localctx, 40, RULE_objectfield);
+		enterRule(_localctx, 44, RULE_objectfield);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(225); match(ID);
-			setState(228);
+			setState(235); match(ID);
+			setState(238);
 			_la = _input.LA(1);
 			if (_la==T__25) {
 				{
-				setState(226); match(T__25);
-				setState(227); expression();
+				setState(236); match(T__25);
+				setState(237); expression();
 				}
 			}
 
@@ -1479,35 +1591,35 @@ public class StexgrammarParser extends Parser {
 
 	public final ArrayContext array() throws RecognitionException {
 		ArrayContext _localctx = new ArrayContext(_ctx, getState());
-		enterRule(_localctx, 42, RULE_array);
+		enterRule(_localctx, 46, RULE_array);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(230); match(T__13);
-			setState(239);
+			setState(240); match(T__13);
+			setState(249);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__26) | (1L << T__22) | (1L << T__20) | (1L << T__13) | (1L << T__1) | (1L << VAL) | (1L << ID))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__26) | (1L << T__22) | (1L << T__20) | (1L << T__13) | (1L << T__1) | (1L << NUMBER) | (1L << BOOLEAN) | (1L << NULL) | (1L << STRING) | (1L << ID))) != 0)) {
 				{
-				setState(231); expression();
-				setState(236);
+				setState(241); expression();
+				setState(246);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while (_la==T__17) {
 					{
 					{
-					setState(232); match(T__17);
-					setState(233); expression();
+					setState(242); match(T__17);
+					setState(243); expression();
 					}
 					}
-					setState(238);
+					setState(248);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
 				}
 			}
 
-			setState(241); match(T__10);
+			setState(251); match(T__10);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1547,14 +1659,14 @@ public class StexgrammarParser extends Parser {
 
 	public final FunctioncallContext functioncall() throws RecognitionException {
 		FunctioncallContext _localctx = new FunctioncallContext(_ctx, getState());
-		enterRule(_localctx, 44, RULE_functioncall);
+		enterRule(_localctx, 48, RULE_functioncall);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(243); match(ID);
-			setState(244); match(T__19);
-			setState(245); functioncallargs();
-			setState(246); match(T__4);
+			setState(253); match(ID);
+			setState(254); match(T__19);
+			setState(255); functioncallargs();
+			setState(256); match(T__4);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1596,27 +1708,27 @@ public class StexgrammarParser extends Parser {
 
 	public final FunctioncallargsContext functioncallargs() throws RecognitionException {
 		FunctioncallargsContext _localctx = new FunctioncallargsContext(_ctx, getState());
-		enterRule(_localctx, 46, RULE_functioncallargs);
+		enterRule(_localctx, 50, RULE_functioncallargs);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(256);
+			setState(266);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__26) | (1L << T__22) | (1L << T__20) | (1L << T__13) | (1L << T__1) | (1L << VAL) | (1L << ID))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__26) | (1L << T__22) | (1L << T__20) | (1L << T__13) | (1L << T__1) | (1L << NUMBER) | (1L << BOOLEAN) | (1L << NULL) | (1L << STRING) | (1L << ID))) != 0)) {
 				{
-				setState(248); expression();
-				setState(253);
+				setState(258); expression();
+				setState(263);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while (_la==T__17) {
 					{
 					{
-					setState(249); match(T__17);
-					setState(250); expression();
+					setState(259); match(T__17);
+					setState(260); expression();
 					}
 					}
-					setState(255);
+					setState(265);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
@@ -1661,12 +1773,12 @@ public class StexgrammarParser extends Parser {
 
 	public final RefContext ref() throws RecognitionException {
 		RefContext _localctx = new RefContext(_ctx, getState());
-		enterRule(_localctx, 48, RULE_ref);
+		enterRule(_localctx, 52, RULE_ref);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(258); match(T__20);
-			setState(259); identifier();
+			setState(268); match(T__20);
+			setState(269); identifier();
 			}
 		}
 		catch (RecognitionException re) {
@@ -1705,12 +1817,12 @@ public class StexgrammarParser extends Parser {
 
 	public final DerefContext deref() throws RecognitionException {
 		DerefContext _localctx = new DerefContext(_ctx, getState());
-		enterRule(_localctx, 50, RULE_deref);
+		enterRule(_localctx, 54, RULE_deref);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(261); match(T__22);
-			setState(262); identifier();
+			setState(271); match(T__22);
+			setState(272); identifier();
 			}
 		}
 		catch (RecognitionException re) {
@@ -1758,27 +1870,30 @@ public class StexgrammarParser extends Parser {
 
 	public final OperationContext operation() throws RecognitionException {
 		OperationContext _localctx = new OperationContext(_ctx, getState());
-		enterRule(_localctx, 52, RULE_operation);
+		enterRule(_localctx, 56, RULE_operation);
 		try {
-			setState(269);
+			setState(279);
 			switch (_input.LA(1)) {
 			case T__26:
 			case T__22:
 			case T__20:
 			case T__13:
-			case VAL:
+			case NUMBER:
+			case BOOLEAN:
+			case NULL:
+			case STRING:
 			case ID:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(264); expressionop();
-				setState(265); operationtype();
-				setState(266); expression();
+				setState(274); expressionop();
+				setState(275); operationtype();
+				setState(276); expression();
 				}
 				break;
 			case T__1:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(268); notoperation();
+				setState(278); notoperation();
 				}
 				break;
 			default:
@@ -1821,12 +1936,12 @@ public class StexgrammarParser extends Parser {
 
 	public final NotoperationContext notoperation() throws RecognitionException {
 		NotoperationContext _localctx = new NotoperationContext(_ctx, getState());
-		enterRule(_localctx, 54, RULE_notoperation);
+		enterRule(_localctx, 58, RULE_notoperation);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(271); match(T__1);
-			setState(272); expression();
+			setState(281); match(T__1);
+			setState(282); expression();
 			}
 		}
 		catch (RecognitionException re) {
@@ -1862,12 +1977,12 @@ public class StexgrammarParser extends Parser {
 
 	public final OperationtypeContext operationtype() throws RecognitionException {
 		OperationtypeContext _localctx = new OperationtypeContext(_ctx, getState());
-		enterRule(_localctx, 56, RULE_operationtype);
+		enterRule(_localctx, 60, RULE_operationtype);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(274);
+			setState(284);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__32) | (1L << T__29) | (1L << T__18) | (1L << T__12) | (1L << T__11) | (1L << T__9) | (1L << T__8) | (1L << T__7) | (1L << T__6) | (1L << T__3) | (1L << T__2) | (1L << T__0))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -1917,28 +2032,28 @@ public class StexgrammarParser extends Parser {
 
 	public final AssigneeContext assignee() throws RecognitionException {
 		AssigneeContext _localctx = new AssigneeContext(_ctx, getState());
-		enterRule(_localctx, 58, RULE_assignee);
+		enterRule(_localctx, 62, RULE_assignee);
 		try {
-			setState(279);
+			setState(289);
 			switch ( getInterpreter().adaptivePredict(_input,24,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(276); deref();
+				setState(286); deref();
 				}
 				break;
 
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(277); identifier();
+				setState(287); identifier();
 				}
 				break;
 
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(278); arrayaccess();
+				setState(288); arrayaccess();
 				}
 				break;
 			}
@@ -1955,101 +2070,104 @@ public class StexgrammarParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3&\u011c\4\2\t\2\4"+
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3*\u0126\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31\t\31"+
-		"\4\32\t\32\4\33\t\33\4\34\t\34\4\35\t\35\4\36\t\36\4\37\t\37\3\2\3\2\3"+
-		"\3\6\3B\n\3\r\3\16\3C\3\4\3\4\3\4\3\4\3\4\3\4\6\4L\n\4\r\4\16\4M\3\4\3"+
-		"\4\3\5\3\5\3\5\7\5U\n\5\f\5\16\5X\13\5\5\5Z\n\5\3\6\3\6\3\6\3\6\3\6\3"+
-		"\6\3\6\5\6c\n\6\3\7\3\7\3\7\3\7\3\7\3\7\6\7k\n\7\r\7\16\7l\3\7\3\7\5\7"+
-		"q\n\7\3\b\3\b\3\b\6\bv\n\b\r\b\16\bw\3\b\3\b\3\t\3\t\3\t\6\t\177\n\t\r"+
-		"\t\16\t\u0080\3\t\3\t\3\t\3\n\3\n\3\n\3\n\3\n\3\n\6\n\u008c\n\n\r\n\16"+
-		"\n\u008d\3\n\3\n\3\13\3\13\3\13\3\13\3\13\3\13\6\13\u0098\n\13\r\13\16"+
-		"\13\u0099\3\13\3\13\3\f\3\f\3\f\3\f\3\r\3\r\5\r\u00a4\n\r\3\r\3\r\3\16"+
-		"\3\16\3\16\3\16\3\16\3\17\3\17\3\17\3\17\5\17\u00b1\n\17\3\17\3\17\3\20"+
-		"\3\20\3\20\3\20\3\20\3\20\3\20\3\20\5\20\u00bd\n\20\3\21\3\21\3\21\3\21"+
-		"\3\21\3\21\3\21\5\21\u00c6\n\21\3\22\3\22\5\22\u00ca\n\22\3\23\3\23\3"+
-		"\23\7\23\u00cf\n\23\f\23\16\23\u00d2\13\23\3\24\3\24\3\24\3\24\3\24\3"+
-		"\25\3\25\3\25\3\25\7\25\u00dd\n\25\f\25\16\25\u00e0\13\25\3\25\3\25\3"+
-		"\26\3\26\3\26\5\26\u00e7\n\26\3\27\3\27\3\27\3\27\7\27\u00ed\n\27\f\27"+
-		"\16\27\u00f0\13\27\5\27\u00f2\n\27\3\27\3\27\3\30\3\30\3\30\3\30\3\30"+
-		"\3\31\3\31\3\31\7\31\u00fe\n\31\f\31\16\31\u0101\13\31\5\31\u0103\n\31"+
-		"\3\32\3\32\3\32\3\33\3\33\3\33\3\34\3\34\3\34\3\34\3\34\5\34\u0110\n\34"+
-		"\3\35\3\35\3\35\3\36\3\36\3\37\3\37\3\37\5\37\u011a\n\37\3\37\2\2 \2\4"+
-		"\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$&(*,.\60\62\64\668:<\2\3\t\2\3"+
-		"\3\6\6\21\21\27\30\32\35 !##\u0127\2>\3\2\2\2\4A\3\2\2\2\6E\3\2\2\2\b"+
-		"Y\3\2\2\2\nb\3\2\2\2\fd\3\2\2\2\16r\3\2\2\2\20{\3\2\2\2\22\u0085\3\2\2"+
-		"\2\24\u0091\3\2\2\2\26\u009d\3\2\2\2\30\u00a1\3\2\2\2\32\u00a7\3\2\2\2"+
-		"\34\u00ac\3\2\2\2\36\u00bc\3\2\2\2 \u00c5\3\2\2\2\"\u00c9\3\2\2\2$\u00cb"+
-		"\3\2\2\2&\u00d3\3\2\2\2(\u00d8\3\2\2\2*\u00e3\3\2\2\2,\u00e8\3\2\2\2."+
-		"\u00f5\3\2\2\2\60\u0102\3\2\2\2\62\u0104\3\2\2\2\64\u0107\3\2\2\2\66\u010f"+
-		"\3\2\2\28\u0111\3\2\2\2:\u0114\3\2\2\2<\u0119\3\2\2\2>?\5\4\3\2?\3\3\2"+
-		"\2\2@B\5\6\4\2A@\3\2\2\2BC\3\2\2\2CA\3\2\2\2CD\3\2\2\2D\5\3\2\2\2EF\7"+
-		"&\2\2FG\7\20\2\2GH\5\b\5\2HI\7\37\2\2IK\7\t\2\2JL\5\n\6\2KJ\3\2\2\2LM"+
-		"\3\2\2\2MK\3\2\2\2MN\3\2\2\2NO\3\2\2\2OP\7\13\2\2P\7\3\2\2\2QV\7&\2\2"+
-		"RS\7\22\2\2SU\7&\2\2TR\3\2\2\2UX\3\2\2\2VT\3\2\2\2VW\3\2\2\2WZ\3\2\2\2"+
-		"XV\3\2\2\2YQ\3\2\2\2YZ\3\2\2\2Z\t\3\2\2\2[c\5\f\7\2\\c\5\20\t\2]c\5\24"+
-		"\13\2^c\5\26\f\2_c\5\30\r\2`c\5\32\16\2ac\5\34\17\2b[\3\2\2\2b\\\3\2\2"+
-		"\2b]\3\2\2\2b^\3\2\2\2b_\3\2\2\2b`\3\2\2\2ba\3\2\2\2c\13\3\2\2\2de\7\f"+
-		"\2\2ef\7\20\2\2fg\5\36\20\2gh\7\37\2\2hj\7\t\2\2ik\5\n\6\2ji\3\2\2\2k"+
-		"l\3\2\2\2lj\3\2\2\2lm\3\2\2\2mn\3\2\2\2np\7\13\2\2oq\5\16\b\2po\3\2\2"+
-		"\2pq\3\2\2\2q\r\3\2\2\2rs\7\36\2\2su\7\t\2\2tv\5\n\6\2ut\3\2\2\2vw\3\2"+
-		"\2\2wu\3\2\2\2wx\3\2\2\2xy\3\2\2\2yz\7\13\2\2z\17\3\2\2\2{|\7\16\2\2|"+
-		"~\7\t\2\2}\177\5\n\6\2~}\3\2\2\2\177\u0080\3\2\2\2\u0080~\3\2\2\2\u0080"+
-		"\u0081\3\2\2\2\u0081\u0082\3\2\2\2\u0082\u0083\7\13\2\2\u0083\u0084\5"+
-		"\22\n\2\u0084\21\3\2\2\2\u0085\u0086\7\4\2\2\u0086\u0087\7\20\2\2\u0087"+
-		"\u0088\7&\2\2\u0088\u0089\7\37\2\2\u0089\u008b\7\t\2\2\u008a\u008c\5\n"+
-		"\6\2\u008b\u008a\3\2\2\2\u008c\u008d\3\2\2\2\u008d\u008b\3\2\2\2\u008d"+
-		"\u008e\3\2\2\2\u008e\u008f\3\2\2\2\u008f\u0090\7\13\2\2\u0090\23\3\2\2"+
-		"\2\u0091\u0092\7\b\2\2\u0092\u0093\7\20\2\2\u0093\u0094\5\36\20\2\u0094"+
-		"\u0095\7\37\2\2\u0095\u0097\7\t\2\2\u0096\u0098\5\n\6\2\u0097\u0096\3"+
-		"\2\2\2\u0098\u0099\3\2\2\2\u0099\u0097\3\2\2\2\u0099\u009a\3\2\2\2\u009a"+
-		"\u009b\3\2\2\2\u009b\u009c\7\13\2\2\u009c\25\3\2\2\2\u009d\u009e\7\24"+
-		"\2\2\u009e\u009f\5\36\20\2\u009f\u00a0\7\7\2\2\u00a0\27\3\2\2\2\u00a1"+
-		"\u00a3\7\5\2\2\u00a2\u00a4\5\36\20\2\u00a3\u00a2\3\2\2\2\u00a3\u00a4\3"+
-		"\2\2\2\u00a4\u00a5\3\2\2\2\u00a5\u00a6\7\7\2\2\u00a6\31\3\2\2\2\u00a7"+
-		"\u00a8\5<\37\2\u00a8\u00a9\7\n\2\2\u00a9\u00aa\5\36\20\2\u00aa\u00ab\7"+
-		"\7\2\2\u00ab\33\3\2\2\2\u00ac\u00ad\7\25\2\2\u00ad\u00b0\7&\2\2\u00ae"+
-		"\u00af\7\n\2\2\u00af\u00b1\5\36\20\2\u00b0\u00ae\3\2\2\2\u00b0\u00b1\3"+
-		"\2\2\2\u00b1\u00b2\3\2\2\2\u00b2\u00b3\7\7\2\2\u00b3\35\3\2\2\2\u00b4"+
-		"\u00bd\5.\30\2\u00b5\u00bd\5\66\34\2\u00b6\u00bd\5\"\22\2\u00b7\u00bd"+
-		"\5&\24\2\u00b8\u00bd\5\64\33\2\u00b9\u00bd\5(\25\2\u00ba\u00bd\5,\27\2"+
-		"\u00bb\u00bd\5\62\32\2\u00bc\u00b4\3\2\2\2\u00bc\u00b5\3\2\2\2\u00bc\u00b6"+
-		"\3\2\2\2\u00bc\u00b7\3\2\2\2\u00bc\u00b8\3\2\2\2\u00bc\u00b9\3\2\2\2\u00bc"+
-		"\u00ba\3\2\2\2\u00bc\u00bb\3\2\2\2\u00bd\37\3\2\2\2\u00be\u00c6\5.\30"+
-		"\2\u00bf\u00c6\5\"\22\2\u00c0\u00c6\5&\24\2\u00c1\u00c6\5\64\33\2\u00c2"+
-		"\u00c6\5(\25\2\u00c3\u00c6\5,\27\2\u00c4\u00c6\5\62\32\2\u00c5\u00be\3"+
-		"\2\2\2\u00c5\u00bf\3\2\2\2\u00c5\u00c0\3\2\2\2\u00c5\u00c1\3\2\2\2\u00c5"+
-		"\u00c2\3\2\2\2\u00c5\u00c3\3\2\2\2\u00c5\u00c4\3\2\2\2\u00c6!\3\2\2\2"+
-		"\u00c7\u00ca\5$\23\2\u00c8\u00ca\7%\2\2\u00c9\u00c7\3\2\2\2\u00c9\u00c8"+
-		"\3\2\2\2\u00ca#\3\2\2\2\u00cb\u00d0\7&\2\2\u00cc\u00cd\7\23\2\2\u00cd"+
-		"\u00cf\7&\2\2\u00ce\u00cc\3\2\2\2\u00cf\u00d2\3\2\2\2\u00d0\u00ce\3\2"+
-		"\2\2\u00d0\u00d1\3\2\2\2\u00d1%\3\2\2\2\u00d2\u00d0\3\2\2\2\u00d3\u00d4"+
-		"\5$\23\2\u00d4\u00d5\7\26\2\2\u00d5\u00d6\5\36\20\2\u00d6\u00d7\7\31\2"+
-		"\2\u00d7\'\3\2\2\2\u00d8\u00d9\7\t\2\2\u00d9\u00de\5*\26\2\u00da\u00db"+
-		"\7\22\2\2\u00db\u00dd\5*\26\2\u00dc\u00da\3\2\2\2\u00dd\u00e0\3\2\2\2"+
-		"\u00de\u00dc\3\2\2\2\u00de\u00df\3\2\2\2\u00df\u00e1\3\2\2\2\u00e0\u00de"+
-		"\3\2\2\2\u00e1\u00e2\7\13\2\2\u00e2)\3\2\2\2\u00e3\u00e6\7&\2\2\u00e4"+
-		"\u00e5\7\n\2\2\u00e5\u00e7\5\36\20\2\u00e6\u00e4\3\2\2\2\u00e6\u00e7\3"+
-		"\2\2\2\u00e7+\3\2\2\2\u00e8\u00f1\7\26\2\2\u00e9\u00ee\5\36\20\2\u00ea"+
-		"\u00eb\7\22\2\2\u00eb\u00ed\5\36\20\2\u00ec\u00ea\3\2\2\2\u00ed\u00f0"+
-		"\3\2\2\2\u00ee\u00ec\3\2\2\2\u00ee\u00ef\3\2\2\2\u00ef\u00f2\3\2\2\2\u00f0"+
-		"\u00ee\3\2\2\2\u00f1\u00e9\3\2\2\2\u00f1\u00f2\3\2\2\2\u00f2\u00f3\3\2"+
-		"\2\2\u00f3\u00f4\7\31\2\2\u00f4-\3\2\2\2\u00f5\u00f6\7&\2\2\u00f6\u00f7"+
-		"\7\20\2\2\u00f7\u00f8\5\60\31\2\u00f8\u00f9\7\37\2\2\u00f9/\3\2\2\2\u00fa"+
-		"\u00ff\5\36\20\2\u00fb\u00fc\7\22\2\2\u00fc\u00fe\5\36\20\2\u00fd\u00fb"+
-		"\3\2\2\2\u00fe\u0101\3\2\2\2\u00ff\u00fd\3\2\2\2\u00ff\u0100\3\2\2\2\u0100"+
-		"\u0103\3\2\2\2\u0101\u00ff\3\2\2\2\u0102\u00fa\3\2\2\2\u0102\u0103\3\2"+
-		"\2\2\u0103\61\3\2\2\2\u0104\u0105\7\17\2\2\u0105\u0106\5$\23\2\u0106\63"+
-		"\3\2\2\2\u0107\u0108\7\r\2\2\u0108\u0109\5$\23\2\u0109\65\3\2\2\2\u010a"+
-		"\u010b\5 \21\2\u010b\u010c\5:\36\2\u010c\u010d\5\36\20\2\u010d\u0110\3"+
-		"\2\2\2\u010e\u0110\58\35\2\u010f\u010a\3\2\2\2\u010f\u010e\3\2\2\2\u0110"+
-		"\67\3\2\2\2\u0111\u0112\7\"\2\2\u0112\u0113\5\36\20\2\u01139\3\2\2\2\u0114"+
-		"\u0115\t\2\2\2\u0115;\3\2\2\2\u0116\u011a\5\64\33\2\u0117\u011a\5$\23"+
-		"\2\u0118\u011a\5&\24\2\u0119\u0116\3\2\2\2\u0119\u0117\3\2\2\2\u0119\u0118"+
-		"\3\2\2\2\u011a=\3\2\2\2\33CMVYblpw\u0080\u008d\u0099\u00a3\u00b0\u00bc"+
-		"\u00c5\u00c9\u00d0\u00de\u00e6\u00ee\u00f1\u00ff\u0102\u010f\u0119";
+		"\4\32\t\32\4\33\t\33\4\34\t\34\4\35\t\35\4\36\t\36\4\37\t\37\4 \t \4!"+
+		"\t!\3\2\3\2\3\3\6\3F\n\3\r\3\16\3G\3\4\3\4\3\4\3\4\3\4\3\4\6\4P\n\4\r"+
+		"\4\16\4Q\3\4\3\4\3\5\3\5\3\5\7\5Y\n\5\f\5\16\5\\\13\5\5\5^\n\5\3\6\3\6"+
+		"\3\6\3\6\3\6\3\6\3\6\3\6\5\6h\n\6\3\7\3\7\3\7\3\7\3\7\3\7\6\7p\n\7\r\7"+
+		"\16\7q\3\7\3\7\5\7v\n\7\3\b\3\b\3\b\6\b{\n\b\r\b\16\b|\3\b\3\b\3\t\3\t"+
+		"\3\t\6\t\u0084\n\t\r\t\16\t\u0085\3\t\3\t\3\t\3\n\3\n\3\n\3\n\3\n\3\n"+
+		"\6\n\u0091\n\n\r\n\16\n\u0092\3\n\3\n\3\13\3\13\3\13\3\13\3\13\3\13\6"+
+		"\13\u009d\n\13\r\13\16\13\u009e\3\13\3\13\3\f\3\f\3\f\3\f\3\r\3\r\5\r"+
+		"\u00a9\n\r\3\r\3\r\3\16\3\16\3\16\3\16\3\16\3\17\3\17\3\17\3\17\5\17\u00b6"+
+		"\n\17\3\17\3\17\3\20\3\20\3\20\3\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21"+
+		"\5\21\u00c5\n\21\3\22\3\22\3\22\3\22\3\22\3\22\3\22\5\22\u00ce\n\22\3"+
+		"\23\3\23\5\23\u00d2\n\23\3\24\3\24\3\24\7\24\u00d7\n\24\f\24\16\24\u00da"+
+		"\13\24\3\25\3\25\3\26\3\26\3\26\3\26\3\26\3\27\3\27\3\27\3\27\7\27\u00e7"+
+		"\n\27\f\27\16\27\u00ea\13\27\3\27\3\27\3\30\3\30\3\30\5\30\u00f1\n\30"+
+		"\3\31\3\31\3\31\3\31\7\31\u00f7\n\31\f\31\16\31\u00fa\13\31\5\31\u00fc"+
+		"\n\31\3\31\3\31\3\32\3\32\3\32\3\32\3\32\3\33\3\33\3\33\7\33\u0108\n\33"+
+		"\f\33\16\33\u010b\13\33\5\33\u010d\n\33\3\34\3\34\3\34\3\35\3\35\3\35"+
+		"\3\36\3\36\3\36\3\36\3\36\5\36\u011a\n\36\3\37\3\37\3\37\3 \3 \3!\3!\3"+
+		"!\5!\u0124\n!\3!\2\2\"\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$&(*,"+
+		".\60\62\64\668:<>@\2\4\3\2&)\t\2\3\3\6\6\21\21\27\30\32\35 !##\u0130\2"+
+		"B\3\2\2\2\4E\3\2\2\2\6I\3\2\2\2\b]\3\2\2\2\ng\3\2\2\2\fi\3\2\2\2\16w\3"+
+		"\2\2\2\20\u0080\3\2\2\2\22\u008a\3\2\2\2\24\u0096\3\2\2\2\26\u00a2\3\2"+
+		"\2\2\30\u00a6\3\2\2\2\32\u00ac\3\2\2\2\34\u00b1\3\2\2\2\36\u00b9\3\2\2"+
+		"\2 \u00c4\3\2\2\2\"\u00cd\3\2\2\2$\u00d1\3\2\2\2&\u00d3\3\2\2\2(\u00db"+
+		"\3\2\2\2*\u00dd\3\2\2\2,\u00e2\3\2\2\2.\u00ed\3\2\2\2\60\u00f2\3\2\2\2"+
+		"\62\u00ff\3\2\2\2\64\u010c\3\2\2\2\66\u010e\3\2\2\28\u0111\3\2\2\2:\u0119"+
+		"\3\2\2\2<\u011b\3\2\2\2>\u011e\3\2\2\2@\u0123\3\2\2\2BC\5\4\3\2C\3\3\2"+
+		"\2\2DF\5\6\4\2ED\3\2\2\2FG\3\2\2\2GE\3\2\2\2GH\3\2\2\2H\5\3\2\2\2IJ\7"+
+		"*\2\2JK\7\20\2\2KL\5\b\5\2LM\7\37\2\2MO\7\t\2\2NP\5\n\6\2ON\3\2\2\2PQ"+
+		"\3\2\2\2QO\3\2\2\2QR\3\2\2\2RS\3\2\2\2ST\7\13\2\2T\7\3\2\2\2UZ\7*\2\2"+
+		"VW\7\22\2\2WY\7*\2\2XV\3\2\2\2Y\\\3\2\2\2ZX\3\2\2\2Z[\3\2\2\2[^\3\2\2"+
+		"\2\\Z\3\2\2\2]U\3\2\2\2]^\3\2\2\2^\t\3\2\2\2_h\5\f\7\2`h\5\20\t\2ah\5"+
+		"\24\13\2bh\5\26\f\2ch\5\30\r\2dh\5\32\16\2eh\5\34\17\2fh\5\36\20\2g_\3"+
+		"\2\2\2g`\3\2\2\2ga\3\2\2\2gb\3\2\2\2gc\3\2\2\2gd\3\2\2\2ge\3\2\2\2gf\3"+
+		"\2\2\2h\13\3\2\2\2ij\7\f\2\2jk\7\20\2\2kl\5 \21\2lm\7\37\2\2mo\7\t\2\2"+
+		"np\5\n\6\2on\3\2\2\2pq\3\2\2\2qo\3\2\2\2qr\3\2\2\2rs\3\2\2\2su\7\13\2"+
+		"\2tv\5\16\b\2ut\3\2\2\2uv\3\2\2\2v\r\3\2\2\2wx\7\36\2\2xz\7\t\2\2y{\5"+
+		"\n\6\2zy\3\2\2\2{|\3\2\2\2|z\3\2\2\2|}\3\2\2\2}~\3\2\2\2~\177\7\13\2\2"+
+		"\177\17\3\2\2\2\u0080\u0081\7\16\2\2\u0081\u0083\7\t\2\2\u0082\u0084\5"+
+		"\n\6\2\u0083\u0082\3\2\2\2\u0084\u0085\3\2\2\2\u0085\u0083\3\2\2\2\u0085"+
+		"\u0086\3\2\2\2\u0086\u0087\3\2\2\2\u0087\u0088\7\13\2\2\u0088\u0089\5"+
+		"\22\n\2\u0089\21\3\2\2\2\u008a\u008b\7\4\2\2\u008b\u008c\7\20\2\2\u008c"+
+		"\u008d\7*\2\2\u008d\u008e\7\37\2\2\u008e\u0090\7\t\2\2\u008f\u0091\5\n"+
+		"\6\2\u0090\u008f\3\2\2\2\u0091\u0092\3\2\2\2\u0092\u0090\3\2\2\2\u0092"+
+		"\u0093\3\2\2\2\u0093\u0094\3\2\2\2\u0094\u0095\7\13\2\2\u0095\23\3\2\2"+
+		"\2\u0096\u0097\7\b\2\2\u0097\u0098\7\20\2\2\u0098\u0099\5 \21\2\u0099"+
+		"\u009a\7\37\2\2\u009a\u009c\7\t\2\2\u009b\u009d\5\n\6\2\u009c\u009b\3"+
+		"\2\2\2\u009d\u009e\3\2\2\2\u009e\u009c\3\2\2\2\u009e\u009f\3\2\2\2\u009f"+
+		"\u00a0\3\2\2\2\u00a0\u00a1\7\13\2\2\u00a1\25\3\2\2\2\u00a2\u00a3\7\24"+
+		"\2\2\u00a3\u00a4\5 \21\2\u00a4\u00a5\7\7\2\2\u00a5\27\3\2\2\2\u00a6\u00a8"+
+		"\7\5\2\2\u00a7\u00a9\5 \21\2\u00a8\u00a7\3\2\2\2\u00a8\u00a9\3\2\2\2\u00a9"+
+		"\u00aa\3\2\2\2\u00aa\u00ab\7\7\2\2\u00ab\31\3\2\2\2\u00ac\u00ad\5@!\2"+
+		"\u00ad\u00ae\7\n\2\2\u00ae\u00af\5 \21\2\u00af\u00b0\7\7\2\2\u00b0\33"+
+		"\3\2\2\2\u00b1\u00b2\7\25\2\2\u00b2\u00b5\7*\2\2\u00b3\u00b4\7\n\2\2\u00b4"+
+		"\u00b6\5 \21\2\u00b5\u00b3\3\2\2\2\u00b5\u00b6\3\2\2\2\u00b6\u00b7\3\2"+
+		"\2\2\u00b7\u00b8\7\7\2\2\u00b8\35\3\2\2\2\u00b9\u00ba\5\62\32\2\u00ba"+
+		"\u00bb\7\7\2\2\u00bb\37\3\2\2\2\u00bc\u00c5\5\62\32\2\u00bd\u00c5\5:\36"+
+		"\2\u00be\u00c5\5$\23\2\u00bf\u00c5\5*\26\2\u00c0\u00c5\58\35\2\u00c1\u00c5"+
+		"\5,\27\2\u00c2\u00c5\5\60\31\2\u00c3\u00c5\5\66\34\2\u00c4\u00bc\3\2\2"+
+		"\2\u00c4\u00bd\3\2\2\2\u00c4\u00be\3\2\2\2\u00c4\u00bf\3\2\2\2\u00c4\u00c0"+
+		"\3\2\2\2\u00c4\u00c1\3\2\2\2\u00c4\u00c2\3\2\2\2\u00c4\u00c3\3\2\2\2\u00c5"+
+		"!\3\2\2\2\u00c6\u00ce\5\62\32\2\u00c7\u00ce\5$\23\2\u00c8\u00ce\5*\26"+
+		"\2\u00c9\u00ce\58\35\2\u00ca\u00ce\5,\27\2\u00cb\u00ce\5\60\31\2\u00cc"+
+		"\u00ce\5\66\34\2\u00cd\u00c6\3\2\2\2\u00cd\u00c7\3\2\2\2\u00cd\u00c8\3"+
+		"\2\2\2\u00cd\u00c9\3\2\2\2\u00cd\u00ca\3\2\2\2\u00cd\u00cb\3\2\2\2\u00cd"+
+		"\u00cc\3\2\2\2\u00ce#\3\2\2\2\u00cf\u00d2\5&\24\2\u00d0\u00d2\5(\25\2"+
+		"\u00d1\u00cf\3\2\2\2\u00d1\u00d0\3\2\2\2\u00d2%\3\2\2\2\u00d3\u00d8\7"+
+		"*\2\2\u00d4\u00d5\7\23\2\2\u00d5\u00d7\7*\2\2\u00d6\u00d4\3\2\2\2\u00d7"+
+		"\u00da\3\2\2\2\u00d8\u00d6\3\2\2\2\u00d8\u00d9\3\2\2\2\u00d9\'\3\2\2\2"+
+		"\u00da\u00d8\3\2\2\2\u00db\u00dc\t\2\2\2\u00dc)\3\2\2\2\u00dd\u00de\5"+
+		"&\24\2\u00de\u00df\7\26\2\2\u00df\u00e0\5 \21\2\u00e0\u00e1\7\31\2\2\u00e1"+
+		"+\3\2\2\2\u00e2\u00e3\7\t\2\2\u00e3\u00e8\5.\30\2\u00e4\u00e5\7\22\2\2"+
+		"\u00e5\u00e7\5.\30\2\u00e6\u00e4\3\2\2\2\u00e7\u00ea\3\2\2\2\u00e8\u00e6"+
+		"\3\2\2\2\u00e8\u00e9\3\2\2\2\u00e9\u00eb\3\2\2\2\u00ea\u00e8\3\2\2\2\u00eb"+
+		"\u00ec\7\13\2\2\u00ec-\3\2\2\2\u00ed\u00f0\7*\2\2\u00ee\u00ef\7\n\2\2"+
+		"\u00ef\u00f1\5 \21\2\u00f0\u00ee\3\2\2\2\u00f0\u00f1\3\2\2\2\u00f1/\3"+
+		"\2\2\2\u00f2\u00fb\7\26\2\2\u00f3\u00f8\5 \21\2\u00f4\u00f5\7\22\2\2\u00f5"+
+		"\u00f7\5 \21\2\u00f6\u00f4\3\2\2\2\u00f7\u00fa\3\2\2\2\u00f8\u00f6\3\2"+
+		"\2\2\u00f8\u00f9\3\2\2\2\u00f9\u00fc\3\2\2\2\u00fa\u00f8\3\2\2\2\u00fb"+
+		"\u00f3\3\2\2\2\u00fb\u00fc\3\2\2\2\u00fc\u00fd\3\2\2\2\u00fd\u00fe\7\31"+
+		"\2\2\u00fe\61\3\2\2\2\u00ff\u0100\7*\2\2\u0100\u0101\7\20\2\2\u0101\u0102"+
+		"\5\64\33\2\u0102\u0103\7\37\2\2\u0103\63\3\2\2\2\u0104\u0109\5 \21\2\u0105"+
+		"\u0106\7\22\2\2\u0106\u0108\5 \21\2\u0107\u0105\3\2\2\2\u0108\u010b\3"+
+		"\2\2\2\u0109\u0107\3\2\2\2\u0109\u010a\3\2\2\2\u010a\u010d\3\2\2\2\u010b"+
+		"\u0109\3\2\2\2\u010c\u0104\3\2\2\2\u010c\u010d\3\2\2\2\u010d\65\3\2\2"+
+		"\2\u010e\u010f\7\17\2\2\u010f\u0110\5&\24\2\u0110\67\3\2\2\2\u0111\u0112"+
+		"\7\r\2\2\u0112\u0113\5&\24\2\u01139\3\2\2\2\u0114\u0115\5\"\22\2\u0115"+
+		"\u0116\5> \2\u0116\u0117\5 \21\2\u0117\u011a\3\2\2\2\u0118\u011a\5<\37"+
+		"\2\u0119\u0114\3\2\2\2\u0119\u0118\3\2\2\2\u011a;\3\2\2\2\u011b\u011c"+
+		"\7\"\2\2\u011c\u011d\5 \21\2\u011d=\3\2\2\2\u011e\u011f\t\3\2\2\u011f"+
+		"?\3\2\2\2\u0120\u0124\58\35\2\u0121\u0124\5&\24\2\u0122\u0124\5*\26\2"+
+		"\u0123\u0120\3\2\2\2\u0123\u0121\3\2\2\2\u0123\u0122\3\2\2\2\u0124A\3"+
+		"\2\2\2\33GQZ]gqu|\u0085\u0092\u009e\u00a8\u00b5\u00c4\u00cd\u00d1\u00d8"+
+		"\u00e8\u00f0\u00f8\u00fb\u0109\u010c\u0119\u0123";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

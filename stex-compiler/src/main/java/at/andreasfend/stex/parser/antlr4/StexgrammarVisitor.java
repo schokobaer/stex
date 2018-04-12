@@ -112,6 +112,13 @@ public interface StexgrammarVisitor<T> extends ParseTreeVisitor<T> {
 	T visitExpressionop(@NotNull StexgrammarParser.ExpressionopContext ctx);
 
 	/**
+	 * Visit a parse tree produced by {@link StexgrammarParser#voidfunction}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVoidfunction(@NotNull StexgrammarParser.VoidfunctionContext ctx);
+
+	/**
 	 * Visit a parse tree produced by {@link StexgrammarParser#arrayaccess}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -131,6 +138,13 @@ public interface StexgrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitVarstatement(@NotNull StexgrammarParser.VarstatementContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link StexgrammarParser#value}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitValue(@NotNull StexgrammarParser.ValueContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link StexgrammarParser#identifier}.

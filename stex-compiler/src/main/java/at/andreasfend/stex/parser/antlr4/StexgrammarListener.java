@@ -165,6 +165,17 @@ public interface StexgrammarListener extends ParseTreeListener {
 	void exitExpressionop(@NotNull StexgrammarParser.ExpressionopContext ctx);
 
 	/**
+	 * Enter a parse tree produced by {@link StexgrammarParser#voidfunction}.
+	 * @param ctx the parse tree
+	 */
+	void enterVoidfunction(@NotNull StexgrammarParser.VoidfunctionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link StexgrammarParser#voidfunction}.
+	 * @param ctx the parse tree
+	 */
+	void exitVoidfunction(@NotNull StexgrammarParser.VoidfunctionContext ctx);
+
+	/**
 	 * Enter a parse tree produced by {@link StexgrammarParser#arrayaccess}.
 	 * @param ctx the parse tree
 	 */
@@ -196,6 +207,17 @@ public interface StexgrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitVarstatement(@NotNull StexgrammarParser.VarstatementContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link StexgrammarParser#value}.
+	 * @param ctx the parse tree
+	 */
+	void enterValue(@NotNull StexgrammarParser.ValueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link StexgrammarParser#value}.
+	 * @param ctx the parse tree
+	 */
+	void exitValue(@NotNull StexgrammarParser.ValueContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link StexgrammarParser#identifier}.

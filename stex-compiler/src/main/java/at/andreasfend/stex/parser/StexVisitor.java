@@ -29,12 +29,18 @@ import at.andreasfend.stex.parser.antlr4.StexgrammarParser.StatementContext;
 import at.andreasfend.stex.parser.antlr4.StexgrammarParser.ThrowstatementContext;
 import at.andreasfend.stex.parser.antlr4.StexgrammarParser.TrystatementContext;
 import at.andreasfend.stex.parser.antlr4.StexgrammarParser.VarstatementContext;
+import at.andreasfend.stex.parser.antlr4.StexgrammarParser.VoidfunctionContext;
 import at.andreasfend.stex.parser.antlr4.StexgrammarParser.WhilestatementContext;
 
 public class StexVisitor extends StexgrammarBaseVisitor<List<Instruction>> {
 
 	private int tmpVarIndex = 0;
+	private int startLine = -1;
 
+	public int getStartLine() {
+		return startLine;
+	}
+	
 	private String tmpVar() {
 		return "_tmp" + tmpVarIndex;
 	}
@@ -42,15 +48,55 @@ public class StexVisitor extends StexgrammarBaseVisitor<List<Instruction>> {
 	public Operand getExpressionOperand(ExpressionContext exp) {
 		if (exp == null || exp.operand() == null)
 			return null;
-		Type t = exp.operand().identifier() == null ? Type.VAL : Type.ID;
-		return new Operand(exp.operand().getText(), t);
+		if(exp.operand().identifier() != null) {
+			return new Operand(exp.operand().identifier().getText(), Type.ID);
+		}
+		else {
+			if (exp.operand().value().STRING() != null) {
+				String str = exp.operand().value().STRING().getText().substring(1);
+				str = str.substring(0, str.length()-1);
+				str = str.replace("\\n", "\n").replace("\\\"", "\"")
+						.replace("\\\\", "\\").replace("\\t", "\t")
+						.replace("\\r", "\r");
+				return new Operand(str, Type.VAL);
+			}
+			else if(exp.operand().value().NUMBER() != null) {
+				return new Operand(exp.operand().value().NUMBER().getText(), Type.VAL);
+			}
+			else if(exp.operand().value().BOOLEAN() != null) {
+				return new Operand(exp.operand().value().BOOLEAN().getText().equals("true"), Type.VAL);
+			}
+			else {
+				return new Operand(null, Type.VAL);
+			}
+		}
 	}
 
 	public Operand getExpressionopOperand(ExpressionopContext exp) {
 		if (exp == null || exp.operand() == null)
 			return null;
-		Type t = exp.operand().identifier() == null ? Type.VAL : Type.ID;
-		return new Operand(exp.operand().getText(), t);
+		if(exp.operand().identifier() != null) {
+			return new Operand(exp.operand().identifier().getText(), Type.ID);
+		}
+		else {
+			if (exp.operand().value().STRING() != null) {
+				String str = exp.operand().value().STRING().getText().substring(1);
+				str = str.substring(0, str.length()-1);
+				str = str.replace("\\n", "\n").replace("\\\"", "\"")
+						.replace("\\\\", "\\").replace("\\t", "\t")
+						.replace("\\r", "\r");
+				return new Operand(str, Type.VAL);
+			}
+			else if(exp.operand().value().NUMBER() != null) {
+				return new Operand(exp.operand().value().NUMBER().getText(), Type.VAL);
+			}
+			else if(exp.operand().value().BOOLEAN() != null) {
+				return new Operand(exp.operand().value().BOOLEAN().getText().equals("true"), Type.VAL);
+			}
+			else {
+				return new Operand(null, Type.VAL);
+			}
+		}
 	}
 
 	@Override
@@ -59,9 +105,19 @@ public class StexVisitor extends StexgrammarBaseVisitor<List<Instruction>> {
 		for (FunctionContext fc : ctx.function()) {
 			List<Instruction> child = visitChildren(fc);
 			child = visitFunction(fc);
-			if(child != null)
-				ins.addAll(child);
+			
+			if(child == null)
+				continue;
+			
+			if(child.get(0).getTarget().equals("main") && 
+					((List<String>)child.get(0).getOp1().getValue()).size() == 1 &&
+					((List<String>)child.get(0).getOp1().getValue()).get(0).equals("args")) {
+				startLine = ins.size();
+			}
+			
+			ins.addAll(child);
 		}
+				
 		return ins;
 	}
 	
@@ -88,7 +144,8 @@ public class StexVisitor extends StexgrammarBaseVisitor<List<Instruction>> {
 		int maxTmpVar = 0;
 		for (StatementContext stmt : ctx.statement()) {
 			tmpVarIndex = 0;
-			stmtIns.addAll(visitChildren(stmt));
+			List<Instruction> child = visitStatement(stmt);
+			stmtIns.addAll(child);
 			if(tmpVarIndex > maxTmpVar)
 				maxTmpVar = tmpVarIndex;
 		}
@@ -387,6 +444,11 @@ public class StexVisitor extends StexgrammarBaseVisitor<List<Instruction>> {
 				
 		return ins;
 	}
+	
+	@Override
+	public List<Instruction> visitVoidfunction(VoidfunctionContext ctx) {
+		return visitFunctioncall(ctx.functioncall());
+	}
 
 	@Override
 	public List<Instruction> visitDeref(DerefContext ctx) { // Finished
@@ -537,7 +599,7 @@ public class StexVisitor extends StexgrammarBaseVisitor<List<Instruction>> {
 			}
 			ins.add(new Instruction(OperationType.SIZE, op, null, tmpVar()));
 			tmpVarIndex++;
-			
+			return ins;
 		}
 		else if(name.equals("structure") && ctx.functioncallargs().expression().size() == 1) {
 			Operand op = getExpressionOperand(ctx.functioncallargs().expression(0));
@@ -548,7 +610,7 @@ public class StexVisitor extends StexgrammarBaseVisitor<List<Instruction>> {
 			}
 			ins.add(new Instruction(OperationType.STRUCTURE, op, null, tmpVar()));
 			tmpVarIndex++;
-			
+			return ins;
 		}
 		else if(name.equals("type") && ctx.functioncallargs().expression().size() == 1) {
 			Operand op = getExpressionOperand(ctx.functioncallargs().expression(0));
@@ -559,7 +621,7 @@ public class StexVisitor extends StexgrammarBaseVisitor<List<Instruction>> {
 			}
 			ins.add(new Instruction(OperationType.TYPE, op, null, tmpVar()));
 			tmpVarIndex++;
-			
+			return ins;
 		}
 		else if(name.equals("int") && ctx.functioncallargs().expression().size() == 1) {
 			Operand op = getExpressionOperand(ctx.functioncallargs().expression(0));
@@ -570,7 +632,7 @@ public class StexVisitor extends StexgrammarBaseVisitor<List<Instruction>> {
 			}
 			ins.add(new Instruction(OperationType.INT, op, null, tmpVar()));
 			tmpVarIndex++;
-			
+			return ins;
 		}
 		else if(name.equals("float") && ctx.functioncallargs().expression().size() == 1) {
 			Operand op = getExpressionOperand(ctx.functioncallargs().expression(0));
@@ -581,7 +643,7 @@ public class StexVisitor extends StexgrammarBaseVisitor<List<Instruction>> {
 			}
 			ins.add(new Instruction(OperationType.FLOAT, op, null, tmpVar()));
 			tmpVarIndex++;
-			
+			return ins;
 		}
 		else if(name.equals("bool") && ctx.functioncallargs().expression().size() == 1) {
 			Operand op = getExpressionOperand(ctx.functioncallargs().expression(0));
@@ -592,7 +654,7 @@ public class StexVisitor extends StexgrammarBaseVisitor<List<Instruction>> {
 			}
 			ins.add(new Instruction(OperationType.BOOL, op, null, tmpVar()));
 			tmpVarIndex++;
-			
+			return ins;
 		}
 		else if(name.equals("string") && ctx.functioncallargs().expression().size() == 1) {
 			Operand op = getExpressionOperand(ctx.functioncallargs().expression(0));
@@ -603,7 +665,7 @@ public class StexVisitor extends StexgrammarBaseVisitor<List<Instruction>> {
 			}
 			ins.add(new Instruction(OperationType.STRING, op, null, tmpVar()));
 			tmpVarIndex++;
-			
+			return ins;
 		}
 		else if(name.equals("sysread") && ctx.functioncallargs().expression().size() == 1) {
 			Operand op = getExpressionOperand(ctx.functioncallargs().expression(0));
@@ -614,7 +676,7 @@ public class StexVisitor extends StexgrammarBaseVisitor<List<Instruction>> {
 			}
 			ins.add(new Instruction(OperationType.READ, op, null, tmpVar()));
 			tmpVarIndex++;
-			
+			return ins;
 		}
 		else if(name.equals("sysprint") && ctx.functioncallargs().expression().size() == 1) {
 			Operand op = getExpressionOperand(ctx.functioncallargs().expression(0));
@@ -625,7 +687,7 @@ public class StexVisitor extends StexgrammarBaseVisitor<List<Instruction>> {
 			}
 			ins.add(new Instruction(OperationType.PRINT, op, null, null));
 			tmpVarIndex++;
-			
+			return ins;
 		}
 		else if(name.equals("syserr") && ctx.functioncallargs().expression().size() == 1) {
 			Operand op = getExpressionOperand(ctx.functioncallargs().expression(0));
@@ -636,7 +698,7 @@ public class StexVisitor extends StexgrammarBaseVisitor<List<Instruction>> {
 			}
 			ins.add(new Instruction(OperationType.ERR, op, null, null));
 			tmpVarIndex++;
-			
+			return ins;
 		}
 		
 		return null;

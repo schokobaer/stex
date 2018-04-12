@@ -25,7 +25,7 @@ public class ReferenzResolver {
 				FunctionBean fb = new FunctionBean();
 				fb.args = (List<String>)ins.getOp1().getValue();
 				fb.name = ins.getTarget();
-				ins.setOp1(null);
+				//ins.setOp1(null);
 				//ins.setTarget(null);
 				funcs.put(fb, i);
 			}
@@ -48,23 +48,31 @@ public class ReferenzResolver {
 				ins.setOp1(new Operand(index, Type.VAL));
 			}
 			else if(ins.getOp() == OperationType.CALL) {
+				boolean found = false;
 				for (Map.Entry<FunctionBean, Integer> f: funcs.entrySet()) {
 					if(ins.getOp1().getIdentifier().equals(f.getKey().name)) {
 						ins.setOp1(new Operand(f.getValue(), Type.VAL));
+						found = true;
 						break;
 					}
 				}
+				if(!found)
+					throw new RuntimeException("Call to undefined Function: " + ins.getOp1().getIdentifier());
 			}
 			else if(ins.getOp() == OperationType.PARAMETER) {
+				boolean found = false;
 				for (Map.Entry<FunctionBean, Integer> f: funcs.entrySet()) {
 					String search = f.getKey().name + "_";
 					if(ins.getTarget().startsWith(search)) {
 						String strIndex = ins.getTarget().substring(search.length());
 						int index = Integer.parseInt(strIndex);
 						ins.setTarget(f.getKey().args.get(index));
+						found = true;
 						break;
 					}
 				}
+				if(!found)
+					throw new RuntimeException("Undefined Parameter ");
 			}	
 		}
 		

@@ -201,6 +201,19 @@ public class StexgrammarBaseListener implements StexgrammarListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterVoidfunction(@NotNull StexgrammarParser.VoidfunctionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVoidfunction(@NotNull StexgrammarParser.VoidfunctionContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterArrayaccess(@NotNull StexgrammarParser.ArrayaccessContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -234,6 +247,19 @@ public class StexgrammarBaseListener implements StexgrammarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitVarstatement(@NotNull StexgrammarParser.VarstatementContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterValue(@NotNull StexgrammarParser.ValueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitValue(@NotNull StexgrammarParser.ValueContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

@@ -132,6 +132,14 @@ public class StexgrammarBaseVisitor<T> extends AbstractParseTreeVisitor<T> imple
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitVoidfunction(@NotNull StexgrammarParser.VoidfunctionContext ctx) { return visitChildren(ctx); }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitArrayaccess(@NotNull StexgrammarParser.ArrayaccessContext ctx) { return visitChildren(ctx); }
 
 	/**
@@ -149,6 +157,14 @@ public class StexgrammarBaseVisitor<T> extends AbstractParseTreeVisitor<T> imple
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitVarstatement(@NotNull StexgrammarParser.VarstatementContext ctx) { return visitChildren(ctx); }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitValue(@NotNull StexgrammarParser.ValueContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}

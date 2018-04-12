@@ -1,28 +1,10 @@
-summe(s1, s2) {
-	var result = s1 + s2;
-	return result;
-}
-
-main() {
-	var a;
-	var b;
-	if(a > b) {
-		return summe(a, b);
-	}
-	else {
-		throw [];
-	}
-}
-
-person(name, alter) {
-	return {
-		name = name,
-		alter = alter,
-		weight
-	};
-}
-
-quickmath() {
-	var x = foo(a, b+b) + ?p % foo(bar(x, c), d);
+main(args) {
+	var x = foo(args);
 	return x;
 }
+
+foo(x) {
+	return x * main(x);
+}
+
+/* Kommentar */
