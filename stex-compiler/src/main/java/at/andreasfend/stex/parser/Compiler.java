@@ -13,7 +13,7 @@ import at.andreasfend.stex.core.OperationType;
 
 public class Compiler {
 
-	public List<Instruction> compile(String sourceCode) {
+	public StexProgram compile(String sourceCode) {
 
 		Parser parser = new Parser();
 		ParseTree tree = parser.parse(sourceCode);
@@ -23,10 +23,18 @@ public class Compiler {
 		List<Instruction> program = visitor.visit(tree);
 		program = refResolver.resolve(program);
 
-		return program;
+		// Find main Method
+		for (int i = 0; i < program.size(); i++) {
+			Instruction ins = program.get(i);
+			if(ins.getOp() == OperationType.MARK && "main".equals(ins.getTarget())) {
+				return new StexProgram(program, i);
+			}
+		}
+		
+		return new StexProgram(program);
 	}
 
-	public List<Instruction> compile(File[] inputFiles) {
+	public StexProgram compile(File[] inputFiles) {
 		String sourceCode = "";
 		try {
 			for (File file : inputFiles) {
@@ -43,11 +51,11 @@ public class Compiler {
 	public static void main(String[] args) {
 		Compiler compiler = new Compiler();
 		
-		List<Instruction> program = compiler.compile(
+		StexProgram program = compiler.compile(
 				new File[] {new File("D:\\Workspace\\stex\\stex-compiler\\src\\test\\resources\\parsing\\summe.stex")});
 		
-		for (int i=0; i < program.size(); i++) {
-			Instruction instruction = program.get(i);
+		for (int i=0; i < program.getInstructions().size(); i++) {
+			Instruction instruction = program.getInstructions().get(i);
 			if(instruction.getOp() == OperationType.MARK && instruction.getTarget() != null
 					&& !instruction.getTarget().contains("_") && i > 0)
 				System.out.println();

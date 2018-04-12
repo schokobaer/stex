@@ -16,7 +16,7 @@ public class Machine {
 	private SubroutineStack sub = null;
 	private int mip;
 	private DataUnit result = null;
-	private boolean debug;
+	private boolean debug = false;
 	private List<Instruction> instructions;
 
 	public Machine(List<Instruction> instructions, boolean debug) {
@@ -24,6 +24,16 @@ public class Machine {
 		this.debug = debug;
 		this.instructions = instructions;
 		stack = new SubroutineStack();
+	}
+	
+	public void setArgs(String[] args) {
+		stack.makeVar("args");
+		stack.assign("args", new DataUnit(args, DataType.ARRAY));
+	}
+	
+	public Machine(List<Instruction> instructions, int startingPoint) {
+		this(instructions, false);
+		mip = startingPoint;
 	}
 
 	public DataUnit execute() {
@@ -269,7 +279,7 @@ public class Machine {
 		sub = null;
 		stack.setRetPointer(mip);
 		stack.setTarget(instruction.getTarget());
-		mip = (Integer) instruction.getOp1().getValue();
+		mip = new Double(Double.parseDouble(instruction.getOp1().getValue().toString())).intValue();
 	}
 
 	private void ret(Instruction instruction) {
