@@ -1,0 +1,3 @@
+main(args) {
+	sysprint(3);
+}

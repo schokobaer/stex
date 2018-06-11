@@ -37,14 +37,12 @@ public class Stex {
 		
 		options.addOption("h", "help", false, "show help");
 		
-		Option cOpt = new Option("c", "compile");
+		Option cOpt = new Option("c", "compile", true, "compiles into outputfile");
 		cOpt.setArgs(1);
 		cOpt.setArgName("outputfile");
-		cOpt.setDescription("compiles into outputfile");
 		options.addOption(cOpt);
 		
-		Option rOpt = new Option("r", "run");
-		rOpt.setDescription("Executes the given stex-executable in a new Runtime-Machine");
+		Option rOpt = new Option("r", "run", false, "Executes the given stex-executable or stex-source in a new Runtime-Machine");
 		options.addOption(rOpt);
 	}
 	
@@ -119,15 +117,28 @@ public class Stex {
 		String json = "";
 		StexProgram program = null;
 		
-		try {
-			json = FileUtils.readFileToString(file, "UTF-8");
-			
-			Gson gson = new Gson();
-			program = gson.fromJson(json, StexProgram.class);
-		} catch (IOException e) {
-			e.printStackTrace();
+		if (executable.endsWith(".stexc")) {
+			try {
+				json = FileUtils.readFileToString(file, "UTF-8");
+				
+				Gson gson = new Gson();
+				program = gson.fromJson(json, StexProgram.class);
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.exit(1);
+			}
+		} else if (executable.endsWith(".stex")) {
+			Compiler compiler = new Compiler();
+			File[] srcFiles = new File[] { 
+					new File(executable)
+				};
+			program = compiler.compile(srcFiles);
+		} else {
+			System.err.println("Wrong file suffix");
 			System.exit(1);
 		}
+		
+		
 		
 		if(program.getStartingPoint() == null) {
 			System.err.println("No main function defined in this stex-executable");

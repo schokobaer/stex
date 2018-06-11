@@ -1,0 +1,7 @@
+summe(s1, s2) {
+	return s1 + s2;
+}
+
+main(args) {
+	sysprint(summe(4, 2));
+}

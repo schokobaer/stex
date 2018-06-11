@@ -1,0 +1,1 @@
+{"instructions":[{"op":"MARK","op1":{"value":["args"],"type":"TMP"},"target":"main"},{"op":"PRINT","op1":{"value":"3","type":"VAL"}},{"op":"RET"}],"startingPoint":0}
