@@ -442,7 +442,13 @@ public class StexVisitor extends StexgrammarBaseVisitor<List<Instruction>> {
 			ins.add(new Instruction(OperationType.VAR, null, null, ctx.ID().getText()));
 			List<Instruction> child = visitChildren(ctx.expression());
 			ins.addAll(child);
+			String tmp = child.get(child.size() - 1).getTarget();
 			child.get(child.size() - 1).setTarget(ctx.ID().getText());
+			
+			if (child.get(0).getOp() == OperationType.ARRAY || child.get(0).getOp() == OperationType.OBJECT) {
+				child.get(child.size() - 1).setOp(OperationType.ASSIGN);
+				child.get(child.size() - 1).setOp1(new Operand(tmp, Type.ID));
+			}
 		}
 		else {
 			ins.add(new Instruction(OperationType.VAR, op, null, ctx.ID().getText()));

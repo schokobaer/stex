@@ -30,12 +30,18 @@ import at.andreasfend.stex.runtime.Machine;
 public class Stex {
 	
 	public static void main(String[] args) {
+//		args = new String[] {
+//			"-r",
+//			"samples/src/bubblesort.stex"
+//		};
+		
 		new Stex(args).parse();
 	}
 	
 	private String[] args;
 	private Options options = new Options();
 	private String outputFile = null;
+	private boolean trackTime = false;
 	
 	public Stex(String[] args) {
 		this.args = args;
@@ -49,6 +55,9 @@ public class Stex {
 		
 		Option rOpt = new Option("r", "run", false, "Executes the given stex-executable or stex-source in a new Runtime-Machine");
 		options.addOption(rOpt);
+		
+		Option tOpt = new Option("t", "time", false, "Tracks time");
+		options.addOption(tOpt);
 	}
 	
 	/**
@@ -60,6 +69,7 @@ public class Stex {
 		
 		try {
 			cmd = parser.parse(options, args);
+			trackTime = cmd.hasOption("t");
 			
 			if(cmd.hasOption("h")) {
 				help();
@@ -90,7 +100,8 @@ public class Stex {
 			help();
 			
 		} catch (ParseException e) {
-			e.printStackTrace();
+			System.err.println(e.getMessage());
+			help();
 		}
 	}
 	
@@ -116,12 +127,20 @@ public class Stex {
 			files[i] = new File(inputfiles.get(i));
 		}
 		
+		long startTime = System.currentTimeMillis();
 		StexProgram program = compiler.compile(files);
+		long timeDiff = System.currentTimeMillis() - startTime;
+		
 		Gson gson = new Gson();
 		String serialize = gson.toJson(program);
 		
 		try {
 			FileUtils.writeStringToFile(new File(outputFile), serialize, "UTF-8");
+			
+			if (trackTime) {
+				System.out.println("\n\nTIME: " + timeDiff + "ms");
+			}
+			
 			System.exit(0);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -173,11 +192,22 @@ public class Stex {
 		machine.setArgs(args);
 		
 		try {
+			
+			int orgPrio = Thread.currentThread().getPriority();
+			Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
+			long startTime = System.currentTimeMillis();
 			DataUnit result = machine.execute();
-			if(result == null)
-				System.exit(0);
-			if(result.getType() == DataType.INTEGER)
+			long timeDiff = System.currentTimeMillis() - startTime;
+			Thread.currentThread().setPriority(orgPrio);
+			
+			if (trackTime) {
+				System.out.println("\n\nTIME: " + timeDiff + "ms");
+			}
+			
+			if(result != null && result.getType() == DataType.INTEGER) {
 				System.exit(result.getInteger());
+			}
+						
 			System.exit(0);
 		}
 		catch(RuntimeException e) {

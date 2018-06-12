@@ -1,3 +1,8 @@
 main(args) {
-	sysprint(3);
+	var obj = {
+		name = "Tim",
+		alter = 18
+	};
+
+	sysprint(obj.name);
 }

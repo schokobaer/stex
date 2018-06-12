@@ -42,6 +42,8 @@ public class SubroutineStack {
 	}
 	
 	public void assign(String id, DataUnit val) {
+		if (val == null)
+			val = new DataUnit(null, DataType.NULL);
 		if(val.getType() == DataType.ARRAY || val.getType() == DataType.OBJECT)
 			dataBlock.assign(id, val);
 		else
