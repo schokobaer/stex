@@ -13,6 +13,12 @@ import at.andreasfend.stex.core.OperationType;
 
 public class Compiler {
 
+	/**
+	 * Compiles the given source code.
+	 * 
+	 * @param sourceCode raw stex source code.
+	 * @return a valid Stex program.
+	 */
 	public StexProgram compile(String sourceCode) {
 
 		Parser parser = new Parser();
@@ -34,6 +40,12 @@ public class Compiler {
 		return new StexProgram(program);
 	}
 
+	/**
+	 * Reads all input files and compiles them from stex source code to a stex program.
+	 * 
+	 * @param inputFiles Array of stex source files.
+	 * @return a valid Stex program.
+	 */
 	public StexProgram compile(File[] inputFiles) {
 		String sourceCode = "";
 		try {
@@ -47,21 +59,4 @@ public class Compiler {
 		return compile(sourceCode);
 	}
 	
-	
-	public static void main(String[] args) {
-		Compiler compiler = new Compiler();
-		
-		StexProgram program = compiler.compile(
-				new File[] {new File("D:\\Workspace\\stex\\stex-compiler\\src\\test\\resources\\parsing\\summe.stex")});
-		
-		for (int i=0; i < program.getInstructions().size(); i++) {
-			Instruction instruction = program.getInstructions().get(i);
-			if(instruction.getOp() == OperationType.MARK && instruction.getTarget() != null
-					&& !instruction.getTarget().contains("_") && i > 0)
-				System.out.println();
-			System.out.println(i + "\t" + instruction);
-		}
-		
-	}
-
 }

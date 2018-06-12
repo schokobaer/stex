@@ -1,5 +1,11 @@
 package at.andreasfend.stex.runtime;
 
+/**
+ * Available DataTypes in Stex.
+ * 
+ * @author Andreas Fend
+ *
+ */
 public enum DataType {
 
 	NULL(0),

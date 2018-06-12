@@ -32,6 +32,12 @@ import at.andreasfend.stex.parser.antlr4.StexgrammarParser.VarstatementContext;
 import at.andreasfend.stex.parser.antlr4.StexgrammarParser.VoidfunctionContext;
 import at.andreasfend.stex.parser.antlr4.StexgrammarParser.WhilestatementContext;
 
+/**
+ * Goes through a ParseTree and converts it into a list of instructions.
+ * 
+ * @author Andreas Fend
+ *
+ */
 public class StexVisitor extends StexgrammarBaseVisitor<List<Instruction>> {
 
 	private int tmpVarIndex = 0;

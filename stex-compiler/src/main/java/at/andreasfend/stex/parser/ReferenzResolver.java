@@ -9,8 +9,23 @@ import at.andreasfend.stex.core.Operand;
 import at.andreasfend.stex.core.Operand.Type;
 import at.andreasfend.stex.core.OperationType;
 
+/**
+ * Converts tmp-Operands to valid references in the program.
+ * 
+ * @author Andreas Fend
+ *
+ */
 public class ReferenzResolver {
 
+	/**
+	 * Goes through the given instructions in 2 steps. First step it searchs marks
+	 * from functions and if/while/try-blocks. Second step it replaces the tmp
+	 * operands with the valid instruction number.
+	 * 
+	 * @param List of instructions of the program.
+	 * @return  the same list with replaced references or Runtime Exception, when
+	 * there is an reference error.
+	 */
 	public List<Instruction> resolve(List<Instruction> program) {
 		
 		Map<Object, Integer> marks = new HashMap<>();

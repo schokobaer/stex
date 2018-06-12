@@ -10,6 +10,13 @@ import at.andreasfend.stex.runtime.operation.Arithetik;
 import at.andreasfend.stex.runtime.operation.Convert;
 import at.andreasfend.stex.runtime.operation.Logical;
 
+/**
+ * Execution Machine of compiles stex code. Goes through the instructions
+ * of a program, and executes each one.
+ * 
+ * @author Andreas Fend
+ *
+ */
 public class Machine {
 
 	private SubroutineStack stack;
@@ -36,6 +43,12 @@ public class Machine {
 		mip = startingPoint;
 	}
 
+	/**
+	 * Starts the machine and returns the DataUnit of the main function. If
+	 * the main method does not have a return instruction, null is returned.
+	 * 
+	 * @return The Result of the program or null if no result is given.
+	 */
 	public DataUnit execute() {
 
 		while (mip < instructions.size()) {

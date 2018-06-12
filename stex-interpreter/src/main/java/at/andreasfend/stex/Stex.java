@@ -22,6 +22,11 @@ import at.andreasfend.stex.runtime.DataType;
 import at.andreasfend.stex.runtime.DataUnit;
 import at.andreasfend.stex.runtime.Machine;
 
+/**
+ * Final Artifact for comiling and executing stex code or stex executables.
+ * @author Andreas Fend
+ *
+ */
 public class Stex {
 	
 	public static void main(String[] args) {
@@ -46,6 +51,9 @@ public class Stex {
 		options.addOption(rOpt);
 	}
 	
+	/**
+	 * Parses the arguments from the cli.
+	 */
 	public void parse() {
 		CommandLineParser parser = new BasicParser();
 		CommandLine cmd;
@@ -86,12 +94,21 @@ public class Stex {
 		}
 	}
 	
+	/**
+	 * Prints the help information to stdout.
+	 */
 	private void help() {
 		HelpFormatter formater = new HelpFormatter();
 		formater.printHelp("Stex", options);
 		System.exit(0);
 	}
 	
+	/**
+	 * Compiles the given input files and saves them as json
+	 * in the outputfile.
+	 * 
+	 * @param inputfiles Files of stex source code.
+	 */
 	private void compile(List<String> inputfiles) {
 		Compiler compiler = new Compiler();
 		File[] files = new File[inputfiles.size()];
@@ -112,6 +129,13 @@ public class Stex {
 		}
 	}
 	
+	/**
+	 * Runs the given stex executable or compiles and then runs the given stex
+	 * source file.
+	 * 
+	 * @param executable File to execute. Stex executable or Stex source file.
+	 * @param args The arguments to start the stex machine.
+	 */
 	private void run(String executable, String args[]) {
 		File file = new File(executable);
 		String json = "";

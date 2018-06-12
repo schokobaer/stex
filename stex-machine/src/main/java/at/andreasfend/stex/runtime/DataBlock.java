@@ -2,6 +2,14 @@ package at.andreasfend.stex.runtime;
 
 import java.util.HashMap;
 
+/**
+ * Linked List which stores all the data for the current instruction block.
+ * Also holds the catch-pointer, the parent data block, and the target name
+ * of the exception, if there is a throw statement.
+ * 
+ * @author Andreas Fend
+ *
+ */
 public class DataBlock {
 
 	private DataBlock parent = null;

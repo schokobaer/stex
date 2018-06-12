@@ -5,6 +5,12 @@ import java.util.Map;
 
 import at.andreasfend.stex.runtime.operation.Convert;
 
+/**
+ * The Wrapper for all DataTypes. Stores the content and type.
+ * 
+ * @author Andreas Fend
+ *
+ */
 public class DataUnit implements Comparable<DataUnit> {
 
 	private boolean constante = false;

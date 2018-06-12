@@ -1,5 +1,13 @@
 package at.andreasfend.stex.runtime;
 
+/**
+ * Stack of a function-call. Is a linked list. It holds all variables in the
+ *  head DataBlock, the parent stack, return pointer and the target where the
+ * return argument should be stored.
+ * 
+ * @author Andreas Fend.
+ *
+ */
 public class SubroutineStack {
 
 	private SubroutineStack parent = null;
