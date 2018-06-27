@@ -22,6 +22,10 @@ The built stex artifact is located in stex-interpreter/target/stex-interpreter-<
  - The Syntax is case sensitiv
  - Each variable is declared with 'var' and they are handled "as is", so you can give the variable var1 the value 1 and in the next expression you can assign it a String value
  - Each expression ends with a ';'
+ - Array elements can be accessed with [{index}]
+ - Object fields are simply accessed by obj.field
+ - Pointers are created by: var ptr = &myVar
+ - Pointers are accessed by: var ptrVal = ?ptr or ?ptr = ?ptr + 1 (to increase a pointers value)
 
 ### Sample file 
 ```
