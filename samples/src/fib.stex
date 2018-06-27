@@ -1,0 +1,23 @@
+main(args) {
+    /* This is a comment */
+    try{
+        var input = int(sysread(args));
+        var res = fib(input);
+        sysprint(res);
+    }
+    catch(e){
+        syserr(e.msg);
+        return 1;
+    }
+}
+
+fib(n) {
+    if (n < 1) {
+        var ex = {msg = "Only positive numbers > 0 are allowed"};
+        throw ex;
+    }
+    if (n > 2) {
+        return fib(n-1) + fib(n-2);
+    }
+    return 1;
+}

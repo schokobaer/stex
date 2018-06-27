@@ -334,6 +334,7 @@ public class StexVisitor extends StexgrammarBaseVisitor<List<Instruction>> {
 
 		// Leave Catch-Block
 		ins.add(new Instruction(OperationType.LEAVE, null, null, null));
+		ins.add(new Instruction(OperationType.MARK, new Operand(endTry, Type.TMP), null, null));
 
 		// Set the maximum of TmpVars
 		tmpVarIndex = maxTmpVar;

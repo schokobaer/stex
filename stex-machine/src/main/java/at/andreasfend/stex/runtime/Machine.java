@@ -484,6 +484,7 @@ public class Machine {
 			byte[] buffer = new byte[256];
 			System.in.read(buffer);
 			String content = new String(buffer);
+			content = content.trim();
 			DataUnit data = new DataUnit(content, DataType.STRING);
 			stack.assign(instruction.getTarget(), data);
 		} catch (IOException e) {
